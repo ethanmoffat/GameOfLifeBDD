@@ -78,7 +78,7 @@ namespace GameOfLifeTests
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
-   testRunner.Given("a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
    testRunner.And("the cell has less than 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
@@ -98,7 +98,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
 this.ScenarioSetup(scenarioInfo);
 #line 13
-   testRunner.Given("a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
    testRunner.And("the cell has 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
@@ -118,7 +118,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 19
-   testRunner.Given("a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
    testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
@@ -138,7 +138,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 24
 this.ScenarioSetup(scenarioInfo);
 #line 25
-   testRunner.Given("a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 26
    testRunner.And("the cell has greater than 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 27
@@ -158,7 +158,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 30
 this.ScenarioSetup(scenarioInfo);
 #line 31
-   testRunner.Given("a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 32
    testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
@@ -178,7 +178,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 36
 this.ScenarioSetup(scenarioInfo);
 #line 37
-   testRunner.Given("a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 38
    testRunner.And("the dead cell does not have exactly 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39

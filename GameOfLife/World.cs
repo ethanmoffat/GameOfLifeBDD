@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace GameOfLife
 {
    public class World
    {
-      public World WithCells(IEnumerable<Cell> cells)
+      public IReadOnlyCollection<Cell> Cells { get; private set; }
+
+      public World(IList<Cell> seed)
       {
-         return new World();
+         Cells = new ReadOnlyCollection<Cell>(seed);
       }
    }
 }
