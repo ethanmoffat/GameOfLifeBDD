@@ -3,15 +3,10 @@
    As a science enthusiast who enjoys silly games
    I want to be able to easily see the Game of Life world as a simulation runs
 
-# "The background is run before each of your scenarios but after any of your Before Hooks."
-# See https://github.com/cucumber/cucumber/wiki/Background
-Background: 
-   Given I have started the application
-
 Scenario: Seed a world with live cells
    Given The simulation is not running
    When I add a seed cell to the world
-   Then The cell is reflected in the display of the world
+   Then The world is seeded with the cell
 
 Scenario: Run the simulation
    Given The simulation is not running
@@ -31,14 +26,14 @@ Scenario: Resume the simulation
 
 Scenario: Reset the simulation
    Given The simulation is paused
-   When I reset the world
+   When I reset the simulation
    Then The simulation enters the initial state
       And The world is set to the initial state
 
 Scenario: View previous generations
    Given The simulation is paused
    When I select a previous world generation
-   Then The previous generation is displayed
+   Then The previous world generation is shown
 
 Scenario: Simulation stops when all cells are dead
    Given The simulation is running

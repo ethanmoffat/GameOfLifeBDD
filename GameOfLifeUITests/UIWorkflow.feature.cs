@@ -70,30 +70,20 @@ namespace GameOfLifeUITests
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 8
-#line 9
-   testRunner.Given("I have started the application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Seed a world with live cells")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UIWorkflow")]
         public virtual void SeedAWorldWithLiveCells()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Seed a world with live cells", ((string[])(null)));
-#line 11
+#line 6
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 12
+#line 7
    testRunner.Given("The simulation is not running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
+#line 8
    testRunner.When("I add a seed cell to the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
-   testRunner.Then("The cell is reflected in the display of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 9
+   testRunner.Then("The world is seeded with the cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -104,17 +94,15 @@ this.FeatureBackground();
         public virtual void RunTheSimulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Run the simulation", ((string[])(null)));
-#line 16
+#line 11
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 17
+#line 12
    testRunner.Given("The simulation is not running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
+#line 13
    testRunner.And("I have a world that is seeded with at least one live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
+#line 14
    testRunner.When("I run the game of life simulation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
+#line 15
    testRunner.Then("The simulation enters the running state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -126,15 +114,13 @@ this.FeatureBackground();
         public virtual void PauseTheSimulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pause the simulation", ((string[])(null)));
-#line 22
+#line 17
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 23
+#line 18
    testRunner.Given("The simulation is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
+#line 19
    testRunner.When("I pause the simulation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 25
+#line 20
    testRunner.Then("The simulation enters the paused state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -146,15 +132,13 @@ this.FeatureBackground();
         public virtual void ResumeTheSimulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Resume the simulation", ((string[])(null)));
-#line 27
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 28
+#line 23
    testRunner.Given("The simulation is paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 29
+#line 24
    testRunner.When("I resume the simulation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 30
+#line 25
    testRunner.Then("The simulation enters the running state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -166,17 +150,15 @@ this.FeatureBackground();
         public virtual void ResetTheSimulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Reset the simulation", ((string[])(null)));
-#line 32
+#line 27
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 33
+#line 28
    testRunner.Given("The simulation is paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 34
-   testRunner.When("I reset the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 35
+#line 29
+   testRunner.When("I reset the simulation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
    testRunner.Then("The simulation enters the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 36
+#line 31
       testRunner.And("The world is set to the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -188,16 +170,14 @@ this.FeatureBackground();
         public virtual void ViewPreviousGenerations()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View previous generations", ((string[])(null)));
-#line 38
+#line 33
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 39
+#line 34
    testRunner.Given("The simulation is paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 40
+#line 35
    testRunner.When("I select a previous world generation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
-   testRunner.Then("The previous generation is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 36
+   testRunner.Then("The previous world generation is shown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -208,19 +188,17 @@ this.FeatureBackground();
         public virtual void SimulationStopsWhenAllCellsAreDead()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simulation stops when all cells are dead", ((string[])(null)));
-#line 43
+#line 38
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 44
+#line 39
    testRunner.Given("The simulation is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
+#line 40
    testRunner.When("The current generation has no live cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 41
       testRunner.And("The previous generation has at least one live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 47
+#line 42
    testRunner.Then("The simulation enters the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 48
+#line 43
       testRunner.And("The world is set to the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

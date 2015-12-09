@@ -1,43 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using TechTalk.SpecFlow;
-using TestStack.White;
-using TestStack.White.Factory;
-using TestStack.White.UIItems.WindowItems;
 
 namespace GameOfLifeUITests
 {
    [Binding]
    public class UIWorkflowSteps
    {
-      private static Application _app;
-      private static Window _window;
-
-      [BeforeFeature]
-      public static void BeforeEachFeature()
-      {
-         var directory = Directory.GetCurrentDirectory();
-         directory = Path.Combine(directory, "GameOfLife.exe");
-         _app = Application.AttachOrLaunch(new ProcessStartInfo(directory));
-         _window = _app.GetWindow(GameOfLifeUI.MainForm.TITLE_TEXT, InitializeOption.NoCache);
-      }
-
-      [AfterFeature]
-      public static void AfterEachFeature()
-      {
-         if(_app != null)
-            _app.Kill();
-      }
-
-      [Given(@"I have started the application")]
-      public void GivenIHaveStartedTheApplication()
-      {
-         if (_app == null || _window == null || _window.Title != GameOfLifeUI.MainForm.TITLE_TEXT)
-            throw new Exception("The application is not started. Given failed!");
-      }
-
       [Given(@"The simulation is not running")]
       public void GivenTheSimulationIsNotRunning()
       {
@@ -86,8 +54,8 @@ namespace GameOfLifeUITests
          ScenarioContext.Current.Pending();
       }
 
-      [When(@"I reset the world")]
-      public void WhenIResetTheWorld()
+      [When(@"I reset the simulation")]
+      public void WhenIResetTheSimulation()
       {
          ScenarioContext.Current.Pending();
       }
@@ -110,8 +78,8 @@ namespace GameOfLifeUITests
          ScenarioContext.Current.Pending();
       }
 
-      [Then(@"The cell is reflected in the display of the world")]
-      public void ThenTheCellIsReflectedInTheDisplayOfTheWorld()
+      [Then(@"The world is seeded with the cell")]
+      public void ThenTheWorldIsSeededWithTheCell()
       {
          ScenarioContext.Current.Pending();
       }
@@ -140,8 +108,8 @@ namespace GameOfLifeUITests
          ScenarioContext.Current.Pending();
       }
 
-      [Then(@"The previous generation is displayed")]
-      public void ThenThePreviousGenerationIsDisplayed()
+      [Then(@"The previous world generation is shown")]
+      public void ThenThePreviousWorldGenerationIsShown()
       {
          ScenarioContext.Current.Pending();
       }
