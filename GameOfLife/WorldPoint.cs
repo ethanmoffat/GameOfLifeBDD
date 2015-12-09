@@ -1,6 +1,6 @@
 ﻿namespace GameOfLife
 {
-   internal class WorldPoint
+   public class WorldPoint
    {
       public int X { get; private set; }
       public int Y { get; private set; }
