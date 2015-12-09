@@ -1,4 +1,4 @@
-﻿using System;
+﻿using GameOfLife;
 using TechTalk.SpecFlow;
 
 namespace GameOfLifeTests
@@ -6,10 +6,12 @@ namespace GameOfLifeTests
     [Binding]
     public class WorldRulesSteps
     {
+       private World _world = new World();
+
         [Given(@"a live cell")]
         public void GivenALiveCell()
         {
-            ScenarioContext.Current.Pending();
+           _world = _world.WithCells(new[] {new Cell(1, 1, true)});
         }
         
         [Given(@"the cell has less than (.*) live neighbors")]
