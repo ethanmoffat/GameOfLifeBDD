@@ -13,8 +13,9 @@
 
       public override bool Equals(object obj)
       {
-         var other = obj as WorldPoint;
+         if (this == obj) return true;
 
+         var other = obj as WorldPoint;
          return other != null && other.X == X && other.Y == Y;
       }
 
