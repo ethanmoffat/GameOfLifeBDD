@@ -19,5 +19,10 @@ namespace GameOfLife
          cellList.AddRange(cells);
          return new World(cellList);
       }
+
+      public World GetNextGeneration()
+      {
+         throw new System.NotImplementedException();
+      }
    }
 }
