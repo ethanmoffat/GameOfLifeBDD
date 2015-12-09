@@ -12,5 +12,10 @@
          Y = yLoc;
          IsAlive = isAlive;
       }
+
+      public bool IsNeighborOf(Cell originalCell)
+      {
+         throw new System.NotImplementedException();
+      }
    }
 }
