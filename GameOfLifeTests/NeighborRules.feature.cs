@@ -78,20 +78,12 @@ namespace GameOfLifeTests
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("I have a cell with x = 1 and y = 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
-      testRunner.And("The cell has an x coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.Given("I have a different cell with x = 1 and y = 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-      testRunner.And("The cell has a y coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
-      testRunner.And("The cell has an x coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
-      testRunner.And("The cell has a y coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
    testRunner.When("I check if the cells are neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 10
    testRunner.Then("An error indicates the two cells are the same cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -103,23 +95,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DiagonalCellsAreNeighbors()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Diagonal cells are neighbors", ((string[])(null)));
-#line 16
+#line 12
 this.ScenarioSetup(scenarioInfo);
-#line 17
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
-      testRunner.And("The cell has an x coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
-      testRunner.And("The cell has a y coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
-      testRunner.And("The cell has an x coordinate of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
-      testRunner.And("The cell has a y coordinate of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
+#line 13
+   testRunner.Given("I have a cell with x = 1 and y = 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+   testRunner.Given("I have a different cell with x = 0 and y = 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
    testRunner.When("I check if the cells are neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 24
+#line 16
    testRunner.Then("The two cells are neighbor cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -131,23 +115,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CellsThatAreNextToEachOtherAreNeighbors()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cells that are next to each other are neighbors", ((string[])(null)));
-#line 26
+#line 18
 this.ScenarioSetup(scenarioInfo);
-#line 27
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 28
-      testRunner.And("The cell has an x coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
-      testRunner.And("The cell has a y coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 31
-      testRunner.And("The cell has an x coordinate of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 32
-      testRunner.And("The cell has a y coordinate of 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
+#line 19
+   testRunner.Given("I have a cell with x = 1 and y = 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+   testRunner.Given("I have a different cell with x = 0 and y = 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
    testRunner.When("I check if the cells are neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 34
+#line 22
    testRunner.Then("The two cells are neighbor cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -159,23 +135,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CellsThatAreNotNextToEachOtherAreNotNeighbors()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cells that are not next to each other are not neighbors", ((string[])(null)));
-#line 36
+#line 24
 this.ScenarioSetup(scenarioInfo);
-#line 37
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 38
-      testRunner.And("The cell has an x coordinate of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 39
-      testRunner.And("The cell has a y coordinate of 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
-   testRunner.Given("I have a cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 41
-      testRunner.And("The cell has an x coordinate of 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
-      testRunner.And("The cell has a y coordinate of 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 43
+#line 25
+   testRunner.Given("I have a cell with x = 0 and y = 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 26
+   testRunner.Given("I have a different cell with x = 2 and y = 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
    testRunner.When("I check if the cells are neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 44
+#line 28
    testRunner.Then("The two cells are not neighbor cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

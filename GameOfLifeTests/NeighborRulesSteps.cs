@@ -6,20 +6,14 @@ namespace GameOfLifeTests
     [Binding]
     public class NeighborRulesSteps
     {
-        [Given(@"I have a cell")]
-        public void GivenIHaveACell()
+        [Given(@"I have a cell with x = (.*) and y = (.*)")]
+        public void GivenIHaveACellWithXAndY(int p0, int p1)
         {
             ScenarioContext.Current.Pending();
         }
         
-        [Given(@"The cell has an x coordinate of (.*)")]
-        public void GivenTheCellHasAnXCoordinateOf(int p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Given(@"The cell has a y coordinate of (.*)")]
-        public void GivenTheCellHasAYCoordinateOf(int p0)
+        [Given(@"I have a different cell with x = (.*) and y = (.*)")]
+        public void GivenIHaveADifferentCellWithXAndY(int p0, int p1)
         {
             ScenarioContext.Current.Pending();
         }
