@@ -82,6 +82,9 @@ namespace GameOfLifeTests
                x <= cell.X + 1 && ndx < numberOfNeighbors;
                ++x, ++ndx)
             {
+               if (x == cell.X && y == cell.Y)
+                  continue;
+
                neighbors.Add(new Cell(x, y, true));
             }
          }
