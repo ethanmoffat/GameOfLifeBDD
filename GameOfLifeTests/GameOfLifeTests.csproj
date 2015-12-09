@@ -54,6 +54,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="NeighborRules.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NeighborRules.feature</DependentUpon>
+    </Compile>
+    <Compile Include="NeighborRulesSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldRules.feature.cs">
       <AutoGen>True</AutoGen>
@@ -64,6 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="NeighborRules.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>NeighborRules.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="WorldRules.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
