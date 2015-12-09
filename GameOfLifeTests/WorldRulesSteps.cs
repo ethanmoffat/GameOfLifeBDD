@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameOfLife;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -57,10 +58,29 @@ namespace GameOfLifeTests
          _world = _world.WithCells(neighbors);
       }
 
+      [Given(@"a world with a cell at (.*), (.*)")]
+      public void GivenAWorldWithACellAt(int x, int y)
+      {
+         _world = new World(new [] { new Cell(x, y, true) });
+      }
+
       [When(@"I get the next generation of the world")]
       public void WhenIGetTheNextGenerationOfTheWorld()
       {
          _nextGeneration = _world.GetNextGeneration();
+      }
+
+      [When(@"I seed the world with an additional cell at (.*), (.*)")]
+      public void WhenISeedTheWorldWithAnAdditionalCellAt(int x, int y)
+      {
+         try
+         {
+            _world = _world.WithCells(new[] {new Cell(x, y, true)});
+         }
+         catch (ArgumentException ae)
+         {
+            ScenarioContext.Current.Add("argumentExceptionDuringSeed", ae);
+         }
       }
 
       [Then(@"the cell should be dead")]
@@ -75,6 +95,12 @@ namespace GameOfLifeTests
       {
          var newCell = _nextGeneration.GetCellAt(_originalCell.X, _originalCell.Y);
          Assert.IsTrue(newCell.IsAlive);
+      }
+
+      [Then(@"there should be an error indicating duplicate cells")]
+      public void ThenThereShouldBeAnErrorIndicatingDuplicateCells()
+      {
+         Assert.IsNotNull(ScenarioContext.Current["argumentExceptionDuringSeed"]);
       }
 
       private static List<Cell> CreateNeighborList(Cell cell, int numberOfNeighbors)

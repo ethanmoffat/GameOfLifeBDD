@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,10 +14,14 @@ namespace GameOfLife
          Cells = new ReadOnlyCollection<Cell>(seed);
       }
 
-      public World WithCells(IEnumerable<Cell> cells)
+      public World WithCells(IEnumerable<Cell> newCells)
       {
+         var newCellsList = newCells as IList<Cell> ?? newCells.ToList();
+         if(Cells.Any(existing => newCellsList.Any(newCell => newCell.X == existing.X && newCell.Y == existing.Y)))
+            throw new ArgumentException("A duplicate cell exists in the new list of cells.", "newCells");
+
          var cellList = Cells.ToList();
-         cellList.AddRange(cells);
+         cellList.AddRange(newCellsList);
          return new World(cellList);
       }
 
