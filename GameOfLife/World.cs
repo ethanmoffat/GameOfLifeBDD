@@ -22,7 +22,15 @@ namespace GameOfLife
 
       public World GetNextGeneration()
       {
-         throw new System.NotImplementedException();
+         var mapping = Cells.ToDictionary(cell => new WorldPoint(cell.X, cell.Y));
+         var newState = new List<Cell>();
+
+         foreach (var cell in Cells)
+         {
+            
+         }
+
+         return new World(newState);
       }
    }
 }
