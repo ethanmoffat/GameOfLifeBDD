@@ -1,4 +1,6 @@
-﻿namespace GameOfLife
+﻿using System;
+
+namespace GameOfLife
 {
    public class Cell
    {
@@ -13,9 +15,15 @@
          IsAlive = isAlive;
       }
 
-      public bool IsNeighborOf(Cell originalCell)
+      public bool IsNeighborOf(Cell neighborCell)
       {
-         throw new System.NotImplementedException();
+         if(this == neighborCell || (X == neighborCell.X && Y == neighborCell.Y))
+            throw new ArgumentException("The two cells are the same", "neighborCell");
+
+         var xDif = Math.Abs(X - neighborCell.X);
+         var yDif = Math.Abs(Y - neighborCell.Y);
+
+         return (xDif == 1 && yDif == 1) || (xDif ^ yDif) == 1;
       }
    }
 }
