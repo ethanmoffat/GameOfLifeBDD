@@ -27,7 +27,7 @@ namespace GameOfLife
 
          foreach (var cell in Cells)
          {
-            var neighbors = GetNeighborCount(cell, mapping);
+            var neighbors = GetLiveNeighborCount(cell, mapping);
             if (cell.IsAlive)
             {
                if (neighbors < 2 || neighbors > 3)
@@ -44,9 +44,28 @@ namespace GameOfLife
          return new World(newState);
       }
 
-      private int GetNeighborCount(Cell cell)
+      private int GetLiveNeighborCount(Cell cell, Dictionary<WorldPoint, Cell> mapping)
       {
-         throw new System.NotImplementedException();
+         int neighborCount = 0;
+
+         for (int row = cell.Y - 1; row <= cell.Y + 1; ++row)
+         {
+            for (int col = cell.X - 1; col <= cell.X + 1; ++col)
+            {
+               if (row == cell.X && col == cell.Y) continue;
+
+               var pt = new WorldPoint(col, row);
+               if (mapping.ContainsKey(pt) && mapping[pt].IsAlive)
+                  neighborCount++;
+            }
+         }
+
+         return neighborCount;
+      }
+
+      public Cell GetCellAt(int xCoord, int yCoord)
+      {
+         return Cells.SingleOrDefault(cell => cell.X == xCoord && cell.Y == yCoord);
       }
    }
 }

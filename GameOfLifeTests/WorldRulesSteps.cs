@@ -66,22 +66,25 @@ namespace GameOfLifeTests
       [Then(@"the cell should be dead")]
       public void ThenTheCellShouldBeDead()
       {
-         Assert.IsFalse(_originalCell.IsAlive);
+         var newCell = _nextGeneration.GetCellAt(_originalCell.X, _originalCell.Y);
+         Assert.IsFalse(newCell.IsAlive);
       }
 
       [Then(@"the cell should be alive")]
       public void ThenTheCellShouldBeAlive()
       {
-         Assert.IsTrue(_originalCell.IsAlive);
+         var newCell = _nextGeneration.GetCellAt(_originalCell.X, _originalCell.Y);
+         Assert.IsTrue(newCell.IsAlive);
       }
 
       private static List<Cell> CreateNeighborList(Cell cell, int numberOfNeighbors)
       {
          var neighbors = new List<Cell>(numberOfNeighbors);
 
+         int ndx = 0;
          for (int y = cell.Y - 1; y <= cell.Y + 1; ++y)
          {
-            for (int x = cell.X - 1, ndx = 0;
+            for (int x = cell.X - 1;
                x <= cell.X + 1 && ndx < numberOfNeighbors;
                ++x, ++ndx)
             {
