@@ -27,10 +27,26 @@ namespace GameOfLife
 
          foreach (var cell in Cells)
          {
-            
+            var neighbors = GetNeighborCount(cell, mapping);
+            if (cell.IsAlive)
+            {
+               if (neighbors < 2 || neighbors > 3)
+                  newState.Add(cell.AsDead());
+               else
+                  newState.Add(cell);
+            }
+            else
+            {
+               newState.Add(neighbors == 3 ? cell.AsAlive() : cell);
+            }
          }
 
          return new World(newState);
+      }
+
+      private int GetNeighborCount(Cell cell)
+      {
+         throw new System.NotImplementedException();
       }
    }
 }

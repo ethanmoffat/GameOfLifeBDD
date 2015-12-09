@@ -25,5 +25,15 @@ namespace GameOfLife
 
          return (xDif == 1 && yDif == 1) || (xDif ^ yDif) == 1;
       }
+
+      public Cell AsAlive()
+      {
+         return new Cell(X, Y, true);
+      }
+
+      public Cell AsDead()
+      {
+         return new Cell(X, Y, false);
+      }
    }
 }
