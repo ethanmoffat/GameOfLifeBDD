@@ -48,6 +48,8 @@
     <Compile Include="Cell.cs" />
     <Compile Include="Controllers\ISimulationController.cs" />
     <Compile Include="Controllers\IWorldController.cs" />
+    <Compile Include="Controllers\SimulationController.cs" />
+    <Compile Include="Controllers\WorldController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISimulationStateRepository.cs" />
     <Compile Include="Services\IWorldRepository.cs" />

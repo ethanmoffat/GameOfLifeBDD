@@ -165,40 +165,22 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("View previous generations")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UIWorkflow")]
-        public virtual void ViewPreviousGenerations()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View previous generations", ((string[])(null)));
-#line 33
-this.ScenarioSetup(scenarioInfo);
-#line 34
-   testRunner.Given("The simulation is paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 35
-   testRunner.When("I select a previous world generation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 36
-   testRunner.Then("The previous world generation is shown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Simulation stops when all cells are dead")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "UIWorkflow")]
         public virtual void SimulationStopsWhenAllCellsAreDead()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simulation stops when all cells are dead", ((string[])(null)));
-#line 38
+#line 33
 this.ScenarioSetup(scenarioInfo);
-#line 39
+#line 34
    testRunner.Given("The simulation is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 40
+#line 35
    testRunner.When("The current generation has no live cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
+#line 36
       testRunner.And("The previous generation has at least one live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
+#line 37
    testRunner.Then("The simulation enters the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 43
+#line 38
       testRunner.And("The world is set to the initial state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

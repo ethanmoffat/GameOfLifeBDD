@@ -30,11 +30,6 @@ Scenario: Reset the simulation
    Then The simulation enters the initial state
       And The world is set to the initial state
 
-Scenario: View previous generations
-   Given The simulation is paused
-   When I select a previous world generation
-   Then The previous world generation is shown
-
 Scenario: Simulation stops when all cells are dead
    Given The simulation is running
    When The current generation has no live cells
