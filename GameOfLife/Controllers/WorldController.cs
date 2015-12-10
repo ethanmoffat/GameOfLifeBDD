@@ -21,7 +21,7 @@ namespace GameOfLife.Controllers
 
       public void ResetWorldCells()
       {
-         throw new System.NotImplementedException();
+         _worldActions.SetAllCellsDead();
       }
 
       public void CalculateNextGeneration()

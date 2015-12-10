@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Services;
 
@@ -28,7 +27,7 @@ namespace GameOfLife.Actions
 
       public void SetAllCellsDead()
       {
-         throw new System.NotImplementedException();
+         _worldRepository.CurrentWorld = new World(new List<Cell>());
       }
 
       public World GetNextGenerationFromCurrentWorld()

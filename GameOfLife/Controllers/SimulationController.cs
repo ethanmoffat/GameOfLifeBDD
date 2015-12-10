@@ -13,22 +13,22 @@ namespace GameOfLife.Controllers
 
       public void RunSimulation()
       {
-         throw new System.NotImplementedException();
+         _simulationActions.SetSimulationState(SimulationState.Running);
       }
 
       public void PauseSimulation()
       {
-         throw new System.NotImplementedException();
+         _simulationActions.SetSimulationState(SimulationState.Paused);
       }
 
       public void ResumeSimulation()
       {
-         throw new System.NotImplementedException();
+         _simulationActions.SetSimulationState(SimulationState.Running);
       }
 
       public void ResetSimulation()
       {
-         throw new System.NotImplementedException();
+         _simulationActions.SetSimulationState(SimulationState.Initial);
       }
    }
 }

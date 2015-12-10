@@ -97,6 +97,7 @@ namespace GameOfLifeUITests
       public void WhenIResetTheSimulation()
       {
          _simulationController.ResetSimulation();
+         _worldController.ResetWorldCells();
       }
 
       [When(@"The current generation has no live cells")]
@@ -131,25 +132,25 @@ namespace GameOfLifeUITests
       [Then(@"The simulation enters the running state")]
       public void ThenTheSimulationEntersTheRunningState()
       {
-         ScenarioContext.Current.Pending();
+         Assert.AreEqual(SimulationState.Running, _simulationRepository.Object.CurrentState);
       }
 
       [Then(@"The simulation enters the paused state")]
       public void ThenTheSimulationEntersThePausedState()
       {
-         ScenarioContext.Current.Pending();
+         Assert.AreEqual(SimulationState.Paused, _simulationRepository.Object.CurrentState);
       }
 
       [Then(@"The simulation enters the initial state")]
       public void ThenTheSimulationEntersTheInitialState()
       {
-         ScenarioContext.Current.Pending();
+         Assert.AreEqual(SimulationState.Initial, _simulationRepository.Object.CurrentState);
       }
 
       [Then(@"The world is set to the initial state")]
       public void ThenTheWorldIsSetToTheInitialState()
       {
-         ScenarioContext.Current.Pending();
+         Assert.AreEqual(0, _worldRepository.Object.CurrentWorld.Cells.Count);
       }
    }
 }
