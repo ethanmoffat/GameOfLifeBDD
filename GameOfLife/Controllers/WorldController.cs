@@ -13,6 +13,11 @@ namespace GameOfLife.Controllers
          _worldActions = worldActions;
       }
 
+      public void CreateDefaultWorld()
+      {
+         _worldActions.CreateDefaultWorld();
+      }
+
       public void SetWorldCellState(IEnumerable<WorldPoint> alivePoints, IEnumerable<WorldPoint> deadPoints)
       {
          _worldActions.SetCellsAlive(alivePoints.ToArray());

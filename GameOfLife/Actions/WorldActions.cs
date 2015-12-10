@@ -13,6 +13,12 @@ namespace GameOfLife.Actions
          _worldRepository = worldRepository;
       }
 
+      public void CreateDefaultWorld()
+      {
+         _worldRepository.CurrentWorld = new World(new List<Cell>());
+         _worldRepository.PreviousGenerations = new List<World>(1);
+      }
+
       public void SetCellsAlive(params WorldPoint[] points)
       {
          var world = _worldRepository.CurrentWorld;
