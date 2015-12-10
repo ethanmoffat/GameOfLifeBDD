@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using GameOfLife;
@@ -13,17 +14,14 @@ namespace GameOfLifeUI
    {
       public const string TITLE_TEXT = "Game of Life Simulation";
 
-      private readonly Thread _worker;
-      private readonly CancellationTokenSource _ctSource;
+      private Thread _worker;
+      private CancellationTokenSource _ctSource;
       private readonly IWorldController _worldController;
       private readonly IWorldRepository _worldRepository;
 
       public MainForm()
       {
          InitializeComponent();
-
-         _worker = new Thread(_doWork);
-         _ctSource = new CancellationTokenSource();
 
          _worldRepository = new WorldRepository();
          IWorldActions worldActions = new WorldActions(_worldRepository);
@@ -49,9 +47,21 @@ namespace GameOfLifeUI
 
       private void GoButton_Click(object sender, EventArgs e)
       {
-         WorldGrid.LockAllCells();
-         _worker.Start(_ctSource.Token);
-         GoButton.Enabled = false;
+         if (GoButton.Text != "Stop")
+         {
+            WorldGrid.LockAllCells();
+            _worker = new Thread(_doWork);
+            _ctSource = new CancellationTokenSource();
+            _worker.Start(_ctSource.Token);
+            GoButton.Text = "Stop";
+         }
+         else
+         {
+            _ctSource.Cancel();
+            _worker.Join();
+            WorldGrid.UnlockAllCells();
+            GoButton.Text = "Go";
+         }
       }
 
       private void _doWork(object param)
@@ -61,26 +71,31 @@ namespace GameOfLifeUI
          {
             _worldController.CalculateNextGeneration();
             UpdateGridFromWorld();
+
+            //stop running if no live cells...
+            //if (_worldRepository.CurrentWorld.Cells.All(x => !x.IsAlive))
+            //   break;
+
             Thread.Sleep(300);
          }
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
-         if (!GoButton.Enabled)
-            KillWorker();
-      }
-
-      private void KillWorker()
-      {
-         _ctSource.Cancel();
+         if (_worker.IsAlive)
+         {
+            _ctSource.Cancel();
+            _worker.Join();
+         }
       }
 
       private void UpdateGridFromWorld()
       {
          foreach (var cell in _worldRepository.CurrentWorld.Cells)
-            if (cell.Y < WorldGrid.GridBounds.Y || cell.Y > WorldGrid.GridBounds.Height ||
-                cell.X < WorldGrid.GridBounds.X || cell.X > WorldGrid.GridBounds.Width) /*totally on purpose empty statement*/;
+            if (cell.Y < WorldGrid.GridBounds.Y || 
+                cell.Y > WorldGrid.GridBounds.Height ||
+                cell.X < WorldGrid.GridBounds.X || 
+                cell.X > WorldGrid.GridBounds.Width) /*totally on purpose empty statement*/;
             else if (cell.IsAlive != WorldGrid[cell.Y, cell.X].Activated)
                WorldGrid[cell.Y, cell.X].ToggleActivate();
       }
