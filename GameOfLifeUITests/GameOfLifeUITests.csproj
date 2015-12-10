@@ -72,6 +72,10 @@
       <Project>{37f396fa-9ac0-4623-afa3-0c09606443ae}</Project>
       <Name>GameOfLifeUI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameOfLife\GameOfLife.csproj">
+      <Project>{BC5F690B-3D5E-44BF-A169-BE48EABC02AA}</Project>
+      <Name>GameOfLife</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

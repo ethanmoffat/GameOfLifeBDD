@@ -2,9 +2,9 @@
 {
    public interface IWorldController
    {
-      void SeedWorld(params WorldPoint[] points);
+      void ToggleWorldCellsAtPoints(params WorldPoint[] points);
       
-      void ResetWorld();
+      void ResetWorldCells();
 
       void CalculateNextGeneration();
    }

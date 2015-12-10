@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameOfLife;
+using GameOfLife.Controllers;
 using TechTalk.SpecFlow;
 
 namespace GameOfLifeUITests
@@ -6,58 +7,68 @@ namespace GameOfLifeUITests
    [Binding]
    public class UIWorkflowSteps
    {
+      private static ISimulationController _simulationController;
+      private static IWorldController _worldController;
+
+      [BeforeFeature]
+      public static void RunBeforeFeature()
+      {
+         //_simulationController = new SimulationController();
+         //_worldController = new WorldController();
+      }
+
       [Given(@"The simulation is not running")]
       public void GivenTheSimulationIsNotRunning()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.ResetSimulation();
       }
 
       [Given(@"I have a world that is seeded with at least one live cell")]
       public void GivenIHaveAWorldThatIsSeededWithAtLeastOneLiveCell()
       {
-         ScenarioContext.Current.Pending();
+         _worldController.ToggleWorldCellsAtPoints(new WorldPoint(1, 1));
       }
 
       [Given(@"The simulation is running")]
       public void GivenTheSimulationIsRunning()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.RunSimulation();
       }
 
       [Given(@"The simulation is paused")]
       public void GivenTheSimulationIsPaused()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.PauseSimulation();
       }
 
       [When(@"I add a seed cell to the world")]
       public void WhenIAddASeedCellToTheWorld()
       {
-         ScenarioContext.Current.Pending();
+         _worldController.ToggleWorldCellsAtPoints(new WorldPoint(2, 2));
       }
 
       [When(@"I run the game of life simulation")]
       public void WhenIRunTheGameOfLifeSimulation()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.RunSimulation();
       }
 
       [When(@"I pause the simulation")]
       public void WhenIPauseTheSimulation()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.PauseSimulation();
       }
 
       [When(@"I resume the simulation")]
       public void WhenIResumeTheSimulation()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.ResumeSimulation();
       }
 
       [When(@"I reset the simulation")]
       public void WhenIResetTheSimulation()
       {
-         ScenarioContext.Current.Pending();
+         _simulationController.ResetSimulation();
       }
 
       [When(@"I select a previous world generation")]
