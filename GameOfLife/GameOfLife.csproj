@@ -55,6 +55,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISimulationStateRepository.cs" />
     <Compile Include="Services\IWorldRepository.cs" />
+    <Compile Include="Services\SimulationStateRepository.cs" />
+    <Compile Include="Services\WorldRepository.cs" />
     <Compile Include="SimulationState.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldPoint.cs" />
