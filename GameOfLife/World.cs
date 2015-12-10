@@ -28,6 +28,8 @@ namespace GameOfLife
       public World GetNextGeneration()
       {
          var mapping = Cells.ToDictionary(cell => new WorldPoint(cell.X, cell.Y));
+         AddMissingDeadNeighbors(mapping);
+
          var newState = new List<Cell>();
 
          foreach (var cell in Cells)
@@ -49,6 +51,28 @@ namespace GameOfLife
          return new World(newState);
       }
 
+      private void AddMissingDeadNeighbors(Dictionary<WorldPoint, Cell> mapping)
+      {
+         List<Cell> newCells = new List<Cell>();
+         foreach (var kvp in mapping.Where(pair => pair.Value.IsAlive))
+         {
+            var pt = kvp.Key;
+            for (int row = pt.Y - 1; row <= pt.Y + 1; ++row)
+            {
+               for (int col = pt.X - 1; col <= pt.X + 1; ++col)
+               {
+                  if (col == pt.X && row == pt.Y) continue;
+
+                  if (!mapping.ContainsKey(new WorldPoint(col, row)) &&
+                     !newCells.Any(cell => cell.X == col && cell.Y == row))
+                     newCells.Add(new Cell(col, row, false));
+               }
+            }
+         }
+         newCells.AddRange(Cells);
+         Cells = newCells;
+      }
+
       private int GetLiveNeighborCount(Cell cell, Dictionary<WorldPoint, Cell> mapping)
       {
          int neighborCount = 0;
@@ -57,7 +81,7 @@ namespace GameOfLife
          {
             for (int col = cell.X - 1; col <= cell.X + 1; ++col)
             {
-               if (row == cell.X && col == cell.Y) continue;
+               if (col == cell.X && row == cell.Y) continue;
 
                var pt = new WorldPoint(col, row);
                if (mapping.ContainsKey(pt) && mapping[pt].IsAlive)
