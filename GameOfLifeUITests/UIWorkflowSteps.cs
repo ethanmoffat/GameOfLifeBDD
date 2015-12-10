@@ -103,6 +103,10 @@ namespace GameOfLifeUITests
       [When(@"The current generation has no live cells")]
       public void WhenTheCurrentGenerationHasNoLiveCells()
       {
+         while (_worldRepository.Object.CurrentWorld.Cells.Count > 0)
+            _worldController.CalculateNextGeneration();
+         
+         _simulationController.ResetSimulation();
          _worldController.ResetWorldCells();
       }
 
