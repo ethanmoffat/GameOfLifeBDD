@@ -1,19 +1,22 @@
-﻿using GameOfLife.Services;
+﻿using System.Collections.Generic;
+using System.Linq;
+using GameOfLife.Actions;
 
 namespace GameOfLife.Controllers
 {
    public class WorldController : IWorldController
    {
-      private readonly IWorldRepository _worldRepository;
+      private readonly IWorldActions _worldActions;
 
-      public WorldController(IWorldRepository worldRepository)
+      public WorldController(IWorldActions worldActions)
       {
-         _worldRepository = worldRepository;
+         _worldActions = worldActions;
       }
 
-      public void ToggleWorldCellsAtPoints(params WorldPoint[] points)
+      public void SetWorldCellState(IEnumerable<WorldPoint> alivePoints, IEnumerable<WorldPoint> deadPoints)
       {
-         throw new System.NotImplementedException();
+         _worldActions.SetCellsAlive(alivePoints.ToArray());
+         _worldActions.SetCellsDead(deadPoints.ToArray());
       }
 
       public void ResetWorldCells()

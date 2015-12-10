@@ -1,8 +1,10 @@
-﻿namespace GameOfLife.Controllers
+﻿using System.Collections.Generic;
+
+namespace GameOfLife.Controllers
 {
    public interface IWorldController
    {
-      void ToggleWorldCellsAtPoints(params WorldPoint[] points);
+      void SetWorldCellState(IEnumerable<WorldPoint> alivePoints, IEnumerable<WorldPoint> deadPoints);
       
       void ResetWorldCells();
 

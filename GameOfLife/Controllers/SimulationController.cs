@@ -1,14 +1,14 @@
-﻿using GameOfLife.Services;
+﻿using GameOfLife.Actions;
 
 namespace GameOfLife.Controllers
 {
    public class SimulationController : ISimulationController
    {
-      private readonly ISimulationStateRepository _simulationStateRepository;
+      private readonly ISimulationActions _simulationActions;
 
-      public SimulationController(ISimulationStateRepository simulationStateRepository)
+      public SimulationController(ISimulationActions simulationActions)
       {
-         _simulationStateRepository = simulationStateRepository;
+         _simulationActions = simulationActions;
       }
 
       public void RunSimulation()

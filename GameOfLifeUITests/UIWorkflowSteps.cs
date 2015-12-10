@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using GameOfLife;
+using GameOfLife.Actions;
 using GameOfLife.Controllers;
 using GameOfLife.Services;
 using Moq;
@@ -11,9 +13,12 @@ namespace GameOfLifeUITests
    public class UIWorkflowSteps
    {
       private static ISimulationController _simulationController;
-      private static IWorldController _worldController;
-      private static Mock<IWorldRepository> _worldRepository;
+      private static ISimulationActions _simulationActions;
       private static Mock<ISimulationStateRepository> _simulationRepository;
+
+      private static IWorldController _worldController;
+      private static IWorldActions _worldActions;
+      private static Mock<IWorldRepository> _worldRepository;
 
       [BeforeFeature]
       public static void RunBeforeFeature()
@@ -23,8 +28,11 @@ namespace GameOfLifeUITests
          _simulationRepository = new Mock<ISimulationStateRepository>();
          _simulationRepository.SetupAllProperties();
 
-         _simulationController = new SimulationController(_simulationRepository.Object);
-         _worldController = new WorldController(_worldRepository.Object);
+         _worldActions = new WorldActions(_worldRepository.Object);
+         _simulationActions = new SimulationActions(_simulationRepository.Object);
+
+         _simulationController = new SimulationController(_simulationActions);
+         _worldController = new WorldController(_worldActions);
       }
 
       [Given(@"The simulation is not running")]
@@ -54,7 +62,7 @@ namespace GameOfLifeUITests
       [When(@"I add a seed cell to the world")]
       public void WhenIAddASeedCellToTheWorld()
       {
-         _worldController.ToggleWorldCellsAtPoints(new WorldPoint(2, 2));
+         _worldController.SetWorldCellState(new[] { new WorldPoint(2, 2) }, new List<WorldPoint>());
       }
 
       [When(@"I run the game of life simulation")]

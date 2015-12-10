@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Actions\ISimulationActions.cs" />
     <Compile Include="Actions\IWorldActions.cs" />
+    <Compile Include="Actions\SimulationActions.cs" />
+    <Compile Include="Actions\WorldActions.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Controllers\ISimulationController.cs" />
     <Compile Include="Controllers\IWorldController.cs" />
