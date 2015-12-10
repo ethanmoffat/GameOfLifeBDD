@@ -30,14 +30,14 @@ namespace GameOfLife.Actions
          _worldRepository.CurrentWorld = new World(new List<Cell>());
       }
 
-      public World GetNextGenerationFromCurrentWorld()
+      public void IncrementWorldGeneration()
       {
-         throw new System.NotImplementedException();
-      }
+         var world = _worldRepository.CurrentWorld;
+         var newWorld = world.GetNextGeneration();
+         _worldRepository.CurrentWorld = newWorld;
 
-      public void AddPastGeneration(World pastGenerationOfWorld)
-      {
-         throw new System.NotImplementedException();
+         var previousWorlds = new List<World>(_worldRepository.PreviousGenerations) {world};
+         _worldRepository.PreviousGenerations = previousWorlds;
       }
 
       private IEnumerable<WorldPoint> RemoveExistingPoints(World world, IEnumerable<WorldPoint> points)

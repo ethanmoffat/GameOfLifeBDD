@@ -26,7 +26,7 @@ namespace GameOfLife.Controllers
 
       public void CalculateNextGeneration()
       {
-         throw new System.NotImplementedException();
+         _worldActions.IncrementWorldGeneration();
       }
    }
 }

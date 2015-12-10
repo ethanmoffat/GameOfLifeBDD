@@ -8,8 +8,6 @@
 
       void SetAllCellsDead();
 
-      World GetNextGenerationFromCurrentWorld();
-
-      void AddPastGeneration(World pastGenerationOfWorld);
+      void IncrementWorldGeneration();
    }
 }
