@@ -5,12 +5,13 @@
 
 Scenario: Seed a world with live cells
    Given The simulation is not running
+      And I have a world with no cells
    When I add a seed cell to the world
    Then The world is seeded with the cell
 
 Scenario: Run the simulation
    Given The simulation is not running
-   And I have a world that is seeded with at least one live cell
+      And I have a world that is seeded with at least one live cell
    When I run the game of life simulation
    Then The simulation enters the running state
 

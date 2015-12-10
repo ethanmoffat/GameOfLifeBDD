@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using GameOfLife;
 using GameOfLife.Actions;
 using GameOfLife.Controllers;
 using GameOfLife.Services;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
 
@@ -41,6 +43,12 @@ namespace GameOfLifeUITests
          _simulationRepository.Object.CurrentState = SimulationState.Initial;
       }
 
+      [Given(@"I have a world with no cells")]
+      public void GivenIHaveAWorldWithNoCells()
+      {
+         _worldRepository.Object.CurrentWorld = new World(new List<Cell>());
+      }
+
       [Given(@"I have a world that is seeded with at least one live cell")]
       public void GivenIHaveAWorldThatIsSeededWithAtLeastOneLiveCell()
       {
@@ -62,7 +70,9 @@ namespace GameOfLifeUITests
       [When(@"I add a seed cell to the world")]
       public void WhenIAddASeedCellToTheWorld()
       {
-         _worldController.SetWorldCellState(new[] { new WorldPoint(2, 2) }, new List<WorldPoint>());
+         var point = new WorldPoint(2, 2);
+         _worldController.SetWorldCellState(new[] { point }, new List<WorldPoint>());
+         ScenarioContext.Current.Add("NewCellCoordinates", point);
       }
 
       [When(@"I run the game of life simulation")]
@@ -110,7 +120,12 @@ namespace GameOfLifeUITests
       [Then(@"The world is seeded with the cell")]
       public void ThenTheWorldIsSeededWithTheCell()
       {
-         ScenarioContext.Current.Pending();
+         var point = (WorldPoint) ScenarioContext.Current["NewCellCoordinates"];
+         var cell = _worldRepository.Object.CurrentWorld.Cells.Single();
+
+         Assert.IsTrue(cell.IsAlive);
+         Assert.AreEqual(point.X, cell.X);
+         Assert.AreEqual(point.Y, cell.Y);
       }
 
       [Then(@"The simulation enters the running state")]
