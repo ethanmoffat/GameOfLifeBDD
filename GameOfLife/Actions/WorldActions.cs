@@ -22,13 +22,13 @@ namespace GameOfLife.Actions
       public void SetCellsAlive(params WorldPoint[] points)
       {
          var world = _worldRepository.CurrentWorld;
-         _worldRepository.CurrentWorld = world.WithCells(RemoveExistingPoints(world, points).Select(pt => new Cell(pt.X, pt.Y, true)));
+         _worldRepository.CurrentWorld = world.WithCells(points.Select(pt => new Cell(pt.X, pt.Y, true)));
       }
 
       public void SetCellsDead(params WorldPoint[] points)
       {
          var world = _worldRepository.CurrentWorld;
-         _worldRepository.CurrentWorld = world.WithCells(RemoveExistingPoints(world, points).Select(pt => new Cell(pt.X, pt.Y, false)));
+         _worldRepository.CurrentWorld = world.WithCells(points.Select(pt => new Cell(pt.X, pt.Y, false)));
       }
 
       public void SetAllCellsDead()
@@ -44,11 +44,6 @@ namespace GameOfLife.Actions
 
          var previousWorlds = new List<World>(_worldRepository.PreviousGenerations) {world};
          _worldRepository.PreviousGenerations = previousWorlds;
-      }
-
-      private IEnumerable<WorldPoint> RemoveExistingPoints(World world, IEnumerable<WorldPoint> points)
-      {
-         return points.Where(pt => !world.Cells.Any(cell => cell.X == pt.X && cell.Y == pt.Y));
       }
    }
 }

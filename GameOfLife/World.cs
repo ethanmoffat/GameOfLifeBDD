@@ -16,11 +16,18 @@ namespace GameOfLife
 
       public World WithCells(IEnumerable<Cell> newCells)
       {
-         var newCellsList = newCells as IList<Cell> ?? newCells.ToList();
-         if(Cells.Any(existing => newCellsList.Any(newCell => newCell.X == existing.X && newCell.Y == existing.Y)))
-            throw new ArgumentException("A duplicate cell exists in the new list of cells.", "newCells");
-
+         var newCellsList = newCells.ToList();
          var cellList = Cells.ToList();
+
+         var duplicates = cellList.Where(cell => newCellsList.Any(x => cell.X == x.X && cell.Y == x.Y)).ToList();
+         foreach (var cell in duplicates)
+         {
+            cellList.Remove(cell);
+            var newCell = newCellsList.Find(x => x.X == cell.X && x.Y == cell.Y);
+            cellList.Add(newCell);
+            newCellsList.Remove(newCell);
+         }
+
          cellList.AddRange(newCellsList);
          return new World(cellList);
       }
