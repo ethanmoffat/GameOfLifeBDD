@@ -38,8 +38,3 @@ Scenario: Dead cells stay dead
    And the dead cell does not have exactly 3 live neighbors
    When I get the next generation of the world
    Then the cell should be dead
-
-Scenario: Duplicate cells are not allowed
-   Given a world with a cell at 4, 5
-   When I seed the world with an additional cell at 4, 5
-   Then there should be an error indicating duplicate cells

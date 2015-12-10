@@ -188,24 +188,6 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Duplicate cells are not allowed")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
-        public virtual void DuplicateCellsAreNotAllowed()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Duplicate cells are not allowed", ((string[])(null)));
-#line 42
-this.ScenarioSetup(scenarioInfo);
-#line 43
-   testRunner.Given("a world with a cell at 4, 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 44
-   testRunner.When("I seed the world with an additional cell at 4, 5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 45
-   testRunner.Then("there should be an error indicating duplicate cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore
