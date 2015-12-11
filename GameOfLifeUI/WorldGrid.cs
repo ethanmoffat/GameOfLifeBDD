@@ -47,6 +47,12 @@ namespace GameOfLifeUI
             gc.EnableEdit();
       }
 
+      public void ResetAllCells()
+      {
+         foreach (var cell in _gridCells.Values.Where(x => x.Activated))
+            cell.ToggleActivate();
+      }
+
       protected override void OnPaint(PaintEventArgs e)
       {
          int numX = Width/17;
