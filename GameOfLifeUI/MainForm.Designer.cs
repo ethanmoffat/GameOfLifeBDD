@@ -33,6 +33,7 @@
          this.ResetButton = new System.Windows.Forms.Button();
          this.ResumeButton = new System.Windows.Forms.Button();
          this.WorldGrid = new GameOfLifeUI.WorldGrid();
+         this.GenerationList = new System.Windows.Forms.ListBox();
          this.SuspendLayout();
          // 
          // RunButton
@@ -95,12 +96,21 @@
          this.WorldGrid.Size = new System.Drawing.Size(289, 289);
          this.WorldGrid.TabIndex = 0;
          // 
+         // GenerationList
+         // 
+         this.GenerationList.FormattingEnabled = true;
+         this.GenerationList.Location = new System.Drawing.Point(307, 41);
+         this.GenerationList.Name = "GenerationList";
+         this.GenerationList.Size = new System.Drawing.Size(195, 238);
+         this.GenerationList.TabIndex = 5;
+         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.SystemColors.Control;
          this.ClientSize = new System.Drawing.Size(514, 314);
+         this.Controls.Add(this.GenerationList);
          this.Controls.Add(this.ResetButton);
          this.Controls.Add(this.RunButton);
          this.Controls.Add(this.WorldGrid);
@@ -121,6 +131,7 @@
       private System.Windows.Forms.Button PauseButton;
       private System.Windows.Forms.Button ResetButton;
       private System.Windows.Forms.Button ResumeButton;
+      private System.Windows.Forms.ListBox GenerationList;
 
    }
 }

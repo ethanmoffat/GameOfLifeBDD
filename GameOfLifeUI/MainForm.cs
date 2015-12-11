@@ -35,6 +35,14 @@ namespace GameOfLifeUI
          InitializeComponent();
 
          WorldGrid.GridCellClicked += WorldGrid_GridCellClicked;
+         GenerationList.Format += GenerationList_Format;
+      }
+
+      private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
+      {
+         e.Value = string.Format("{0}: {1} Live cells", 
+            GenerationList.Items.Count, 
+            ((World) e.ListItem).Cells.Count(x => x.IsAlive));
       }
 
       private void MainForm_Load(object sender, EventArgs e)
@@ -125,6 +133,7 @@ namespace GameOfLifeUI
       {
          _worldController.CreateDefaultWorld();
          WorldGrid.ResetAllCells();
+         GenerationList.Items.Clear();
       }
 
       private void SetRunningState()
@@ -148,6 +157,7 @@ namespace GameOfLifeUI
          {
             _worldController.CalculateNextGeneration();
             UpdateGridFromWorld();
+            GenerationList.Invoke(new Action(UpdatePastGenerationsList));
 
             //stop running if no live cells...
             //if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive))
@@ -163,6 +173,14 @@ namespace GameOfLifeUI
             if (IsInDisplayGridBounds(cell) &&
                 cell.IsAlive != WorldGrid[cell.Y, cell.X].Activated)
                WorldGrid[cell.Y, cell.X].ToggleActivate();
+      }
+
+      private void UpdatePastGenerationsList()
+      {
+         GenerationList.SuspendLayout();
+         GenerationList.Items.Add(_worldProvider.PreviousGenerations.Last());
+         GenerationList.SelectedItem = _worldProvider.PreviousGenerations.Last();
+         GenerationList.ResumeLayout();
       }
 
       private bool IsInDisplayGridBounds(Cell cell)
