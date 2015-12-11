@@ -34,7 +34,7 @@
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.MinimumSize = new System.Drawing.Size(290, 290);
+         this.DoubleBuffered = true;
          this.Name = "WorldGrid";
          this.Size = new System.Drawing.Size(290, 290);
          this.ResumeLayout(false);

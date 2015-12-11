@@ -128,11 +128,11 @@
          this.WorldGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+         this.WorldGrid.BackColor = System.Drawing.Color.CornflowerBlue;
          this.WorldGrid.Location = new System.Drawing.Point(12, 12);
-         this.WorldGrid.MaximumSize = new System.Drawing.Size(190, 212);
-         this.WorldGrid.MinimumSize = new System.Drawing.Size(289, 289);
+         this.WorldGrid.MinimumSize = new System.Drawing.Size(290, 290);
          this.WorldGrid.Name = "WorldGrid";
-         this.WorldGrid.Size = new System.Drawing.Size(289, 289);
+         this.WorldGrid.Size = new System.Drawing.Size(290, 290);
          this.WorldGrid.TabIndex = 0;
          // 
          // MainForm

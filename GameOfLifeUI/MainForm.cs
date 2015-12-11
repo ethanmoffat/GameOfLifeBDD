@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using GameOfLife;
-using GameOfLife.Actions;
 using GameOfLife.Controllers;
 using GameOfLife.Services;
 

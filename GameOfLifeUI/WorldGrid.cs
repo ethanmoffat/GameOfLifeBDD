@@ -11,12 +11,15 @@ namespace GameOfLifeUI
       private readonly Dictionary<Point, WorldGridCell> _gridCells;
 
       private readonly Pen _gridPen;
+      private Size _originalSize;
 
       public event EventHandler<GridClickedEventArgs> GridCellClicked;
 
       public WorldGrid()
       {
          InitializeComponent();
+
+         _originalSize = Size.Empty;
 
          _gridCells = new Dictionary<Point, WorldGridCell>();
          SetupGridCells();
@@ -69,27 +72,44 @@ namespace GameOfLifeUI
          base.OnPaint(e);
       }
 
-      //protected override void OnResize(EventArgs e)
-      //{
-      //   base.OnResize(e);
-      //}
+      protected override void OnParentChanged(EventArgs e)
+      {
+         if (ParentForm != null)
+         {
+            ParentForm.ResizeBegin += Parent_Resize_Begin;
+            ParentForm.ResizeEnd += Parent_Resize_End;
+         }
+         base.OnParentChanged(e);
+      }
+
+      private void Parent_Resize_Begin(object sender, EventArgs e)
+      {
+         _originalSize = Size;
+      }
+
+      private void Parent_Resize_End(object sender, EventArgs e)
+      {
+         SetupGridCells();
+      }
 
       private void SetupGridCells()
       {
-         foreach (var gc in _gridCells.Values)
-            Controls.Remove(gc);
-         _gridCells.Clear();
+         if (_originalSize.Width >= Size.Width &&
+             _originalSize.Height >= Size.Height) return;
 
-         int numX = Width/17;
-         int numY = Height/17;
+         int numX = Width/17 + 1;
+         int numY = Height/17 + 1;
 
          for (int row = 0; row <= numY; ++row)
          {
             for (int col = 0; col <= numX; ++col)
             {
+               if (_gridCells.ContainsKey(new Point(col, row)))
+                  continue;
+
                var cell = new WorldGridCell
                {
-                  Location = new Point(1+col*17, 1+row*17)
+                  Location = new Point(1 + col * 17, 1 + row * 17)
                };
                cell.Click += CellOnClick;
                _gridCells.Add(new Point(col, row), cell);
