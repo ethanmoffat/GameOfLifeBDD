@@ -36,13 +36,7 @@ namespace GameOfLifeUI
 
          WorldGrid.GridCellClicked += WorldGrid_GridCellClicked;
          GenerationList.Format += GenerationList_Format;
-      }
-
-      private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
-      {
-         e.Value = string.Format("{0}: {1} Live cells", 
-            GenerationList.Items.Count, 
-            ((World) e.ListItem).Cells.Count(x => x.IsAlive));
+         Disposed += MainForm_Disposed;
       }
 
       private void MainForm_Load(object sender, EventArgs e)
@@ -60,6 +54,12 @@ namespace GameOfLifeUI
          }
       }
 
+      private void MainForm_Disposed(object sender, EventArgs e)
+      {
+         if (_ctSource != null)
+            _ctSource.Dispose();
+      }
+
       private void WorldGrid_GridCellClicked(object sender, GridClickedEventArgs e)
       {
          var wp = new WorldPoint(e.Location.X, e.Location.Y);
@@ -67,6 +67,13 @@ namespace GameOfLifeUI
             _worldController.SetWorldCellState(new[] {wp}, new List<WorldPoint>());
          else
             _worldController.SetWorldCellState(new List<WorldPoint>(), new[] {wp});
+      }
+
+      private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
+      {
+         e.Value = string.Format("{0}: {1} Live cells",
+            GenerationList.Items.Count,
+            ((World)e.ListItem).Cells.Count(x => x.IsAlive));
       }
 
       private void GoButton_Click(object sender, EventArgs e)
@@ -95,37 +102,26 @@ namespace GameOfLifeUI
 
       private void NextState()
       {
-         switch (_simulationStateProvider.CurrentState)
+         var st = _simulationStateProvider.CurrentState;
+
+         RunButton.Enabled = st == SimulationState.Initial;
+
+         PauseButton.Enabled = st == SimulationState.Running;
+         PauseButton.Visible = st != SimulationState.Paused;
+
+         ResumeButton.Enabled = st == SimulationState.Paused;
+         ResumeButton.Visible = st == SimulationState.Paused;
+
+         ResetButton.Enabled = st == SimulationState.Paused;
+
+         GenerationList.Enabled = st != SimulationState.Running;
+
+         switch (st)
          {
-            case SimulationState.Initial:
-               RunButton.Enabled = true;
-               PauseButton.Enabled = false;
-               PauseButton.Visible = true;
-               ResumeButton.Enabled = false;
-               ResumeButton.Visible = false;
-               ResetButton.Enabled = false;
-               SetInitialState();
-               break;
-            case SimulationState.Running:
-               RunButton.Enabled = false;
-               PauseButton.Enabled = true;
-               PauseButton.Visible = true;
-               ResumeButton.Enabled = false;
-               ResumeButton.Visible = false;
-               ResetButton.Enabled = false;
-               SetRunningState();
-               break;
-            case SimulationState.Paused:
-               RunButton.Enabled = false;
-               PauseButton.Enabled = false;
-               PauseButton.Visible = false;
-               ResumeButton.Enabled = true;
-               ResumeButton.Visible = true;
-               ResetButton.Enabled = true;
-               SetPausedState();
-               break;
-            default:
-               throw new ArgumentOutOfRangeException();
+            case SimulationState.Initial: SetInitialState(); break;
+            case SimulationState.Running: SetRunningState(); break;
+            case SimulationState.Paused: SetPausedState(); break;
+            default: throw new ArgumentOutOfRangeException();
          }
       }
 
@@ -139,8 +135,12 @@ namespace GameOfLifeUI
       private void SetRunningState()
       {
          WorldGrid.LockAllCells();
-         _worker = new Thread(_doWork);
+
+         if (_ctSource != null)
+            _ctSource.Dispose();
          _ctSource = new CancellationTokenSource();
+
+         _worker = new Thread(_doWork);
          _worker.Start(_ctSource.Token);
       }
 
@@ -159,9 +159,13 @@ namespace GameOfLifeUI
             UpdateGridFromWorld();
             GenerationList.Invoke(new Action(UpdatePastGenerationsList));
 
-            //stop running if no live cells...
-            //if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive))
-            //   break;
+            if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive) &&
+                _worldProvider.PreviousGenerations.Last().Cells.All(x => !x.IsAlive))
+            {
+               _simulationController.PauseSimulation();
+               Invoke(new Action(NextState));
+               break;
+            }
 
             Thread.Sleep(300);
          }
@@ -170,8 +174,7 @@ namespace GameOfLifeUI
       private void UpdateGridFromWorld()
       {
          foreach (var cell in _worldProvider.CurrentWorld.Cells)
-            if (IsInDisplayGridBounds(cell) &&
-                cell.IsAlive != WorldGrid[cell.Y, cell.X].Activated)
+            if (IsInDisplayGridBounds(cell) && cell.IsAlive != WorldGrid[cell.Y, cell.X].Activated)
                WorldGrid[cell.Y, cell.X].ToggleActivate();
       }
 
@@ -185,10 +188,7 @@ namespace GameOfLifeUI
 
       private bool IsInDisplayGridBounds(Cell cell)
       {
-         return cell.Y >= WorldGrid.GridBounds.Y && 
-                cell.Y <= WorldGrid.GridBounds.Height &&
-                cell.X >= WorldGrid.GridBounds.X && 
-                cell.X <= WorldGrid.GridBounds.Width;
+         return cell.Y >= WorldGrid.GridBounds.Y && cell.Y <= WorldGrid.GridBounds.Height && cell.X >= WorldGrid.GridBounds.X && cell.X <= WorldGrid.GridBounds.Width;
       }
    }
 }
