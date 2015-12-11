@@ -32,8 +32,11 @@
          this.PauseButton = new System.Windows.Forms.Button();
          this.ResetButton = new System.Windows.Forms.Button();
          this.ResumeButton = new System.Windows.Forms.Button();
-         this.WorldGrid = new GameOfLifeUI.WorldGrid();
          this.GenerationList = new System.Windows.Forms.ListBox();
+         this.SimulationSpeed = new System.Windows.Forms.TrackBar();
+         this.SimulationSpeedLabel = new System.Windows.Forms.Label();
+         this.WorldGrid = new GameOfLifeUI.WorldGrid();
+         ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).BeginInit();
          this.SuspendLayout();
          // 
          // RunButton
@@ -84,6 +87,42 @@
          this.ResumeButton.Visible = false;
          this.ResumeButton.Click += new System.EventHandler(this.ResumeButton_Click);
          // 
+         // GenerationList
+         // 
+         this.GenerationList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.GenerationList.FormattingEnabled = true;
+         this.GenerationList.Location = new System.Drawing.Point(307, 41);
+         this.GenerationList.Name = "GenerationList";
+         this.GenerationList.Size = new System.Drawing.Size(195, 238);
+         this.GenerationList.TabIndex = 5;
+         this.GenerationList.SelectedIndexChanged += new System.EventHandler(this.GenerationList_SelectedIndexChanged);
+         // 
+         // SimulationSpeed
+         // 
+         this.SimulationSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.SimulationSpeed.LargeChange = 100;
+         this.SimulationSpeed.Location = new System.Drawing.Point(356, 285);
+         this.SimulationSpeed.Maximum = 2000;
+         this.SimulationSpeed.Minimum = 100;
+         this.SimulationSpeed.Name = "SimulationSpeed";
+         this.SimulationSpeed.Size = new System.Drawing.Size(155, 45);
+         this.SimulationSpeed.SmallChange = 25;
+         this.SimulationSpeed.TabIndex = 6;
+         this.SimulationSpeed.TickStyle = System.Windows.Forms.TickStyle.None;
+         this.SimulationSpeed.Value = 300;
+         this.SimulationSpeed.Scroll += new System.EventHandler(this.SimulationSpeed_Scroll);
+         // 
+         // SimulationSpeedLabel
+         // 
+         this.SimulationSpeedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+         this.SimulationSpeedLabel.AutoSize = true;
+         this.SimulationSpeedLabel.Location = new System.Drawing.Point(310, 288);
+         this.SimulationSpeedLabel.Name = "SimulationSpeedLabel";
+         this.SimulationSpeedLabel.Size = new System.Drawing.Size(41, 13);
+         this.SimulationSpeedLabel.TabIndex = 7;
+         this.SimulationSpeedLabel.Text = "300 ms";
+         // 
          // WorldGrid
          // 
          this.WorldGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -96,31 +135,28 @@
          this.WorldGrid.Size = new System.Drawing.Size(289, 289);
          this.WorldGrid.TabIndex = 0;
          // 
-         // GenerationList
-         // 
-         this.GenerationList.FormattingEnabled = true;
-         this.GenerationList.Location = new System.Drawing.Point(307, 41);
-         this.GenerationList.Name = "GenerationList";
-         this.GenerationList.Size = new System.Drawing.Size(195, 238);
-         this.GenerationList.TabIndex = 5;
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.SystemColors.Control;
          this.ClientSize = new System.Drawing.Size(514, 314);
+         this.Controls.Add(this.SimulationSpeedLabel);
+         this.Controls.Add(this.SimulationSpeed);
          this.Controls.Add(this.GenerationList);
          this.Controls.Add(this.ResetButton);
          this.Controls.Add(this.RunButton);
          this.Controls.Add(this.WorldGrid);
-         this.Controls.Add(this.ResumeButton);
          this.Controls.Add(this.PauseButton);
+         this.Controls.Add(this.ResumeButton);
+         this.MinimumSize = new System.Drawing.Size(530, 352);
          this.Name = "MainForm";
          this.Text = "[temporary title]";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
          this.Load += new System.EventHandler(this.MainForm_Load);
+         ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).EndInit();
          this.ResumeLayout(false);
+         this.PerformLayout();
 
       }
 
@@ -132,6 +168,8 @@
       private System.Windows.Forms.Button ResetButton;
       private System.Windows.Forms.Button ResumeButton;
       private System.Windows.Forms.ListBox GenerationList;
+      private System.Windows.Forms.TrackBar SimulationSpeed;
+      private System.Windows.Forms.Label SimulationSpeedLabel;
 
    }
 }

@@ -22,6 +22,8 @@ namespace GameOfLifeUI
       private readonly IWorldProvider _worldProvider;
       private readonly ISimulationStateProvider _simulationStateProvider;
 
+      private volatile int _simSpeedDelay = 300;
+
       public MainForm(IWorldController worldController,
                       ISimulationController simulationController,
                       IWorldProvider worldProvider,
@@ -100,6 +102,12 @@ namespace GameOfLifeUI
          NextState();
       }
 
+      private void SimulationSpeed_Scroll(object sender, EventArgs e)
+      {
+         SimulationSpeedLabel.Text = string.Format("{0} ms", SimulationSpeed.Value);
+         _simSpeedDelay = SimulationSpeed.Value;
+      }
+
       private void NextState()
       {
          var st = _simulationStateProvider.CurrentState;
@@ -156,7 +164,7 @@ namespace GameOfLifeUI
          while (!ct.IsCancellationRequested)
          {
             _worldController.CalculateNextGeneration();
-            UpdateGridFromWorld();
+            UpdateGridFromWorld(_worldProvider.CurrentWorld);
             GenerationList.Invoke(new Action(UpdatePastGenerationsList));
 
             if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive) &&
@@ -167,14 +175,18 @@ namespace GameOfLifeUI
                break;
             }
 
-            Thread.Sleep(300);
+            Thread.Sleep(_simSpeedDelay);
          }
       }
 
-      private void UpdateGridFromWorld()
+      private void UpdateGridFromWorld(World world)
       {
-         foreach (var cell in _worldProvider.CurrentWorld.Cells)
-            if (IsInDisplayGridBounds(cell) && cell.IsAlive != WorldGrid[cell.Y, cell.X].Activated)
+         if (world == null) return;
+
+         WorldGrid.ResetAllCells();
+
+         foreach (var cell in world.Cells)
+            if (IsInDisplayGridBounds(cell) && cell.IsAlive)
                WorldGrid[cell.Y, cell.X].ToggleActivate();
       }
 
@@ -189,6 +201,13 @@ namespace GameOfLifeUI
       private bool IsInDisplayGridBounds(Cell cell)
       {
          return cell.Y >= WorldGrid.GridBounds.Y && cell.Y <= WorldGrid.GridBounds.Height && cell.X >= WorldGrid.GridBounds.X && cell.X <= WorldGrid.GridBounds.Width;
+      }
+
+      private void GenerationList_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         if (_simulationStateProvider.CurrentState != SimulationState.Paused) return;
+
+         UpdateGridFromWorld(GenerationList.SelectedItem as World);
       }
    }
 }
