@@ -100,28 +100,6 @@ namespace GameOfLifeUITests
          _worldController.ResetWorldCells();
       }
 
-      [When(@"The current generation has no live cells")]
-      public void WhenTheCurrentGenerationHasNoLiveCells()
-      {
-         while (_worldRepository.Object.CurrentWorld.Cells.Count > 0)
-            _worldController.CalculateNextGeneration();
-         
-         _simulationController.ResetSimulation();
-         _worldController.ResetWorldCells();
-      }
-
-      [When(@"The previous generation has at least one live cell")]
-      public void WhenThePreviousGenerationHasAtLeastOneLiveCell()
-      {
-         _worldRepository
-            .Setup(x => x.PreviousGenerations)
-            .Returns(new ReadOnlyCollection<World>(
-               new[]
-               {
-                  new World(new [] { new Cell(1, 1, true) })
-               }));
-      }
-
       [Then(@"The world is seeded with the cell")]
       public void ThenTheWorldIsSeededWithTheCell()
       {
@@ -151,10 +129,10 @@ namespace GameOfLifeUITests
          Assert.AreEqual(SimulationState.Initial, _simulationRepository.Object.CurrentState);
       }
 
-      [Then(@"The world is set to the initial state")]
-      public void ThenTheWorldIsSetToTheInitialState()
+      [Then(@"The world has no living cells")]
+      public void ThenTheWorldHasNoLivingCells()
       {
-         Assert.AreEqual(0, _worldRepository.Object.CurrentWorld.Cells.Count);
+         Assert.AreEqual(0, _worldRepository.Object.CurrentWorld.Cells.Count(cell => cell.IsAlive));
       }
    }
 }

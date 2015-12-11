@@ -33,7 +33,8 @@ namespace GameOfLife.Actions
 
       public void SetAllCellsDead()
       {
-         _worldRepository.CurrentWorld = new World(new List<Cell>());
+         var cellsAsDead = _worldRepository.CurrentWorld.Cells.Select(x => x.AsDead());
+         _worldRepository.CurrentWorld = _worldRepository.CurrentWorld.WithCells(cellsAsDead);
       }
 
       public void IncrementWorldGeneration()

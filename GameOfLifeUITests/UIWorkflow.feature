@@ -29,11 +29,4 @@ Scenario: Reset the simulation
    Given The simulation is paused
    When I reset the simulation
    Then The simulation enters the initial state
-      And The world is set to the initial state
-
-Scenario: Simulation stops when all cells are dead
-   Given The simulation is running
-   When The current generation has no live cells
-      And The previous generation has at least one live cell
-   Then The simulation enters the initial state
-      And The world is set to the initial state
+      And The world has no living cells
