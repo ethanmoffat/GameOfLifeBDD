@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Automation;
-using System.Windows.Automation.Provider;
 using System.Windows.Forms;
 
 namespace GameOfLifeUI
@@ -111,7 +109,8 @@ namespace GameOfLifeUI
 
                var cell = new WorldGridCell(this, row, col)
                {
-                  Location = new Point(1 + col * 17, 1 + row * 17)
+                  Location = new Point(1 + col * 17, 1 + row * 17),
+                  Name = string.Format("CellAt{0}{1}",row,col)
                };
                cell.Click += CellOnClick;
                _gridCells.Add(new Point(col, row), cell);

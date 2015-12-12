@@ -3,7 +3,7 @@ using System.Windows.Automation.Provider;
 
 namespace GameOfLifeUI
 {
-   public class WorldGridCellPattern : IGridItemProvider, IToggleProvider
+   public class WorldGridCellPattern : IGridItemProvider, ISelectionItemProvider
    {
       private readonly WorldGridCell _cell;
       private readonly IRawElementProviderSimple _parentGrid;
@@ -24,18 +24,25 @@ namespace GameOfLifeUI
 
       #endregion
 
-      #region IToggleProvider
+      public bool IsSelected { get { return _cell.Activated; } }
 
-      public void Toggle()
+      public IRawElementProviderSimple SelectionContainer { get { return _parentGrid; } }
+
+      public void Select()
       {
-         _cell.ToggleActivate();
+         if (!_cell.Activated)
+            _cell.ToggleActivate();
       }
 
-      public ToggleState ToggleState
+      public void AddToSelection()
       {
-         get { return _cell.Activated ? ToggleState.On : ToggleState.Off; }
+         Select();
       }
 
-      #endregion
+      public void RemoveFromSelection()
+      {
+         if (_cell.Activated)
+            _cell.ToggleActivate();
+      }
    }
 }

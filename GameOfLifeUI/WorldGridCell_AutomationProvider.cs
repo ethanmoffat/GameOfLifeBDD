@@ -6,6 +6,7 @@ using AEI = System.Windows.Automation.AutomationElementIdentifiers;
 
 namespace GameOfLifeUI
 {
+   //todo: follow these instructions https://msdn.microsoft.com/en-us/library/ms742561(v=vs.110).aspx
    partial class WorldGridCell : IRawElementProviderSimple
    {
       public ProviderOptions ProviderOptions
@@ -21,7 +22,8 @@ namespace GameOfLifeUI
       public object GetPatternProvider(int patternId)
       {
          if (patternId == GridItemPatternIdentifiers.Pattern.Id ||
-             patternId == TogglePatternIdentifiers.Pattern.Id)
+             patternId == TogglePatternIdentifiers.Pattern.Id ||
+             patternId == SelectionPatternIdentifiers.Pattern.Id)
             return new WorldGridCellPattern(this, _parentGrid);
          return null;
       }

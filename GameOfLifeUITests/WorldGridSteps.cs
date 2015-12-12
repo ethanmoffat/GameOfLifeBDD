@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -8,6 +9,7 @@ using TechTalk.SpecFlow;
 using TestStack.White;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.WindowItems;
+using TestStack.White.UIItems.WPFUIItems;
 
 namespace GameOfLifeUITests
 {
@@ -56,6 +58,7 @@ namespace GameOfLifeUITests
       public void WhenISelectTheCellAt(int x, int y)
       {
          ClickCellAt(x, y);
+         ScenarioContext.Current.Add("CheckCell", string.Format("CellAt{0}{1}",y,x));
       }
 
       [When(@"I run the simulation in the ui")]
@@ -92,13 +95,12 @@ namespace GameOfLifeUITests
       [Then(@"the cell should display as ""(.*)""")]
       public void ThenTheCellShouldDisplayAs(string deadOrAlive)
       {
-         //this is where we need the grid provider...
-         //bool alive = deadOrAlive.ToLower() == "alive";
-         //bool dead = deadOrAlive.ToLower() == "dead";
+         if(deadOrAlive.ToLower() != "alive" && deadOrAlive.ToLower() != "dead")
+            throw new ArgumentException("Unexpected value for ThenTheCellShouldDisplayAs. Expected \"dead\" or \"alive\".", deadOrAlive);
+         bool shouldBeAlive = deadOrAlive.ToLower() == "alive";
 
-         //_window.???
-
-         ScenarioContext.Current.Pending();
+         var cell = _window.Get<ListViewRow>(ScenarioContext.Current["CheckCell"] as string);
+         Assert.AreEqual(shouldBeAlive, cell.IsSelected);
       }
 
       [Then(@"the world should not be editable")]
@@ -134,11 +136,8 @@ namespace GameOfLifeUITests
 
       private static void ClickCellAt(int x, int y)
       {
-         //would love to have a provider for the custom grid, but manually clicking it seems to work fine
-         var topRight = _window.Location;
-         topRight = new Point(topRight.X + 25, topRight.Y + 46);
-         _window.Mouse.Location = new Point(topRight.X + x * 17, topRight.Y + y * 17);
-         _window.Mouse.Click();
+         var cell = _window.Get<ListViewRow>(string.Format("CellAt{0}{1}", y, x));
+         cell.Select();
       }
 
       private static void RunSimulation()

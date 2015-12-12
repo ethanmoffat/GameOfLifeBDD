@@ -136,6 +136,7 @@ namespace GameOfLifeUI
       {
          _worldController.CreateDefaultWorld();
          WorldGrid.ResetAllCells();
+         WorldGrid.UnlockAllCells();
          GenerationList.Items.Clear();
       }
 
@@ -205,6 +206,11 @@ namespace GameOfLifeUI
       private void GenerationList_SelectedIndexChanged(object sender, EventArgs e)
       {
          if (_simulationStateProvider.CurrentState != SimulationState.Paused) return;
+
+         if (GenerationList.SelectedItem == _worldProvider.PreviousGenerations.Last())
+            WorldGrid.UnlockAllCells();
+         else
+            WorldGrid.LockAllCells();
 
          UpdateGridFromWorld(GenerationList.SelectedItem as World);
       }
