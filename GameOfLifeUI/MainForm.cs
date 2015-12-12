@@ -23,6 +23,8 @@ namespace GameOfLifeUI
 
       private volatile int _simSpeedDelay = 300;
 
+      private FormWindowState _windowState;
+
       public MainForm(IWorldController worldController,
                       ISimulationController simulationController,
                       IWorldProvider worldProvider,
@@ -43,10 +45,27 @@ namespace GameOfLifeUI
       private void MainForm_Load(object sender, EventArgs e)
       {
          Text = TITLE_TEXT;
+         _windowState = WindowState;
          SetInitialState();
       }
 
-      private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+      protected override void OnResize(EventArgs e)
+      {
+          //hack that allows the grid to be resized on the maximize event
+         if (_windowState != WindowState)
+         {
+            _windowState = WindowState;
+            if (_windowState == FormWindowState.Maximized)
+            {
+               base.OnResize(e);
+               OnResizeEnd(e);
+               return;
+            }
+         }
+         base.OnResize(e);
+      }
+
+       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          if (_simulationStateProvider.CurrentState == SimulationState.Running)
          {
