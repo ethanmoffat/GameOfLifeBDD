@@ -6,6 +6,9 @@ namespace GameOfLifeUI
 {
    public partial class WorldGridCell : UserControl
    {
+      public int Row { get; private set; }
+      public int Column { get; private set; }
+      private readonly WorldGrid _parentGrid;
       private readonly Point[] _selectorPoints;
 
       private bool _mouseOver;
@@ -16,9 +19,13 @@ namespace GameOfLifeUI
 
       public bool Activated { get; private set; }
 
-      public WorldGridCell()
+      public WorldGridCell(WorldGrid parentGrid, int row, int col)
       {
          InitializeComponent();
+
+         _parentGrid = parentGrid;
+         Row = row;
+         Column = col;
 
          Disposed += OnDisposed;
 

@@ -43,6 +43,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GridClickedEventArgs.cs" />
@@ -65,6 +67,14 @@
     </Compile>
     <Compile Include="WorldGridCell.Designer.cs">
       <DependentUpon>WorldGridCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorldGridCellPattern.cs" />
+    <Compile Include="WorldGridCell_AutomationProvider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorldGridPattern.cs" />
+    <Compile Include="WorldGrid_AutomationProvider.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

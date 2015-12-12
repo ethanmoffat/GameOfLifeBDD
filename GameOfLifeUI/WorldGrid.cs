@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Automation;
+using System.Windows.Automation.Provider;
 using System.Windows.Forms;
 
 namespace GameOfLifeUI
@@ -107,7 +109,7 @@ namespace GameOfLifeUI
                if (_gridCells.ContainsKey(new Point(col, row)))
                   continue;
 
-               var cell = new WorldGridCell
+               var cell = new WorldGridCell(this, row, col)
                {
                   Location = new Point(1 + col * 17, 1 + row * 17)
                };
