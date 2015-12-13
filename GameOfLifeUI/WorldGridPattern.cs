@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Automation;
 using System.Windows.Automation.Provider;
 
 namespace GameOfLifeUI
 {
-   public class WorldGridPattern : IGridProvider, ISelectionProvider
+   public class WorldGridPattern : ISelectionProvider, ITableProvider
    {
       private readonly WorldGrid _grid;
+
+      public WorldGridPattern(WorldGrid grid)
+      {
+         _grid = grid;
+      }
+
+      #region IGridProvider
+
       public int RowCount { get { return _grid.GridBounds.Height; } }
       public int ColumnCount { get { return _grid.GridBounds.Width; } }
 
@@ -14,10 +23,9 @@ namespace GameOfLifeUI
          return _grid[row, column];
       }
 
-      public WorldGridPattern(WorldGrid grid)
-      {
-         _grid = grid;
-      }
+      #endregion
+
+      #region ISelectionProvider
 
       public IRawElementProviderSimple[] GetSelection()
       {
@@ -35,5 +43,23 @@ namespace GameOfLifeUI
 
       public bool CanSelectMultiple { get { return true; } }
       public bool IsSelectionRequired { get { return false; } }
+
+      #endregion
+
+      #region ITableProvider
+
+      public IRawElementProviderSimple[] GetRowHeaders()
+      {
+         return null;
+      }
+
+      public IRawElementProviderSimple[] GetColumnHeaders()
+      {
+         return null;
+      }
+
+      public RowOrColumnMajor RowOrColumnMajor { get { return RowOrColumnMajor.Indeterminate; } }
+
+      #endregion
    }
 }

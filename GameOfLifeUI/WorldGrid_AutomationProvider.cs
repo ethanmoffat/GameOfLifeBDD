@@ -6,7 +6,7 @@ using AEI = System.Windows.Automation.AutomationElementIdentifiers;
 
 namespace GameOfLifeUI
 {
-   //todo: follow these instructions https://msdn.microsoft.com/en-us/library/ms752044(v=vs.110).aspx
+   //todo: implement events https://msdn.microsoft.com/en-us/library/ms752044(v=vs.110).aspx
    public partial class WorldGrid : IRawElementProviderSimple
    {
       public ProviderOptions ProviderOptions
@@ -32,9 +32,11 @@ namespace GameOfLifeUI
             retObj = "Game of Life World Grid";
          else if (propertyId == AEI.ControlTypeProperty.Id)
             retObj = ControlType.DataGrid.Id;
-         else if (propertyId == AEI.IsGridPatternAvailableProperty.Id || 
+         else if (propertyId == AEI.IsGridPatternAvailableProperty.Id ||
                   propertyId == AEI.IsControlElementProperty.Id ||
-                  propertyId == AEI.IsSelectionPatternAvailableProperty.Id)
+                  propertyId == AEI.IsContentElementProperty.Id ||
+                  propertyId == AEI.IsSelectionPatternAvailableProperty.Id ||
+                  propertyId == AEI.IsTablePatternAvailableProperty.Id)
             retObj = true;
          else if (propertyId == AEI.ClassNameProperty.Id)
             retObj = "WorldGrid";
