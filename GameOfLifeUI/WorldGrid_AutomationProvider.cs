@@ -21,7 +21,11 @@ namespace GameOfLifeUI
 
       public object GetPatternProvider(int patternId)
       {
-         return patternId == GridPatternIdentifiers.Pattern.Id ? new WorldGridPattern(this) : null;
+         if (patternId == GridPatternIdentifiers.Pattern.Id ||
+             patternId == TablePatternIdentifiers.Pattern.Id ||
+             patternId == SelectionPatternIdentifiers.Pattern.Id)
+            return new WorldGridPattern(this);
+         return null;
       }
 
       public object GetPropertyValue(int propertyId)

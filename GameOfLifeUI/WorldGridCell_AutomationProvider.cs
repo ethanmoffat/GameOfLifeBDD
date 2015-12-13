@@ -22,7 +22,7 @@ namespace GameOfLifeUI
       public object GetPatternProvider(int patternId)
       {
          if (patternId == GridItemPatternIdentifiers.Pattern.Id ||
-             patternId == TogglePatternIdentifiers.Pattern.Id ||
+             patternId == TableItemPatternIdentifiers.Pattern.Id ||
              patternId == SelectionPatternIdentifiers.Pattern.Id)
             return new WorldGridCellPattern(this, _parentGrid);
          return null;
@@ -36,9 +36,12 @@ namespace GameOfLifeUI
             retObj = string.Format("Grid Cell {0}, {1}", Row, Column);
          else if (propertyId == AEI.ControlTypeProperty.Id)
             retObj = ControlType.DataItem.Id;
-         else if (propertyId == AEI.IsGridItemPatternAvailableProperty.Id || 
-                  propertyId == AEI.IsControlElementProperty.Id || 
-                  propertyId == AEI.IsTogglePatternAvailableProperty.Id)
+         else if (propertyId == AEI.IsGridItemPatternAvailableProperty.Id ||
+                  propertyId == AEI.IsTableItemPatternAvailableProperty.Id ||
+                  propertyId == AEI.IsControlElementProperty.Id ||
+                  propertyId == AEI.IsContentElementProperty.Id ||
+                  propertyId == AEI.IsTogglePatternAvailableProperty.Id ||
+                  propertyId == AEI.IsSelectionItemPatternAvailableProperty.Id)
             retObj = true;
          else if (propertyId == AEI.ClassNameProperty.Id)
             retObj = "WorldGridCell";
