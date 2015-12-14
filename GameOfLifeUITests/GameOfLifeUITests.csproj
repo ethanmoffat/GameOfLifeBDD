@@ -71,6 +71,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PastGenerationList.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PastGenerationList.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIWorkflow.feature.cs">
       <AutoGen>True</AutoGen>
@@ -98,6 +103,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="PastGenerationList.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PastGenerationList.feature.cs</LastGenOutput>
+    </None>
     <None Include="UIWorkflow.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UIWorkflow.feature.cs</LastGenOutput>
