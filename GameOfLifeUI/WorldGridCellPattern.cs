@@ -1,8 +1,9 @@
-﻿using System.Windows.Automation.Provider;
+﻿using System.Windows.Automation;
+using System.Windows.Automation.Provider;
 
 namespace GameOfLifeUI
 {
-   public class WorldGridCellPattern : ITableItemProvider, ISelectionItemProvider
+   public class WorldGridCellPattern : ITableItemProvider, ISelectionItemProvider, IToggleProvider
    {
       private readonly WorldGridCell _cell;
       private readonly IRawElementProviderSimple _parentGrid;
@@ -53,5 +54,12 @@ namespace GameOfLifeUI
       {
          return null;
       }
+
+      public void Toggle()
+      {
+         _cell.ToggleActivate();
+      }
+
+      public ToggleState ToggleState { get { return _cell.Activated ? ToggleState.On : ToggleState.Off; } }
    }
 }
