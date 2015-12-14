@@ -68,11 +68,11 @@
     <Compile Include="WorldGridCell.Designer.cs">
       <DependentUpon>WorldGridCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorldGridCellPattern.cs" />
+    <Compile Include="WorldGridCellProvider.cs" />
     <Compile Include="WorldGridCell_AutomationProvider.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WorldGridPattern.cs" />
+    <Compile Include="WorldGridProvider.cs" />
     <Compile Include="WorldGrid_AutomationProvider.cs">
       <SubType>UserControl</SubType>
     </Compile>

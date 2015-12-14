@@ -80,18 +80,20 @@ namespace GameOfLifeUITests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add a cell to the world")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void AddACellToTheWorld()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a cell to the world", ((string[])(null)));
-#line 9
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a cell to the world", new string[] {
+                        "UIOnly"});
+#line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 10
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
-   testRunner.When("I select the cell at 1, 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
+   testRunner.When("I select the cell at 1, 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
    testRunner.Then("the cell should display as \"alive\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -100,18 +102,20 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Remove a cell from the world")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void RemoveACellFromTheWorld()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove a cell from the world", ((string[])(null)));
-#line 14
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove a cell from the world", new string[] {
+                        "UIOnly"});
+#line 16
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 15
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
-   testRunner.When("I select the cell at 1, 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+   testRunner.When("I select the cell at 1, 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
    testRunner.Then("the cell should display as \"dead\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -120,22 +124,24 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes un-editable when running")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void GridBecomesUn_EditableWhenRunning()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when running", ((string[])(null)));
-#line 19
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when running", new string[] {
+                        "UIOnly"});
+#line 22
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 20
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
-     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
-     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-   testRunner.When("I run the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 24
+     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
+   testRunner.When("I run the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
    testRunner.Then("the world should not be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -144,24 +150,26 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable when paused")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void GridBecomesEditableWhenPaused()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable when paused", ((string[])(null)));
-#line 26
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable when paused", new string[] {
+                        "UIOnly"});
+#line 30
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 27
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 28
-     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
-     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
-     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
-   testRunner.When("I pause the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 32
+     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
+     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+   testRunner.When("I pause the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
    testRunner.Then("the world should be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -170,26 +178,28 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes un-editable when resumed")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void GridBecomesUn_EditableWhenResumed()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when resumed", ((string[])(null)));
-#line 34
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when resumed", new string[] {
+                        "UIOnly"});
+#line 39
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 35
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 36
-     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
-     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 38
-     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 39
-     testRunner.And("the simulation has been paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 40
-   testRunner.When("I resume the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 41
+     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
+     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+     testRunner.And("the simulation has been paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
+   testRunner.When("I resume the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 46
    testRunner.Then("the world should not be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -198,28 +208,30 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable and cleared when reset")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void GridBecomesEditableAndClearedWhenReset()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when reset", ((string[])(null)));
-#line 43
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when reset", new string[] {
+                        "UIOnly"});
+#line 49
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 44
-   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 45
-     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 46
-     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 47
-     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
-     testRunner.And("the simulation has been paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 49
-   testRunner.When("I reset the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 50
-   testRunner.Then("the world should be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Given("I have a world with a live cell at 1, 1 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 51
+     testRunner.And("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 52
+     testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 53
+     testRunner.And("the simulation has started", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+     testRunner.And("the simulation has been paused", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
+   testRunner.When("I reset the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 56
+   testRunner.Then("the world should be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 57
     testRunner.And("the world should be reset", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -228,26 +240,28 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable and cleared when all cells die")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
         public virtual void GridBecomesEditableAndClearedWhenAllCellsDie()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when all cells die", ((string[])(null)));
-#line 53
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when all cells die", new string[] {
+                        "UIOnly"});
+#line 60
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 54
+#line 61
    testRunner.Given("I have a world with a live cell at 1, 2 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 55
+#line 62
      testRunner.And("I have a world with a live cell at 1, 3 displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 63
    testRunner.When("I run the simulation in the ui", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 57
+#line 64
     testRunner.And("I let the simulation run", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 58
+#line 65
    testRunner.Then("the simulation should stop when there are no live cells", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 59
+#line 66
     testRunner.And("the world should be editable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 60
+#line 67
     testRunner.And("the world should be reset", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

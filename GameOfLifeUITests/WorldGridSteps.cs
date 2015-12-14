@@ -2,14 +2,13 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using System.Windows;
+using System.Windows.Automation;
 using GameOfLifeUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 using TestStack.White;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.WindowItems;
-using TestStack.White.UIItems.WPFUIItems;
 
 namespace GameOfLifeUITests
 {
@@ -19,9 +18,11 @@ namespace GameOfLifeUITests
       private static Application _app;
       private static Window _window;
 
-      [AfterScenario]
+      [AfterScenario("UIOnly")]
       public static void AfterScenario()
       {
+         UnHookGridStatusChangedEvent();
+
          if (_app != null)
             _app.Kill();
       }
@@ -34,6 +35,8 @@ namespace GameOfLifeUITests
 
          _app = Application.AttachOrLaunch(new ProcessStartInfo(Path.Combine(currentDir, "GameOfLifeUI.exe")));
          _window = _app.GetWindow(MainForm.TITLE_TEXT);
+
+         HookGridStatusChangedEvent();
       }
 
       [Given(@"I have a world with a live cell at (.*), (.*) displayed")]
@@ -106,19 +109,19 @@ namespace GameOfLifeUITests
       [Then(@"the world should not be editable")]
       public void ThenTheWorldShouldNotBeEditable()
       {
-         ScenarioContext.Current.Pending();
+         Assert.IsTrue(ScenarioContext.Current.ContainsKey(WorldGrid.ITEMSTATUS_LOCKED));
       }
 
       [Then(@"the world should be editable")]
       public void ThenTheWorldShouldBeEditable()
       {
-         ScenarioContext.Current.Pending();
+         Assert.IsTrue(ScenarioContext.Current.ContainsKey(WorldGrid.ITEMSTATUS_UNLOCKED));
       }
 
       [Then(@"the world should be reset")]
       public void ThenTheWorldShouldBeReset()
       {
-         ScenarioContext.Current.Pending();
+         Assert.IsTrue(ScenarioContext.Current.ContainsKey(WorldGrid.ITEMSTATUS_RESET));
       }
 
       [Then(@"the simulation should stop when there are no live cells")]
@@ -162,6 +165,40 @@ namespace GameOfLifeUITests
       {
          var pause = _window.Get<Button>("ResetButton");
          pause.Click();
+      }
+
+      private void HookGridStatusChangedEvent()
+      {
+         var grid = _window.Get<ListView>("WorldGrid");
+         Automation.AddAutomationPropertyChangedEventHandler(grid.AutomationElement,
+                                                             TreeScope.Element,
+                                                             OnGridItemStatusChanged,
+                                                             AutomationElementIdentifiers.ItemStatusProperty);
+      }
+
+      private static void UnHookGridStatusChangedEvent()
+      {
+         var grid = _window.Get<ListView>("WorldGrid");
+         //if (grid == null) return;
+         Automation.RemoveAutomationPropertyChangedEventHandler(grid.AutomationElement, OnGridItemStatusChanged);
+      }
+
+      private static void OnGridItemStatusChanged(object sender, AutomationPropertyChangedEventArgs e)
+      {
+         if (e.Property.Id != AutomationElementIdentifiers.ItemStatusProperty.Id) return;
+
+         switch (e.NewValue as string)
+         {
+            case WorldGrid.ITEMSTATUS_LOCKED:
+               ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_LOCKED, null);
+               break;
+            case WorldGrid.ITEMSTATUS_UNLOCKED:
+               ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_UNLOCKED, null);
+               break;
+            case WorldGrid.ITEMSTATUS_RESET:
+               ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_RESET, null);
+               break;
+         }
       }
    }
 }
