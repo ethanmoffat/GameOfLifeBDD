@@ -15,6 +15,9 @@ namespace GameOfLifeUITests
    [Binding]
    public class WorldGridSteps
    {
+      private const string LAST_LOCK_KEY = "LastLock";
+      private const string CHECK_CELL_KEY = "CheckCell";
+
       private static Application _app;
       private static Window _window;
 
@@ -61,7 +64,7 @@ namespace GameOfLifeUITests
       public void WhenISelectTheCellAt(int x, int y)
       {
          ClickCellAt(x, y);
-         ScenarioContext.Current.Add("CheckCell", string.Format("CellAt{0}{1}",y,x));
+         ScenarioContext.Current.Add(CHECK_CELL_KEY, string.Format("CellAt{0}{1}",y,x));
       }
 
       [When(@"I run the simulation in the ui")]
@@ -102,20 +105,20 @@ namespace GameOfLifeUITests
             throw new ArgumentException("Unexpected value for ThenTheCellShouldDisplayAs. Expected \"dead\" or \"alive\".", deadOrAlive);
          bool shouldBeAlive = deadOrAlive.ToLower() == "alive";
 
-         var cell = _window.Get<ListViewRow>(ScenarioContext.Current["CheckCell"] as string);
+         var cell = _window.Get<ListViewRow>(ScenarioContext.Current[CHECK_CELL_KEY] as string);
          Assert.AreEqual(shouldBeAlive, cell.IsSelected);
       }
 
       [Then(@"the world should not be editable")]
       public void ThenTheWorldShouldNotBeEditable()
       {
-         Assert.IsTrue(ScenarioContext.Current.ContainsKey(WorldGrid.ITEMSTATUS_LOCKED));
+         Assert.AreEqual(WorldGrid.ITEMSTATUS_LOCKED, ScenarioContext.Current[LAST_LOCK_KEY]);
       }
 
       [Then(@"the world should be editable")]
       public void ThenTheWorldShouldBeEditable()
       {
-         Assert.IsTrue(ScenarioContext.Current.ContainsKey(WorldGrid.ITEMSTATUS_UNLOCKED));
+         Assert.AreEqual(WorldGrid.ITEMSTATUS_UNLOCKED, ScenarioContext.Current[LAST_LOCK_KEY]);
       }
 
       [Then(@"the world should be reset")]
@@ -127,8 +130,6 @@ namespace GameOfLifeUITests
       [Then(@"the simulation should stop when there are no live cells")]
       public void ThenTheSimulationShouldStopWhenThereAreNoLiveCells()
       {
-         //there should be a better way to check this, instead of observing enabled state
-         //also, it throws an exception when getting a button that is not Visible
          var reset = _window.Get<Button>("ResetButton");
          var run = _window.Get<Button>("RunButton");
          var resume = _window.Get<Button>("ResumeButton");
@@ -189,10 +190,11 @@ namespace GameOfLifeUITests
          switch (e.NewValue as string)
          {
             case WorldGrid.ITEMSTATUS_LOCKED:
-               ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_LOCKED, null);
-               break;
             case WorldGrid.ITEMSTATUS_UNLOCKED:
-               ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_UNLOCKED, null);
+               if (ScenarioContext.Current.ContainsKey(LAST_LOCK_KEY))
+                  ScenarioContext.Current[LAST_LOCK_KEY] = e.NewValue;
+               else
+                  ScenarioContext.Current.Add(LAST_LOCK_KEY, e.NewValue);
                break;
             case WorldGrid.ITEMSTATUS_RESET:
                ScenarioContext.Current.Add(WorldGrid.ITEMSTATUS_RESET, null);
