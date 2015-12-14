@@ -18,16 +18,16 @@ namespace GameOfLifeUITests
       private const string LAST_LOCK_KEY = "LastLock";
       private const string CHECK_CELL_KEY = "CheckCell";
 
-      private static Application _app;
-      private static Window _window;
+      public static Application App { get; private set; }
+      public static Window Window { get; private set; }
 
       [AfterScenario("FunctionalTest")]
       public static void AfterScenario()
       {
          UnHookGridStatusChangedEvent();
 
-         if (_app != null)
-            _app.Kill();
+         if (App != null)
+            App.Kill();
       }
 
       [Given(@"The application has started")]
@@ -36,8 +36,8 @@ namespace GameOfLifeUITests
          //runs at beginning of each scenario
          var currentDir = Directory.GetCurrentDirectory();
 
-         _app = Application.AttachOrLaunch(new ProcessStartInfo(Path.Combine(currentDir, "GameOfLifeUI.exe")));
-         _window = _app.GetWindow(MainForm.TITLE_TEXT);
+         App = Application.AttachOrLaunch(new ProcessStartInfo(Path.Combine(currentDir, "GameOfLifeUI.exe")));
+         Window = App.GetWindow(MainForm.TITLE_TEXT);
 
          HookGridStatusChangedEvent();
       }
@@ -105,7 +105,7 @@ namespace GameOfLifeUITests
             throw new ArgumentException("Unexpected value for ThenTheCellShouldDisplayAs. Expected \"dead\" or \"alive\".", deadOrAlive);
          bool shouldBeAlive = deadOrAlive.ToLower() == "alive";
 
-         var cell = _window.Get<ListViewRow>(ScenarioContext.Current[CHECK_CELL_KEY] as string);
+         var cell = Window.Get<ListViewRow>(ScenarioContext.Current[CHECK_CELL_KEY] as string);
          Assert.AreEqual(shouldBeAlive, cell.IsSelected);
       }
 
@@ -130,9 +130,9 @@ namespace GameOfLifeUITests
       [Then(@"the simulation should stop when there are no live cells")]
       public void ThenTheSimulationShouldStopWhenThereAreNoLiveCells()
       {
-         var reset = _window.Get<Button>("ResetButton");
-         var run = _window.Get<Button>("RunButton");
-         var resume = _window.Get<Button>("ResumeButton");
+         var reset = Window.Get<Button>("ResetButton");
+         var run = Window.Get<Button>("RunButton");
+         var resume = Window.Get<Button>("ResumeButton");
          Assert.IsTrue(reset.Enabled);
          Assert.IsTrue(resume.Enabled);
          Assert.IsFalse(run.Enabled);
@@ -140,37 +140,37 @@ namespace GameOfLifeUITests
 
       private static void ClickCellAt(int x, int y)
       {
-         var cell = _window.Get<ListViewRow>(string.Format("CellAt{0}{1}", y, x));
+         var cell = Window.Get<ListViewRow>(string.Format("CellAt{0}{1}", y, x));
          cell.Select();
       }
 
       private static void RunSimulation()
       {
-         var run = _window.Get<Button>("RunButton");
+         var run = Window.Get<Button>("RunButton");
          run.Click();
       }
 
       private static void PauseSimulation()
       {
-         var pause = _window.Get<Button>("PauseButton");
+         var pause = Window.Get<Button>("PauseButton");
          pause.Click();
       }
 
       private static void ResumeSimulation()
       {
-         var run = _window.Get<Button>("ResumeButton");
+         var run = Window.Get<Button>("ResumeButton");
          run.Click();
       }
 
       private static void ResetSimulation()
       {
-         var pause = _window.Get<Button>("ResetButton");
+         var pause = Window.Get<Button>("ResetButton");
          pause.Click();
       }
 
       private void HookGridStatusChangedEvent()
       {
-         var grid = _window.Get<ListView>("WorldGrid");
+         var grid = Window.Get<ListView>("WorldGrid");
          Automation.AddAutomationPropertyChangedEventHandler(grid.AutomationElement,
                                                              TreeScope.Element,
                                                              OnGridItemStatusChanged,
@@ -179,7 +179,7 @@ namespace GameOfLifeUITests
 
       private static void UnHookGridStatusChangedEvent()
       {
-         var grid = _window.Get<ListView>("WorldGrid");
+         var grid = Window.Get<ListView>("WorldGrid");
          Automation.RemoveAutomationPropertyChangedEventHandler(grid.AutomationElement, OnGridItemStatusChanged);
       }
 
