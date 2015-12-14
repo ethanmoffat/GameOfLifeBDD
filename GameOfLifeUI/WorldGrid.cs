@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Automation;
 using System.Windows.Forms;
 
 namespace GameOfLifeUI
@@ -18,13 +19,18 @@ namespace GameOfLifeUI
       private readonly Dictionary<Point, WorldGridCell> _gridCells;
 
       private readonly Pen _gridPen;
+      private readonly Font _gridFont;
+      private readonly Brush _fontBrush;
       private Size _originalSize;
 
       public event EventHandler<GridClickedEventArgs> GridCellClicked;
+      public event EventHandler GridCellMouseOver;
 
       public WorldGrid()
       {
          InitializeComponent();
+
+         Disposed += OnDisposed;
 
          _originalSize = Size.Empty;
 
@@ -32,6 +38,8 @@ namespace GameOfLifeUI
          SetupGridCells();
 
          _gridPen = new Pen(Color.Black);
+         _gridFont = new Font(FontFamily.GenericSansSerif, 8.5f);
+         _fontBrush = new SolidBrush(Color.Black);
       }
 
       public WorldGridCell this[int row, int col]
@@ -71,18 +79,23 @@ namespace GameOfLifeUI
 
       protected override void OnPaint(PaintEventArgs e)
       {
-         int numX = Width/17;
-         int numY = Height/17;
+         DrawGridLines(e.Graphics);
+
+         base.OnPaint(e);
+      }
+
+      private void DrawGridLines(Graphics g)
+      {
+         int numX = Width / 17;
+         int numY = Height / 17;
 
          for (int row = 0; row <= numY; ++row)
          {
             for (int col = 0; col <= numX; ++col)
             {
-               e.Graphics.DrawRectangle(_gridPen, new Rectangle(col*17, row*17, 17, 17));
+               g.DrawRectangle(_gridPen, new Rectangle(col * 17, row * 17, 17, 17));
             }
          }
-
-         base.OnPaint(e);
       }
 
       protected override void OnParentChanged(EventArgs e)
@@ -126,6 +139,8 @@ namespace GameOfLifeUI
                   Name = string.Format("CellAt{0}{1}",row,col)
                };
                cell.Click += CellOnClick;
+               cell.MouseEnter += CellOnMouseEnter;
+               cell.MouseLeave += CellOnMouseLeave;
                _gridCells.Add(new Point(col, row), cell);
             }
          }
@@ -140,6 +155,29 @@ namespace GameOfLifeUI
          var gridEventArgs = new GridClickedEventArgs(coords, cell);
          if (GridCellClicked != null)
             GridCellClicked(this, gridEventArgs);
+      }
+
+      private void CellOnMouseEnter(object sender, EventArgs e)
+      {
+         var cell = sender as WorldGridCell;
+         if (GridCellMouseOver != null)
+            GridCellMouseOver(cell, EventArgs.Empty);
+      }
+
+      private void CellOnMouseLeave(object sender, EventArgs e)
+      {
+         if (GridCellMouseOver != null)
+            GridCellMouseOver(null, EventArgs.Empty);
+      }
+
+      private void OnDisposed(object sender, EventArgs eventArgs)
+      {
+         if (_gridPen != null)
+            _gridPen.Dispose();
+         if (_gridFont != null)
+            _gridFont.Dispose();
+         if (_fontBrush != null)
+            _fontBrush.Dispose();
       }
    }
 }

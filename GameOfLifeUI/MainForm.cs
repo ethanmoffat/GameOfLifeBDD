@@ -38,6 +38,7 @@ namespace GameOfLifeUI
          InitializeComponent();
 
          WorldGrid.GridCellClicked += WorldGrid_GridCellClicked;
+         WorldGrid.GridCellMouseOver += WorldGrid_GridCellMouseOver;
          GenerationList.Format += GenerationList_Format;
          Disposed += MainForm_Disposed;
       }
@@ -65,7 +66,7 @@ namespace GameOfLifeUI
          base.OnResize(e);
       }
 
-       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+      private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
       {
          if (_simulationStateProvider.CurrentState == SimulationState.Running)
          {
@@ -89,6 +90,12 @@ namespace GameOfLifeUI
             _worldController.SetWorldCellState(new List<WorldPoint>(), new[] {wp});
       }
 
+      private void WorldGrid_GridCellMouseOver(object sender, EventArgs e)
+      {
+         var cell = sender as WorldGridCell;
+         MouseOverCellLabel.Text = cell == null || !cell.Enabled ? "" : string.Format("{0}x{1}", cell.Row, cell.Column);
+      }
+
       private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
       {
          e.Value = string.Format("{0}: {1} Live cells",
@@ -96,7 +103,7 @@ namespace GameOfLifeUI
             ((World)e.ListItem).Cells.Count(x => x.IsAlive));
       }
 
-      private void GoButton_Click(object sender, EventArgs e)
+      private void RunButton_Click(object sender, EventArgs e)
       {
          _simulationController.RunSimulation();
          NextState();

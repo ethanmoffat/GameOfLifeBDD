@@ -179,7 +179,6 @@ namespace GameOfLifeUITests
       private static void UnHookGridStatusChangedEvent()
       {
          var grid = _window.Get<ListView>("WorldGrid");
-         //if (grid == null) return;
          Automation.RemoveAutomationPropertyChangedEventHandler(grid.AutomationElement, OnGridItemStatusChanged);
       }
 

@@ -35,6 +35,7 @@
          this.GenerationList = new System.Windows.Forms.ListBox();
          this.SimulationSpeed = new System.Windows.Forms.TrackBar();
          this.SimulationSpeedLabel = new System.Windows.Forms.Label();
+         this.MouseOverCellLabel = new System.Windows.Forms.Label();
          this.WorldGrid = new GameOfLifeUI.WorldGrid();
          ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).BeginInit();
          this.SuspendLayout();
@@ -48,7 +49,7 @@
          this.RunButton.TabIndex = 1;
          this.RunButton.Text = "Run";
          this.RunButton.UseVisualStyleBackColor = true;
-         this.RunButton.Click += new System.EventHandler(this.GoButton_Click);
+         this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
          // 
          // PauseButton
          // 
@@ -123,6 +124,18 @@
          this.SimulationSpeedLabel.TabIndex = 7;
          this.SimulationSpeedLabel.Text = "300 ms";
          // 
+         // MouseOverCellLabel
+         // 
+         this.MouseOverCellLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+         this.MouseOverCellLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.MouseOverCellLabel.Location = new System.Drawing.Point(12, 305);
+         this.MouseOverCellLabel.Name = "MouseOverCellLabel";
+         this.MouseOverCellLabel.Size = new System.Drawing.Size(290, 14);
+         this.MouseOverCellLabel.TabIndex = 8;
+         this.MouseOverCellLabel.Text = "99x99";
+         this.MouseOverCellLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+         // 
          // WorldGrid
          // 
          this.WorldGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -140,7 +153,8 @@
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.BackColor = System.Drawing.SystemColors.Control;
-         this.ClientSize = new System.Drawing.Size(514, 314);
+         this.ClientSize = new System.Drawing.Size(514, 328);
+         this.Controls.Add(this.MouseOverCellLabel);
          this.Controls.Add(this.SimulationSpeedLabel);
          this.Controls.Add(this.SimulationSpeed);
          this.Controls.Add(this.GenerationList);
@@ -149,6 +163,7 @@
          this.Controls.Add(this.WorldGrid);
          this.Controls.Add(this.PauseButton);
          this.Controls.Add(this.ResumeButton);
+         this.DoubleBuffered = true;
          this.MinimumSize = new System.Drawing.Size(530, 352);
          this.Name = "MainForm";
          this.Text = "[temporary title]";
@@ -170,6 +185,7 @@
       private System.Windows.Forms.ListBox GenerationList;
       private System.Windows.Forms.TrackBar SimulationSpeed;
       private System.Windows.Forms.Label SimulationSpeedLabel;
+      private System.Windows.Forms.Label MouseOverCellLabel;
 
    }
 }

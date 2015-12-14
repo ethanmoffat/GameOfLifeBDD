@@ -12,7 +12,7 @@ namespace GameOfLifeUI
       private readonly Point[] _selectorPoints;
 
       private bool _mouseOver;
-      private bool _editModeLocked;
+      public new bool Enabled { get; private set; }
 
       private readonly SolidBrush _fillBrush;
       private readonly Pen _selectorPen;
@@ -26,6 +26,7 @@ namespace GameOfLifeUI
          _parentGrid = parentGrid;
          Row = row;
          Column = col;
+         EnableEdit();
 
          Disposed += OnDisposed;
 
@@ -60,12 +61,12 @@ namespace GameOfLifeUI
 
       public void DisableEdit()
       {
-         _editModeLocked = true;
+         Enabled = false;
       }
 
       public void EnableEdit()
       {
-         _editModeLocked = false;
+         Enabled = true;
       }
 
       public void ToggleActivate()
@@ -85,7 +86,7 @@ namespace GameOfLifeUI
 
       protected override void OnClick(EventArgs e)
       {
-         if (_editModeLocked)
+         if (!Enabled)
             return;
 
          ToggleActivate();
@@ -128,7 +129,7 @@ namespace GameOfLifeUI
 
       private void DrawSelector(PaintEventArgs e)
       {
-         if (!_mouseOver || _editModeLocked) return;
+         if (!_mouseOver || !Enabled) return;
 
          for (int i = 0; i < _selectorPoints.Length; i += 2)
             e.Graphics.DrawLines(_selectorPen, new[] {_selectorPoints[i], _selectorPoints[i + 1]});
