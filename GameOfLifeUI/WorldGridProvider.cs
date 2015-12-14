@@ -4,11 +4,11 @@ using System.Windows.Automation.Provider;
 
 namespace GameOfLifeUI
 {
-   public class WorldGridPattern : ISelectionProvider, ITableProvider
+   public class WorldGridProvider : ISelectionProvider, ITableProvider
    {
       private readonly WorldGrid _grid;
 
-      public WorldGridPattern(WorldGrid grid)
+      public WorldGridProvider(WorldGrid grid)
       {
          _grid = grid;
       }

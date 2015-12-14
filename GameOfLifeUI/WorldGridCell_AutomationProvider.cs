@@ -25,7 +25,7 @@ namespace GameOfLifeUI
              patternId == TableItemPatternIdentifiers.Pattern.Id ||
              patternId == SelectionItemPatternIdentifiers.Pattern.Id ||
              patternId == TogglePatternIdentifiers.Pattern.Id)
-            return new WorldGridCellPattern(this, _parentGrid);
+            return new WorldGridCellProvider(this, _parentGrid);
          return null;
       }
 

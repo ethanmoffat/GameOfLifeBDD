@@ -8,6 +8,13 @@ namespace GameOfLifeUI
 {
    public partial class WorldGrid : UserControl
    {
+      private enum GridAutomationEventType
+      {
+         LockAllCells,
+         UnlockAllCells,
+         ResetAllCells
+      }
+
       private readonly Dictionary<Point, WorldGridCell> _gridCells;
 
       private readonly Pen _gridPen;
@@ -42,18 +49,24 @@ namespace GameOfLifeUI
       {
          foreach (var gc in _gridCells.Values)
             gc.DisableEdit();
+
+         FireAutomationEvent(GridAutomationEventType.LockAllCells);
       }
 
       public void UnlockAllCells()
       {
          foreach (var gc in _gridCells.Values)
             gc.EnableEdit();
+
+         FireAutomationEvent(GridAutomationEventType.UnlockAllCells);
       }
 
       public void ResetAllCells()
       {
          foreach (var cell in _gridCells.Values.Where(x => x.Activated))
             cell.ToggleActivate();
+
+         FireAutomationEvent(GridAutomationEventType.ResetAllCells);
       }
 
       protected override void OnPaint(PaintEventArgs e)

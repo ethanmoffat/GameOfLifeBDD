@@ -6,9 +6,14 @@ using AEI = System.Windows.Automation.AutomationElementIdentifiers;
 
 namespace GameOfLifeUI
 {
-   //todo: implement events https://msdn.microsoft.com/en-us/library/ms752044(v=vs.110).aspx
+   //documentation for automation: https://msdn.microsoft.com/en-us/library/ms752044(v=vs.110).aspx
    public partial class WorldGrid : IRawElementProviderSimple
    {
+      public const string ITEMSTATUS_LOCKED = "locked";
+      public const string ITEMSTATUS_UNLOCKED = "unlocked";
+      public const string ITEMSTATUS_MODIFIED = "modified";
+      public const string ITEMSTATUS_RESET = "reset";
+
       public ProviderOptions ProviderOptions
       {
          get { return ProviderOptions.ServerSideProvider | ProviderOptions.UseComThreading; }
@@ -24,7 +29,7 @@ namespace GameOfLifeUI
          if (patternId == GridPatternIdentifiers.Pattern.Id ||
              patternId == TablePatternIdentifiers.Pattern.Id ||
              patternId == SelectionPatternIdentifiers.Pattern.Id)
-            return new WorldGridPattern(this);
+            return new WorldGridProvider(this);
          return null;
       }
 
@@ -54,12 +59,35 @@ namespace GameOfLifeUI
 
       protected override void WndProc(ref Message m)
       {
-         if (m.Msg == 0x003D /*WM_GETOBJECT*/&& m.LParam.ToInt32() == AutomationInteropProvider.RootObjectId)
+         /*WM_GETOBJECT*/
+         if (m.Msg == 0x003D && m.LParam.ToInt32() == AutomationInteropProvider.RootObjectId)
          {
             m.Result = AutomationInteropProvider.ReturnRawElementProvider(Handle, m.WParam, m.LParam, this);
             return;
          }
          base.WndProc(ref m);
+      }
+
+      private void FireAutomationEvent(GridAutomationEventType @event)
+      {
+         if (!AutomationInteropProvider.ClientsAreListening) return;
+
+         AutomationPropertyChangedEventArgs args;
+         switch (@event)
+         {
+            case GridAutomationEventType.LockAllCells:
+               args = new AutomationPropertyChangedEventArgs(AEI.ItemStatusProperty, ITEMSTATUS_UNLOCKED, ITEMSTATUS_LOCKED);
+               break;
+            case GridAutomationEventType.UnlockAllCells:
+               args = new AutomationPropertyChangedEventArgs(AEI.ItemStatusProperty, ITEMSTATUS_LOCKED, ITEMSTATUS_UNLOCKED);
+               break;
+            case GridAutomationEventType.ResetAllCells:
+               args = new AutomationPropertyChangedEventArgs(AEI.ItemStatusProperty, ITEMSTATUS_MODIFIED, ITEMSTATUS_RESET);
+               break;
+            default:
+               throw new ArgumentOutOfRangeException("event", @event, null);
+         }
+         AutomationInteropProvider.RaiseAutomationPropertyChangedEvent(this, args);
       }
    }
 }

@@ -3,12 +3,12 @@ using System.Windows.Automation.Provider;
 
 namespace GameOfLifeUI
 {
-   public class WorldGridCellPattern : ITableItemProvider, ISelectionItemProvider, IToggleProvider
+   public class WorldGridCellProvider : ITableItemProvider, ISelectionItemProvider, IToggleProvider
    {
       private readonly WorldGridCell _cell;
       private readonly IRawElementProviderSimple _parentGrid;
 
-      public WorldGridCellPattern(WorldGridCell cell, IRawElementProviderSimple parentGrid)
+      public WorldGridCellProvider(WorldGridCell cell, IRawElementProviderSimple parentGrid)
       {
          _cell = cell;
          _parentGrid = parentGrid;
