@@ -23,7 +23,7 @@ namespace GameOfLifeUI
       {
          if (patternId == GridItemPatternIdentifiers.Pattern.Id ||
              patternId == TableItemPatternIdentifiers.Pattern.Id ||
-             patternId == SelectionPatternIdentifiers.Pattern.Id)
+             patternId == SelectionItemPatternIdentifiers.Pattern.Id)
             return new WorldGridCellPattern(this, _parentGrid);
          return null;
       }
@@ -38,10 +38,9 @@ namespace GameOfLifeUI
             retObj = ControlType.DataItem.Id;
          else if (propertyId == AEI.IsGridItemPatternAvailableProperty.Id ||
                   propertyId == AEI.IsTableItemPatternAvailableProperty.Id ||
+                  propertyId == AEI.IsSelectionItemPatternAvailableProperty.Id ||
                   propertyId == AEI.IsControlElementProperty.Id ||
-                  propertyId == AEI.IsContentElementProperty.Id ||
-                  propertyId == AEI.IsTogglePatternAvailableProperty.Id ||
-                  propertyId == AEI.IsSelectionItemPatternAvailableProperty.Id)
+                  propertyId == AEI.IsContentElementProperty.Id)
             retObj = true;
          else if (propertyId == AEI.ClassNameProperty.Id)
             retObj = "WorldGridCell";
