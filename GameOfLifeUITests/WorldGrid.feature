@@ -6,19 +6,19 @@
 Background:
    Given The application has started
 
-@UIOnly
+@FunctionalTest
 Scenario: Add a cell to the world
    Given I have a world with a live cell at 1, 1 displayed
    When I select the cell at 1, 2
    Then the cell should display as "alive"
    
-@UIOnly
+@FunctionalTest
 Scenario: Remove a cell from the world
    Given I have a world with a live cell at 1, 1 displayed
    When I select the cell at 1, 1
    Then the cell should display as "dead"
    
-@UIOnly
+@FunctionalTest
 Scenario: Grid becomes un-editable when running
    Given I have a world with a live cell at 1, 1 displayed
      And I have a world with a live cell at 1, 2 displayed
@@ -26,7 +26,7 @@ Scenario: Grid becomes un-editable when running
    When I run the simulation in the ui
    Then the world should not be editable
    
-@UIOnly
+@FunctionalTest
 Scenario: Grid becomes editable when paused
    Given I have a world with a live cell at 1, 1 displayed
      And I have a world with a live cell at 1, 2 displayed
@@ -35,7 +35,7 @@ Scenario: Grid becomes editable when paused
    When I pause the simulation in the ui
    Then the world should be editable
    
-@UIOnly
+@FunctionalTest
 Scenario: Grid becomes un-editable when resumed
    Given I have a world with a live cell at 1, 1 displayed
      And I have a world with a live cell at 1, 2 displayed
@@ -45,7 +45,7 @@ Scenario: Grid becomes un-editable when resumed
    When I resume the simulation in the ui
    Then the world should not be editable
    
-@UIOnly
+@FunctionalTest
 Scenario: Grid becomes editable and cleared when reset
    Given I have a world with a live cell at 1, 1 displayed
      And I have a world with a live cell at 1, 2 displayed
@@ -56,7 +56,7 @@ Scenario: Grid becomes editable and cleared when reset
    Then the world should be editable
     And the world should be reset
     
-@UIOnly
+@FunctionalTest
 Scenario: Grid becomes editable and cleared when all cells die
    Given I have a world with a live cell at 1, 2 displayed
      And I have a world with a live cell at 1, 3 displayed

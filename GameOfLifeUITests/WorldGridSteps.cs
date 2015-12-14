@@ -21,7 +21,7 @@ namespace GameOfLifeUITests
       private static Application _app;
       private static Window _window;
 
-      [AfterScenario("UIOnly")]
+      [AfterScenario("FunctionalTest")]
       public static void AfterScenario()
       {
          UnHookGridStatusChangedEvent();

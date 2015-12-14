@@ -80,11 +80,11 @@ namespace GameOfLifeUITests
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add a cell to the world")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void AddACellToTheWorld()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a cell to the world", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -102,11 +102,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Remove a cell from the world")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void RemoveACellFromTheWorld()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove a cell from the world", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 16
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -124,11 +124,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes un-editable when running")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void GridBecomesUn_EditableWhenRunning()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when running", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 22
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -150,11 +150,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable when paused")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void GridBecomesEditableWhenPaused()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable when paused", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 30
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -178,11 +178,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes un-editable when resumed")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void GridBecomesUn_EditableWhenResumed()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes un-editable when resumed", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 39
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -208,11 +208,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable and cleared when reset")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void GridBecomesEditableAndClearedWhenReset()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when reset", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 49
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -240,11 +240,11 @@ this.FeatureBackground();
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grid becomes editable and cleared when all cells die")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldGrid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("UIOnly")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("FunctionalTest")]
         public virtual void GridBecomesEditableAndClearedWhenAllCellsDie()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Grid becomes editable and cleared when all cells die", new string[] {
-                        "UIOnly"});
+                        "FunctionalTest"});
 #line 60
 this.ScenarioSetup(scenarioInfo);
 #line 6
