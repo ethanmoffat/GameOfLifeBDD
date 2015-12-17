@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Automation;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace GameOfLifeUI
@@ -21,6 +21,7 @@ namespace GameOfLifeUI
       private readonly Pen _gridPen;
       private readonly Font _gridFont;
       private readonly Brush _fontBrush;
+      private readonly ManualResetEventSlim _resizing = new ManualResetEventSlim(true);
       private Size _originalSize;
 
       public event EventHandler<GridClickedEventArgs> GridCellClicked;
@@ -44,7 +45,11 @@ namespace GameOfLifeUI
 
       public WorldGridCell this[int row, int col]
       {
-         get { return _gridCells[new Point(col, row)]; }
+         get
+         {
+            _resizing.Wait();
+            return _gridCells[new Point(col, row)];
+         }
          set { _gridCells[new Point(col, row)] = value; }
       }
 
@@ -55,6 +60,7 @@ namespace GameOfLifeUI
 
       public void LockAllCells()
       {
+         _resizing.Wait();
          foreach (var gc in _gridCells.Values)
             gc.DisableEdit();
 
@@ -63,6 +69,7 @@ namespace GameOfLifeUI
 
       public void UnlockAllCells()
       {
+         _resizing.Wait();
          foreach (var gc in _gridCells.Values)
             gc.EnableEdit();
 
@@ -71,6 +78,7 @@ namespace GameOfLifeUI
 
       public void ResetAllCells()
       {
+         _resizing.Wait();
          foreach (var cell in _gridCells.Values.Where(x => x.Activated))
             cell.ToggleActivate();
 
@@ -111,11 +119,13 @@ namespace GameOfLifeUI
       private void Parent_Resize_Begin(object sender, EventArgs e)
       {
          _originalSize = Size;
+         _resizing.Reset();
       }
 
       private void Parent_Resize_End(object sender, EventArgs e)
       {
          SetupGridCells();
+         _resizing.Set();
       }
 
       private void SetupGridCells()
@@ -178,6 +188,8 @@ namespace GameOfLifeUI
             _gridFont.Dispose();
          if (_fontBrush != null)
             _fontBrush.Dispose();
+         if (_resizing != null)
+            _resizing.Dispose();
       }
    }
 }
