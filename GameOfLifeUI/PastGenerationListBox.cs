@@ -13,6 +13,7 @@ namespace GameOfLifeUI
       public const string SELECTEDWORLD_MEMORY_NAME = "SelectedWorld";
       public const string SELECTEDWORLD_MUTEX_NAME = "SelectedWorldMutex";
 
+      private const int SHARED_MEMORY_CAPACITY = 32768;
       private MemoryMappedFile _sharedMemory;
       private Mutex _sharedMemoryMutex;
 
@@ -24,7 +25,7 @@ namespace GameOfLifeUI
 
       public PastGenerationListBox()
       {
-         _sharedMemory = MemoryMappedFile.CreateNew(SELECTEDWORLD_MEMORY_NAME, 8192);
+         _sharedMemory = MemoryMappedFile.CreateNew(SELECTEDWORLD_MEMORY_NAME, SHARED_MEMORY_CAPACITY);
          _sharedMemoryMutex = new Mutex(false, SELECTEDWORLD_MUTEX_NAME);
       }
 
@@ -58,14 +59,13 @@ namespace GameOfLifeUI
          if (!AutomationInteropProvider.ClientsAreListening) return;
 
          var data = WorldSerialize.SerializeWorldToString(world);
+         var bytes = Encoding.ASCII.GetBytes(data);
+         if (bytes.Length > SHARED_MEMORY_CAPACITY - 4)
+            throw new ArgumentOutOfRangeException("world", "Error: the world is too big for the past generation list!");
 
          _sharedMemoryMutex.WaitOne();
-         using (var str = _sharedMemory.CreateViewStream(0, 8192))
+         using (var str = _sharedMemory.CreateViewStream(0, SHARED_MEMORY_CAPACITY))
          {
-            var bytes = Encoding.ASCII.GetBytes(data);
-            if (bytes.Length > 8188)
-               throw new Exception("Error: the world is too big for the past generation list!");
-
             str.Write(BitConverter.GetBytes(bytes.Length), 0, 4);
             str.Write(bytes, 0, bytes.Length);
          }

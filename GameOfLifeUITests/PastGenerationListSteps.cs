@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Automation;
 using GameOfLife;
 using GameOfLifeUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +15,6 @@ namespace GameOfLifeUITests
    [Binding]
    public class PastGenerationListSteps
    {
-      private const string SELECTED_WORLD_KEY = "SelectedWorld";
       private const string GENERATION_LIST_NAME = "GenerationList";
 
       [When(@"I select the past generation list entry for generation (.*)")]
