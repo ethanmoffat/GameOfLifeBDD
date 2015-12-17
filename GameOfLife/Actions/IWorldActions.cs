@@ -1,4 +1,6 @@
-﻿namespace GameOfLife.Actions
+﻿using System.Collections.Generic;
+
+namespace GameOfLife.Actions
 {
    public interface IWorldActions
    {
@@ -11,5 +13,7 @@
       void SetAllCellsDead();
 
       void IncrementWorldGeneration();
+
+      void SetGenerationList(IEnumerable<World> generationList);
    }
 }

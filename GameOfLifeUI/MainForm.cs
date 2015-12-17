@@ -131,7 +131,11 @@ namespace GameOfLifeUI
 
       private void ResetToGenerationMenuItem_Click(object sender, EventArgs e)
       {
-
+         var selectedNdx = GenerationList.SelectedIndex;
+         var newGenerations = _worldProvider.PreviousGenerations.ToList();
+         newGenerations.RemoveRange(selectedNdx + 1, newGenerations.Count - selectedNdx - 1);
+         _worldController.SetGenerations(newGenerations);
+         RefreshGenerationListFromCache();
       }
 
       private void AboutMenuItem_Click(object sender, EventArgs e)
@@ -199,7 +203,7 @@ namespace GameOfLifeUI
          else
             WorldGrid.LockAllCells();
 
-         UpdateGridFromWorld(GenerationList.SelectedItem as World);
+         UpdateGridFromWorld(GenerationList.SelectedItem);
       }
 
       private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
@@ -281,7 +285,7 @@ namespace GameOfLifeUI
          {
             _worldController.CalculateNextGeneration();
             UpdateGridFromWorld(_worldProvider.CurrentWorld);
-            GenerationList.Invoke(new Action(UpdatePastGenerationsList));
+            GenerationList.Invoke(new Action(AddLatestGenerationToGenerationsList));
 
             if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive) &&
                 _worldProvider.PreviousGenerations.Last().Cells.All(x => !x.IsAlive))
@@ -306,11 +310,20 @@ namespace GameOfLifeUI
                WorldGrid[cell.Y, cell.X].ToggleActivate();
       }
 
-      private void UpdatePastGenerationsList()
+      private void AddLatestGenerationToGenerationsList()
       {
          GenerationList.SuspendLayout();
          GenerationList.Items.Add(_worldProvider.PreviousGenerations.Last());
          GenerationList.SelectedItem = _worldProvider.PreviousGenerations.Last();
+         GenerationList.ResumeLayout();
+      }
+
+      private void RefreshGenerationListFromCache()
+      {
+         GenerationList.SuspendLayout();
+         GenerationList.Items.Clear();
+         GenerationList.Items.AddRange(_worldProvider.PreviousGenerations.OfType<object>().ToArray());
+         GenerationList.SelectedIndex = GenerationList.Items.Count - 1;
          GenerationList.ResumeLayout();
       }
 

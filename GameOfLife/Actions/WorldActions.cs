@@ -43,8 +43,15 @@ namespace GameOfLife.Actions
          var newWorld = world.GetNextGeneration();
          _worldRepository.CurrentWorld = newWorld;
 
-         var previousWorlds = new List<World>(_worldRepository.PreviousGenerations) {world};
+         var previousWorlds = new List<World>(_worldRepository.PreviousGenerations) { world };
          _worldRepository.PreviousGenerations = previousWorlds;
+      }
+
+      public void SetGenerationList(IEnumerable<World> generationList)
+      {
+         _worldRepository.PreviousGenerations = generationList as List<World> ?? generationList.ToList();
+         if (_worldRepository.PreviousGenerations.Count > 0)
+            _worldRepository.CurrentWorld = _worldRepository.PreviousGenerations.Last().GetNextGeneration();
       }
    }
 }

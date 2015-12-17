@@ -33,5 +33,10 @@ namespace GameOfLife.Controllers
       {
          _worldActions.IncrementWorldGeneration();
       }
+
+      public void SetGenerations(IEnumerable<World> generationList)
+      {
+         _worldActions.SetGenerationList(generationList);
+      }
    }
 }

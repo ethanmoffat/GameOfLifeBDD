@@ -11,5 +11,7 @@ namespace GameOfLife.Controllers
       void ResetWorldCells();
 
       void CalculateNextGeneration();
+
+      void SetGenerations(IEnumerable<World> generationList);
    }
 }
