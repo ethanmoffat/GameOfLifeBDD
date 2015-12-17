@@ -1,5 +1,13 @@
-﻿using System.Windows.Automation;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.MemoryMappedFiles;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Automation;
 using GameOfLife;
+using GameOfLifeUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 using TestStack.White.UIItems;
@@ -10,38 +18,15 @@ namespace GameOfLifeUITests
    [Binding]
    public class PastGenerationListSteps
    {
+      private const string SELECTED_WORLD_KEY = "SelectedWorld";
       private const string GENERATION_LIST_NAME = "GenerationList";
-      
-      [AfterScenario("FunctionalTest")]
-      public static void AfterScenario()
-      {
-         var list = WorldGridSteps.Window.Get<ListBox>(GENERATION_LIST_NAME);
-         Automation.RemoveAutomationEventHandler(SelectionItemPattern.ElementSelectedEvent,
-                                                 list.AutomationElement,
-                                                 OnGenerationSelected);
-      }
-
-      private static void OnGenerationSelected(object sender, AutomationEventArgs e)
-      {
-         if (e.EventId.Id != SelectionItemPattern.ElementSelectedEvent.Id)
-            return;
-
-         //NOTE: This returns the automation element in sender. How to get the underlying data value???
-         //var world = sender as World;
-      }
 
       [When(@"I select the past generation list entry for generation (.*)")]
       public void WhenISelectThePastGenerationListEntryForGeneration(int generationNumber)
       {
-         //NOTE: Only needed for the OnGenerationSelected event
          var list = WorldGridSteps.Window.Get<ListBox>(GENERATION_LIST_NAME);
-         Automation.AddAutomationEventHandler(SelectionItemPattern.ElementSelectedEvent,
-                                              list.AutomationElement,
-                                              TreeScope.Subtree,
-                                              OnGenerationSelected);
-
-         //var list = WorldGridSteps.Window.Get<ListBox>(GENERATION_LIST_NAME);
-         list.Select(generationNumber);
+         var item = list.Items[generationNumber];
+         item.Click();
       }
 
       [When(@"I select the latest past generation entry")]
@@ -82,13 +67,61 @@ namespace GameOfLifeUITests
       [Then(@"the grid matches the selected past generation list entry")]
       public void ThenTheGridMatchesTheSelectedPastGenerationListEntry()
       {
-         var list = WorldGridSteps.Window.Get<ListBox>(GENERATION_LIST_NAME);
+         var expectedWorld = GetWorldFromMappedMemory();
+
+         var actualCells = GetWorldFromGridDisplay().Cells.ToList();
+         foreach (var expectedCell in expectedWorld.Cells)
+         {
+            Assert.IsNotNull(actualCells.Single(actualCell => actualCell.IsAlive && 
+                                                              actualCell.X == expectedCell.X && 
+                                                              actualCell.Y == expectedCell.Y));
+         }
+      }
+
+      private static World GetWorldFromGridDisplay()
+      {
          var grid = WorldGridSteps.Window.Get<ListView>("WorldGrid");
 
-         ScenarioContext.Current.Pending();
+         var selected = grid.SelectedRows;
+         var activeCells = selected.Select(x =>
+         {
+            var simpleName = x.Name.Replace("Grid Cell ", "")
+                                   .Replace(", ", "x");
+            var coords = simpleName.Split('x')
+                                   .Select(int.Parse)
+                                   .ToArray();
+            return new Cell(coords[0], coords[1], true);
+         }).ToList();
 
-         //TODO: How to compare grid values with data contained in the list box?
-         //var selectedWorld = list.SelectedItem.
+         return new World(activeCells);
+      }
+
+      private static World GetWorldFromMappedMemory()
+      {
+         string str;
+
+         using (var mut = Mutex.OpenExisting(PastGenerationListBox.SELECTEDWORLD_MUTEX_NAME))
+         {
+            mut.WaitOne();
+
+            using (var sharedMem = MemoryMappedFile.OpenExisting(PastGenerationListBox.SELECTEDWORLD_MEMORY_NAME))
+            {
+               using (var stream = sharedMem.CreateViewStream())
+               {
+                  byte[] rawLen = new byte[4];
+                  stream.Read(rawLen, 0, 4);
+                  var len = BitConverter.ToInt32(rawLen, 0);
+
+                  byte[] rawData = new byte[len];
+                  stream.Read(rawData, 0, rawData.Length);
+                  str = Encoding.ASCII.GetString(rawData);
+               }
+            }
+
+            mut.ReleaseMutex();
+         }
+
+         return WorldSerialize.DeserializeWorldFromString(str);
       }
    }
 }

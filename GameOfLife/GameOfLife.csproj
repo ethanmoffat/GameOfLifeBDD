@@ -60,6 +60,7 @@
     <Compile Include="SimulationState.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldPoint.cs" />
+    <Compile Include="WorldSerialize.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -32,7 +32,7 @@
          this.PauseButton = new System.Windows.Forms.Button();
          this.ResetButton = new System.Windows.Forms.Button();
          this.ResumeButton = new System.Windows.Forms.Button();
-         this.GenerationList = new System.Windows.Forms.ListBox();
+         this.GenerationList = new PastGenerationListBox();
          this.SimulationSpeed = new System.Windows.Forms.TrackBar();
          this.SimulationSpeedLabel = new System.Windows.Forms.Label();
          this.MouseOverCellLabel = new System.Windows.Forms.Label();
@@ -182,7 +182,7 @@
       private System.Windows.Forms.Button PauseButton;
       private System.Windows.Forms.Button ResetButton;
       private System.Windows.Forms.Button ResumeButton;
-      private System.Windows.Forms.ListBox GenerationList;
+      private PastGenerationListBox GenerationList;
       private System.Windows.Forms.TrackBar SimulationSpeed;
       private System.Windows.Forms.Label SimulationSpeedLabel;
       private System.Windows.Forms.Label MouseOverCellLabel;
