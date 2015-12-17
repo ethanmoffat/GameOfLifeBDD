@@ -73,8 +73,18 @@ namespace GameOfLifeUI
       {
          if (_simulationStateProvider.CurrentState == SimulationState.Running)
          {
-            _ctSource.Cancel();
-            _worker.Join();
+            var result = MessageBox.Show("Exit while simulation is running?",
+                                         "Exit Confirmation",
+                                         MessageBoxButtons.YesNo,
+                                         MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+               _ctSource.Cancel();
+               _worker.Join();
+            }
+            else if (result == DialogResult.No)
+               e.Cancel = true;
          }
       }
 
@@ -227,6 +237,20 @@ namespace GameOfLifeUI
       {
          var st = _simulationStateProvider.CurrentState;
 
+         UpdateButtonState(st);
+         UpdateMenuItemState(st);
+
+         switch (st)
+         {
+            case SimulationState.Initial: SetInitialState(); break;
+            case SimulationState.Running: SetRunningState(); break;
+            case SimulationState.Paused: SetPausedState(); break;
+            default: throw new ArgumentOutOfRangeException();
+         }
+      }
+
+      private void UpdateButtonState(SimulationState st)
+      {
          RunButton.Enabled = st == SimulationState.Initial;
 
          PauseButton.Enabled = st == SimulationState.Running;
@@ -238,22 +262,32 @@ namespace GameOfLifeUI
          ResetButton.Enabled = st == SimulationState.Paused;
 
          GenerationList.Enabled = st != SimulationState.Running;
+      }
 
-         switch (st)
-         {
-            case SimulationState.Initial: SetInitialState(); break;
-            case SimulationState.Running: SetRunningState(); break;
-            case SimulationState.Paused: SetPausedState(); break;
-            default: throw new ArgumentOutOfRangeException();
-         }
+      private void UpdateMenuItemState(SimulationState st)
+      {
+         OpenMenuItem.Enabled = st != SimulationState.Running;
+         SaveMenuItem.Enabled = st != SimulationState.Running;
+
+         SeedWithPatternMenuItem.Enabled = st != SimulationState.Running;
+         foreach (var item in SeedWithPatternMenuItem.DropDownItems.OfType<ToolStripMenuItem>())
+            item.Enabled = SeedWithPatternMenuItem.Enabled;
+         ClearWorldMenuItem.Enabled = st != SimulationState.Running;
+
+         SimulateFutureMenuItem.Enabled = st == SimulationState.Initial;
+         ResetToGenerationMenuItem.Enabled = st == SimulationState.Paused;
       }
 
       private void SetInitialState()
       {
          _worldController.CreateDefaultWorld();
+
          WorldGrid.ResetAllCells();
          WorldGrid.UnlockAllCells();
+
          GenerationList.Items.Clear();
+
+         UpdateMenuItemState(SimulationState.Initial);
       }
 
       private void SetRunningState()
