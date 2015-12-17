@@ -25,7 +25,7 @@ namespace GameOfLifeUI
 
       public PastGenerationListBox()
       {
-         _sharedMemory = MemoryMappedFile.CreateNew(SELECTEDWORLD_MEMORY_NAME, SHARED_MEMORY_CAPACITY);
+         _sharedMemory = MemoryMappedFile.CreateOrOpen(SELECTEDWORLD_MEMORY_NAME, SHARED_MEMORY_CAPACITY);
          _sharedMemoryMutex = new Mutex(false, SELECTEDWORLD_MUTEX_NAME);
       }
 
