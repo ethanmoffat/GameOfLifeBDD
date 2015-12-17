@@ -43,6 +43,9 @@ namespace GameOfLifeUI
          Disposed += MainForm_Disposed;
       }
 
+
+      #region Form Events
+
       private void MainForm_Load(object sender, EventArgs e)
       {
          Text = TITLE_TEXT;
@@ -81,6 +84,59 @@ namespace GameOfLifeUI
             _ctSource.Dispose();
       }
 
+      #endregion
+
+      #region Form Menu Events
+
+      private void OpenMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void SaveMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void ExitMenuItem_Click(object sender, EventArgs e)
+      {
+         Close();
+      }
+
+      private void GosperGliderPatternMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void RandomPatternMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void ClearWorldMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void SimulateFutureMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void ResetToGenerationMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      private void AboutMenuItem_Click(object sender, EventArgs e)
+      {
+
+      }
+
+      #endregion
+
+      #region Grid Events
+
       private void WorldGrid_GridCellClicked(object sender, GridClickedEventArgs e)
       {
          var wp = new WorldPoint(e.Location.X, e.Location.Y);
@@ -96,12 +152,9 @@ namespace GameOfLifeUI
          MouseOverCellLabel.Text = cell == null || !cell.Enabled ? "" : string.Format("{0}x{1}", cell.Row, cell.Column);
       }
 
-      private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
-      {
-         e.Value = string.Format("{0}: {1} Live cells",
-            GenerationList.Items.Count,
-            ((World)e.ListItem).Cells.Count(x => x.IsAlive));
-      }
+      #endregion
+
+      #region Button Events
 
       private void RunButton_Click(object sender, EventArgs e)
       {
@@ -127,11 +180,38 @@ namespace GameOfLifeUI
          NextState();
       }
 
+      #endregion
+
+      #region Other Control Events
+
+      private void GenerationList_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         if (_simulationStateProvider.CurrentState != SimulationState.Paused) return;
+
+         if (GenerationList.SelectedItem == _worldProvider.PreviousGenerations.Last())
+            WorldGrid.UnlockAllCells();
+         else
+            WorldGrid.LockAllCells();
+
+         UpdateGridFromWorld(GenerationList.SelectedItem as World);
+      }
+
+      private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
+      {
+         e.Value = string.Format("{0}: {1} Live cells",
+            GenerationList.Items.Count,
+            ((World)e.ListItem).Cells.Count(x => x.IsAlive));
+      }
+
       private void SimulationSpeed_Scroll(object sender, EventArgs e)
       {
          SimulationSpeedLabel.Text = string.Format("{0} ms", SimulationSpeed.Value);
          _simSpeedDelay = SimulationSpeed.Value;
       }
+
+      #endregion
+
+      #region State Transitions
 
       private void NextState()
       {
@@ -174,7 +254,7 @@ namespace GameOfLifeUI
             _ctSource.Dispose();
          _ctSource = new CancellationTokenSource();
 
-         _worker = new Thread(_doWork);
+         _worker = new Thread(RunSimulation_ThreadProc);
          _worker.Start(_ctSource.Token);
       }
 
@@ -184,7 +264,11 @@ namespace GameOfLifeUI
          WorldGrid.UnlockAllCells();
       }
 
-      private void _doWork(object param)
+      #endregion
+
+      #region Helper Methods
+
+      private void RunSimulation_ThreadProc(object param)
       {
          var ct = (CancellationToken) param;
          while (!ct.IsCancellationRequested)
@@ -229,16 +313,6 @@ namespace GameOfLifeUI
          return cell.Y >= WorldGrid.GridBounds.Y && cell.Y <= WorldGrid.GridBounds.Height && cell.X >= WorldGrid.GridBounds.X && cell.X <= WorldGrid.GridBounds.Width;
       }
 
-      private void GenerationList_SelectedIndexChanged(object sender, EventArgs e)
-      {
-         if (_simulationStateProvider.CurrentState != SimulationState.Paused) return;
-
-         if (GenerationList.SelectedItem == _worldProvider.PreviousGenerations.Last())
-            WorldGrid.UnlockAllCells();
-         else
-            WorldGrid.LockAllCells();
-
-         UpdateGridFromWorld(GenerationList.SelectedItem as World);
-      }
+      #endregion
    }
 }
