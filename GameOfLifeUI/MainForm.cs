@@ -105,17 +105,23 @@ namespace GameOfLifeUI
 
       private void GosperGliderPatternMenuItem_Click(object sender, EventArgs e)
       {
-
+         _worldController.ResetWorldCells();
+         _worldController.SetWorldCellState(CommonSeedPatterns.GosperGliderGun, new List<WorldPoint>());
+         UpdateGridFromWorld(_worldProvider.CurrentWorld);
       }
 
       private void RandomPatternMenuItem_Click(object sender, EventArgs e)
       {
-
+         var randomPattern = CommonSeedPatterns.GetRandomPattern(WorldGrid.GridBounds.Height, WorldGrid.GridBounds.Width);
+         _worldController.ResetWorldCells();
+         _worldController.SetWorldCellState(randomPattern, new List<WorldPoint>());
+         UpdateGridFromWorld(_worldProvider.CurrentWorld);
       }
 
       private void ClearWorldMenuItem_Click(object sender, EventArgs e)
       {
-
+         _worldController.ResetWorldCells();
+         UpdateGridFromWorld(_worldProvider.CurrentWorld);
       }
 
       private void SimulateFutureMenuItem_Click(object sender, EventArgs e)

@@ -48,6 +48,7 @@
     <Compile Include="Actions\SimulationActions.cs" />
     <Compile Include="Actions\WorldActions.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="CommonSeedPatterns.cs" />
     <Compile Include="Controllers\ISimulationController.cs" />
     <Compile Include="Controllers\IWorldController.cs" />
     <Compile Include="Controllers\SimulationController.cs" />
