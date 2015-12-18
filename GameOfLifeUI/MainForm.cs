@@ -97,7 +97,7 @@ namespace GameOfLifeUI
                _ctSource.Cancel();
                _worker.Join();
             }
-            else if (result == DialogResult.No)
+            else
                e.Cancel = true;
          }
       }
