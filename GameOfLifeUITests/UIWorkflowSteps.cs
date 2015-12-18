@@ -20,6 +20,7 @@ namespace GameOfLifeUITests
 
       private static IWorldController _worldController;
       private static IWorldActions _worldActions;
+      private static Mock<IWorldPersistenceService> _worldPersistenceService;
       private static Mock<IWorldRepository> _worldRepository;
 
       [BeforeFeature]
@@ -30,11 +31,13 @@ namespace GameOfLifeUITests
          _simulationRepository = new Mock<ISimulationStateRepository>();
          _simulationRepository.SetupAllProperties();
 
+         _worldPersistenceService = new Mock<IWorldPersistenceService>();
+
          _worldActions = new WorldActions(_worldRepository.Object);
          _simulationActions = new SimulationActions(_simulationRepository.Object);
 
          _simulationController = new SimulationController(_simulationActions);
-         _worldController = new WorldController(_worldActions);
+         _worldController = new WorldController(_worldActions, _worldPersistenceService.Object);
       }
 
       [Given(@"The simulation is not running")]

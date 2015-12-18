@@ -55,6 +55,7 @@ namespace GameOfLifeUI
          Text = TITLE_TEXT;
          _windowState = WindowState;
          SetInitialState();
+         _simulationController.SetSimulationDelay(300);
       }
 
       protected override void OnResize(EventArgs e)
@@ -120,19 +121,17 @@ namespace GameOfLifeUI
          var result = OpenFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
-            World w;
             try
             {
-               w = WorldSerialize.DeserializeWorldFromString(File.ReadAllText(OpenFile.FileName));
+               var errorCode = _worldController.OpenWorld(OpenFile.FileName, FileVersion.PlainText);
+               ShowErrorDialog(errorCode);
             }
             catch(Exception ex)
             {
-               ShowExceptionDialogIO(ex, "read");
+               ShowPersistenceExceptionDialog(ex, "read");
                return;
             }
 
-            _worldController.ResetWorldCells();
-            _worldController.SetWorldCellState(w.Cells.Select(cell => new WorldPoint(cell.X, cell.Y)), new List<WorldPoint>());
             UpdateGridFromWorld(_worldProvider.CurrentWorld);
          }
       }
@@ -142,18 +141,18 @@ namespace GameOfLifeUI
          SaveFile.FileName = FILENAME_WORLD;
          SaveFile.Filter = FILTER_WORLD;
 
-         var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
          var result = SaveFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
             try
             {
-               var text = WorldSerialize.SerializeWorldToString(worldToSave);
-               File.WriteAllText(SaveFile.FileName, text);
+               var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
+               var errorCode = _worldController.SaveWorld(SaveFile.FileName, FileVersion.PlainText, worldToSave);
+               ShowErrorDialog(errorCode, true);
             }
             catch (Exception ex)
             {
-               ShowExceptionDialogIO(ex, "write");
+               ShowPersistenceExceptionDialog(ex, "write");
             }
          }
       }
@@ -190,7 +189,7 @@ namespace GameOfLifeUI
             }
             catch (Exception ex)
             {
-               ShowExceptionDialogIO(ex, "read");
+               ShowPersistenceExceptionDialog(ex, "read");
                return;
             }
 
@@ -222,7 +221,7 @@ namespace GameOfLifeUI
             }
             catch (Exception ex)
             {
-               ShowExceptionDialogIO(ex, "write");
+               ShowPersistenceExceptionDialog(ex, "write");
             }
          }
       }
@@ -337,9 +336,7 @@ namespace GameOfLifeUI
 
       private void GenerationList_Format(object sender, ListControlConvertEventArgs e)
       {
-         e.Value = string.Format("{0}: {1} Live cells",
-            GenerationList.Items.Count,
-            ((World)e.ListItem).Cells.Count(x => x.IsAlive));
+         e.Value = string.Format("{0}: {1} Live cells", GenerationList.Items.Count, ((World) e.ListItem).Cells.Count(x => x.IsAlive));
       }
 
       private void SimulationSpeed_Scroll(object sender, EventArgs e)
@@ -361,10 +358,17 @@ namespace GameOfLifeUI
 
          switch (st)
          {
-            case SimulationState.Initial: SetInitialState(); break;
-            case SimulationState.Running: SetRunningState(); break;
-            case SimulationState.Paused: SetPausedState(); break;
-            default: throw new ArgumentOutOfRangeException();
+            case SimulationState.Initial:
+               SetInitialState();
+               break;
+            case SimulationState.Running:
+               SetRunningState();
+               break;
+            case SimulationState.Paused:
+               SetPausedState();
+               break;
+            default:
+               throw new ArgumentOutOfRangeException();
          }
       }
 
@@ -440,8 +444,7 @@ namespace GameOfLifeUI
             UpdateGridFromWorld(_worldProvider.CurrentWorld);
             GenerationList.Invoke(new Action(AddLatestGenerationToGenerationsList));
 
-            if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive) &&
-                _worldProvider.PreviousGenerations.Last().Cells.All(x => !x.IsAlive))
+            if (_worldProvider.CurrentWorld.Cells.All(x => !x.IsAlive) && _worldProvider.PreviousGenerations.Last().Cells.All(x => !x.IsAlive))
             {
                _simulationController.PauseSimulation();
                Invoke(new Action(NextState));
@@ -490,12 +493,50 @@ namespace GameOfLifeUI
          return cell.Y >= WorldGrid.GridBounds.Y && cell.Y <= WorldGrid.GridBounds.Height && cell.X >= WorldGrid.GridBounds.X && cell.X <= WorldGrid.GridBounds.Width;
       }
 
-      private static void ShowExceptionDialogIO(Exception ex, string type)
+      private static void ShowPersistenceExceptionDialog(Exception ex, string type)
       {
-         MessageBox.Show(string.Format("Unable to {1} the specified file: \n\n\"{0}\"", ex.Message, type),
-            "Error opening file",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error);
+         MessageBox.Show(string.Format("Unable to {1} the specified file: \n\n\"{0}\"", ex.Message, type), 
+                         "Error opening file",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Error);
+      }
+
+      private void ShowErrorDialog(FileError errorCode, bool isSave = false)
+      {
+         if (errorCode == FileError.None) return;
+
+         string msgFmt = "There was an error {0}ing the world file:\n\n\"{1}\"";
+         string error;
+         switch (errorCode)
+         {
+            case FileError.FileDoesNotExist:
+               error = "The specified file does not exist";
+               break;
+            case FileError.InvalidVersion:
+               error = "An invalid file version was specified";
+               break;
+            case FileError.FileIsReadOnly:
+               error = "The selected file is read-only";
+               break;
+            case FileError.FileIsDirectory:
+               error = "The selected file is a directory";
+               break;
+            case FileError.InvalidFileName:
+               error = "The file name is invalid";
+               break;
+            case FileError.InvalidDirectory:
+               error = "The specified directory is invalid";
+               break;
+            case FileError.UnspecifiedIOError:
+               error = string.Format("File contents could not be {0} properly", isSave ? "saved" : "opened");
+               break;
+            default:
+               error = "???";
+               break;
+         }
+
+         var message = string.Format(msgFmt, isSave ? "sav" : "load", error);
+         MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
 
       #endregion

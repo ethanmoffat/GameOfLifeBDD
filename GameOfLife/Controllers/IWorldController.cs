@@ -13,5 +13,9 @@ namespace GameOfLife.Controllers
       void CalculateNextGeneration();
 
       void SetGenerations(IEnumerable<World> generationList);
+
+      FileError OpenWorld(string fileName, FileVersion version);
+
+      FileError SaveWorld(string fileName, FileVersion version, World world);
    }
 }

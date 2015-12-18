@@ -14,9 +14,11 @@ namespace GameOfLifeUI
       [STAThread]
       static void Main()
       {
+         //This is kind of like an IOC container, but without the IOC container
          var worldRepository = new WorldRepository();
+         var worldPersistenceService = new WorldPersistenceService();
          var worldActions = new WorldActions(worldRepository);
-         var worldController = new WorldController(worldActions);
+         var worldController = new WorldController(worldActions, worldPersistenceService);
          var simulationRepo = new SimulationStateRepository();
          var simulationActions = new SimulationActions(simulationRepo);
          var simulationController = new SimulationController(simulationActions);
