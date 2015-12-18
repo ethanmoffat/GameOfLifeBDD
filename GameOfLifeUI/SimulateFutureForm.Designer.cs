@@ -60,7 +60,7 @@
          this.Cancel.Location = new System.Drawing.Point(135, 41);
          this.Cancel.Name = "Cancel";
          this.Cancel.Size = new System.Drawing.Size(75, 23);
-         this.Cancel.TabIndex = 2;
+         this.Cancel.TabIndex = 3;
          this.Cancel.Text = "Cancel";
          this.Cancel.UseVisualStyleBackColor = true;
          this.Cancel.Click += new System.EventHandler(this.CancelButton_Click);
@@ -71,7 +71,7 @@
          this.Group.Location = new System.Drawing.Point(12, 12);
          this.Group.Name = "Group";
          this.Group.Size = new System.Drawing.Size(116, 52);
-         this.Group.TabIndex = 3;
+         this.Group.TabIndex = 0;
          this.Group.TabStop = false;
          this.Group.Text = "# Of Generations";
          // 
@@ -80,6 +80,7 @@
          this.ProgressBar.Location = new System.Drawing.Point(12, 70);
          this.ProgressBar.Name = "ProgressBar";
          this.ProgressBar.Size = new System.Drawing.Size(198, 23);
+         this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
          this.ProgressBar.TabIndex = 4;
          // 
          // StopCalculation
@@ -87,7 +88,7 @@
          this.StopCalculation.Location = new System.Drawing.Point(135, 12);
          this.StopCalculation.Name = "StopCalculation";
          this.StopCalculation.Size = new System.Drawing.Size(75, 23);
-         this.StopCalculation.TabIndex = 5;
+         this.StopCalculation.TabIndex = 2;
          this.StopCalculation.Text = "Stop";
          this.StopCalculation.UseVisualStyleBackColor = true;
          this.StopCalculation.Visible = false;
@@ -110,7 +111,6 @@
          this.MinimizeBox = false;
          this.Name = "SimulateFutureForm";
          this.ShowIcon = false;
-         this.ShowInTaskbar = false;
          this.Text = "Simulate Future Generation";
          this.Group.ResumeLayout(false);
          this.Group.PerformLayout();

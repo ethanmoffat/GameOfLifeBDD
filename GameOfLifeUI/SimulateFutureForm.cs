@@ -80,7 +80,6 @@ namespace GameOfLifeUI
 
       private void _doWork(int generations, CancellationToken ct)
       {
-         InvokeIfNeeded(ProgressBar, () => ProgressBar.Minimum = 0);
          InvokeIfNeeded(ProgressBar, () => ProgressBar.Maximum = generations);
          InvokeIfNeeded(ProgressBar, () => ProgressBar.Value = 0);
 
