@@ -115,8 +115,8 @@
          this.SimulationSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.SimulationSpeed.LargeChange = 100;
          this.SimulationSpeed.Location = new System.Drawing.Point(359, 322);
-         this.SimulationSpeed.Maximum = 2000;
-         this.SimulationSpeed.Minimum = 100;
+         this.SimulationSpeed.Maximum = 1000;
+         this.SimulationSpeed.Minimum = 25;
          this.SimulationSpeed.Name = "SimulationSpeed";
          this.SimulationSpeed.Size = new System.Drawing.Size(155, 45);
          this.SimulationSpeed.SmallChange = 25;
