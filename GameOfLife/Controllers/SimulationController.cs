@@ -30,5 +30,10 @@ namespace GameOfLife.Controllers
       {
          _simulationActions.SetSimulationState(SimulationState.Initial);
       }
+
+      public void SetSimulationDelay(int delay)
+      {
+         _simulationActions.SetDelay(delay);
+      }
    }
 }

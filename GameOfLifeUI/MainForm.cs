@@ -27,8 +27,6 @@ namespace GameOfLifeUI
       private readonly IWorldProvider _worldProvider;
       private readonly ISimulationStateProvider _simulationStateProvider;
 
-      private volatile int _simSpeedDelay = 300;
-
       private FormWindowState _windowState;
 
       public MainForm(IWorldController worldController,
@@ -174,7 +172,7 @@ namespace GameOfLifeUI
                {
                   if (tr.ReadLine() != "[Speed]")
                      throw new Exception("Bad file format");
-                  _simSpeedDelay = Convert.ToInt32(tr.ReadLine());
+                  int simSpeedDelay = Convert.ToInt32(tr.ReadLine());
                   if (tr.ReadLine() != "[CurrentWorld]")
                      throw new Exception("Bad file format");
                   var currentWorld = WorldSerialize.DeserializeWorldFromString(tr.ReadLine());
@@ -184,6 +182,7 @@ namespace GameOfLifeUI
                   while (!tr.EndOfStream)
                      generations.Add(WorldSerialize.DeserializeWorldFromString(tr.ReadLine()));
 
+                  _simulationController.SetSimulationDelay(simSpeedDelay);
                   _worldController.ResetWorldCells();
                   _worldController.SetWorldCellState(currentWorld.Cells.Select(cell => new WorldPoint(cell.X, cell.Y)), new List<WorldPoint>());
                   _worldController.SetGenerations(generations);
@@ -195,7 +194,7 @@ namespace GameOfLifeUI
                return;
             }
 
-            SimulationSpeed.Value = _simSpeedDelay;
+            SimulationSpeed.Value = _simulationStateProvider.SimulationDelay;
             UpdateSimulationSpeedLabelFromValue();
             UpdateGridFromWorld(_worldProvider.CurrentWorld);
             RefreshGenerationListFromCache();
@@ -211,7 +210,7 @@ namespace GameOfLifeUI
          if (result == DialogResult.OK)
          {
             var fullText = "[Speed]\n";
-            fullText += _simSpeedDelay + "\n";
+            fullText += _simulationStateProvider.SimulationDelay + "\n";
             fullText += "[CurrentWorld]\n";
             fullText += WorldSerialize.SerializeWorldToString(_worldProvider.CurrentWorld) + "\n";
             fullText += "[PastGenerations]\n";
@@ -345,7 +344,7 @@ namespace GameOfLifeUI
 
       private void SimulationSpeed_Scroll(object sender, EventArgs e)
       {
-         _simSpeedDelay = SimulationSpeed.Value;
+         _simulationController.SetSimulationDelay(SimulationSpeed.Value);
          UpdateSimulationSpeedLabelFromValue();
       }
 
@@ -449,7 +448,7 @@ namespace GameOfLifeUI
                break;
             }
 
-            Thread.Sleep(_simSpeedDelay);
+            Thread.Sleep(_simulationStateProvider.SimulationDelay);
          }
       }
 
@@ -483,7 +482,7 @@ namespace GameOfLifeUI
 
       private void UpdateSimulationSpeedLabelFromValue()
       {
-         SimulationSpeedLabel.Text = string.Format("{0} ms", _simSpeedDelay);
+         SimulationSpeedLabel.Text = string.Format("{0} ms", _simulationStateProvider.SimulationDelay);
       }
 
       private bool IsInDisplayGridBounds(Cell cell)

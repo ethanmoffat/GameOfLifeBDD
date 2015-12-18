@@ -9,5 +9,7 @@
       void ResumeSimulation();
 
       void ResetSimulation();
+
+      void SetSimulationDelay(int delay);
    }
 }

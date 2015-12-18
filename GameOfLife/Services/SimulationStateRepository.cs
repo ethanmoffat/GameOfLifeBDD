@@ -5,5 +5,7 @@
                                             ISimulationStateUpdater
    {
       public SimulationState CurrentState { get; set; }
+
+      public int SimulationDelay { get; set; }
    }
 }

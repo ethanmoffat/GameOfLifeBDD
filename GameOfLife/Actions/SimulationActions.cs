@@ -20,6 +20,11 @@ namespace GameOfLife.Actions
          _simulationStateRepository.CurrentState = state;
       }
 
+      public void SetDelay(int delay)
+      {
+         _simulationStateRepository.SimulationDelay = delay;
+      }
+
       private bool ValidateState(SimulationState nextState)
       {
          var current = _simulationStateRepository.CurrentState;
