@@ -114,11 +114,11 @@
          // 
          this.SimulationSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.SimulationSpeed.LargeChange = 100;
-         this.SimulationSpeed.Location = new System.Drawing.Point(359, 322);
+         this.SimulationSpeed.Location = new System.Drawing.Point(355, 312);
          this.SimulationSpeed.Maximum = 1000;
          this.SimulationSpeed.Minimum = 25;
          this.SimulationSpeed.Name = "SimulationSpeed";
-         this.SimulationSpeed.Size = new System.Drawing.Size(155, 45);
+         this.SimulationSpeed.Size = new System.Drawing.Size(147, 45);
          this.SimulationSpeed.SmallChange = 25;
          this.SimulationSpeed.TabIndex = 6;
          this.SimulationSpeed.TickStyle = System.Windows.Forms.TickStyle.None;
@@ -129,7 +129,7 @@
          // 
          this.SimulationSpeedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.SimulationSpeedLabel.AutoSize = true;
-         this.SimulationSpeedLabel.Location = new System.Drawing.Point(313, 325);
+         this.SimulationSpeedLabel.Location = new System.Drawing.Point(308, 316);
          this.SimulationSpeedLabel.Name = "SimulationSpeedLabel";
          this.SimulationSpeedLabel.Size = new System.Drawing.Size(41, 13);
          this.SimulationSpeedLabel.TabIndex = 7;
@@ -318,7 +318,7 @@
          this.GenerationList.Location = new System.Drawing.Point(307, 55);
          this.GenerationList.Name = "GenerationList";
          this.GenerationList.SelectedItem = null;
-         this.GenerationList.Size = new System.Drawing.Size(195, 264);
+         this.GenerationList.Size = new System.Drawing.Size(195, 251);
          this.GenerationList.TabIndex = 5;
          this.GenerationList.SelectedIndexChanged += new System.EventHandler(this.GenerationList_SelectedIndexChanged);
          // 
