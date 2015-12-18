@@ -158,6 +158,16 @@ namespace GameOfLifeUI
          }
       }
 
+      private void OpenSessionMenuItem_Click(object sender, EventArgs e)
+      {
+         //todo: need to open a session file
+      }
+
+      private void SaveSessionMenuItem_Click(object sender, EventArgs e)
+      {
+         //todo: need to save a session. All past generations, current world, simulation speed and state
+      }
+
       private void ExitMenuItem_Click(object sender, EventArgs e)
       {
          Close();
@@ -186,7 +196,7 @@ namespace GameOfLifeUI
 
       private void SimulateFutureMenuItem_Click(object sender, EventArgs e)
       {
-
+         //todo: need to track progress of calculation somehow. New form required.
       }
 
       private void ResetToGenerationMenuItem_Click(object sender, EventArgs e)
@@ -200,7 +210,7 @@ namespace GameOfLifeUI
 
       private void AboutMenuItem_Click(object sender, EventArgs e)
       {
-
+         //todo: need to create about box. New form probably required (might be able to get away with message box)
       }
 
       #endregion

@@ -39,7 +39,7 @@
          this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.FileMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
+         this.FileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
          this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.WorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SeedWithPatternMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,9 @@
          this.SaveFile = new System.Windows.Forms.SaveFileDialog();
          this.GenerationList = new GameOfLifeUI.PastGenerationListBox();
          this.WorldGrid = new GameOfLifeUI.WorldGrid();
+         this.SaveSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.FileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+         this.OpenSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).BeginInit();
          this.Menu.SuspendLayout();
          this.SuspendLayout();
@@ -161,7 +164,10 @@
          this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenMenuItem,
             this.SaveMenuItem,
-            this.FileMenuSeparator,
+            this.FileMenuSeparator1,
+            this.OpenSessionMenuItem,
+            this.SaveSessionMenuItem,
+            this.FileMenuSeparator2,
             this.ExitMenuItem});
          this.FileMenuItem.Name = "FileMenuItem";
          this.FileMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -181,10 +187,10 @@
          this.SaveMenuItem.Text = "Save Selected Generation...";
          this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
          // 
-         // FileMenuSeparator
+         // FileMenuSeparator2
          // 
-         this.FileMenuSeparator.Name = "FileMenuSeparator";
-         this.FileMenuSeparator.Size = new System.Drawing.Size(212, 6);
+         this.FileMenuSeparator2.Name = "FileMenuSeparator2";
+         this.FileMenuSeparator2.Size = new System.Drawing.Size(212, 6);
          // 
          // ExitMenuItem
          // 
@@ -266,7 +272,7 @@
          // AboutMenuItem
          // 
          this.AboutMenuItem.Name = "AboutMenuItem";
-         this.AboutMenuItem.Size = new System.Drawing.Size(107, 22);
+         this.AboutMenuItem.Size = new System.Drawing.Size(152, 22);
          this.AboutMenuItem.Text = "About";
          this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
          // 
@@ -308,6 +314,25 @@
          this.WorldGrid.Name = "WorldGrid";
          this.WorldGrid.Size = new System.Drawing.Size(290, 290);
          this.WorldGrid.TabIndex = 0;
+         // 
+         // SaveSessionMenuItem
+         // 
+         this.SaveSessionMenuItem.Name = "SaveSessionMenuItem";
+         this.SaveSessionMenuItem.Size = new System.Drawing.Size(215, 22);
+         this.SaveSessionMenuItem.Text = "Save Session...";
+         this.SaveSessionMenuItem.Click += new System.EventHandler(this.SaveSessionMenuItem_Click);
+         // 
+         // FileMenuSeparator1
+         // 
+         this.FileMenuSeparator1.Name = "FileMenuSeparator1";
+         this.FileMenuSeparator1.Size = new System.Drawing.Size(212, 6);
+         // 
+         // OpenSessionMenuItem
+         // 
+         this.OpenSessionMenuItem.Name = "OpenSessionMenuItem";
+         this.OpenSessionMenuItem.Size = new System.Drawing.Size(215, 22);
+         this.OpenSessionMenuItem.Text = "Open Session...";
+         this.OpenSessionMenuItem.Click += new System.EventHandler(this.OpenSessionMenuItem_Click);
          // 
          // MainForm
          // 
@@ -355,7 +380,7 @@
       private System.Windows.Forms.ToolStripMenuItem FileMenuItem;
       private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
       private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
-      private System.Windows.Forms.ToolStripSeparator FileMenuSeparator;
+      private System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
       private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
       private System.Windows.Forms.ToolStripMenuItem WorldMenuItem;
       private System.Windows.Forms.ToolStripMenuItem SeedWithPatternMenuItem;
@@ -369,6 +394,9 @@
       private System.Windows.Forms.ToolStripMenuItem RandomPatternMenuItem;
       private System.Windows.Forms.OpenFileDialog OpenFile;
       private System.Windows.Forms.SaveFileDialog SaveFile;
+      private System.Windows.Forms.ToolStripSeparator FileMenuSeparator1;
+      private System.Windows.Forms.ToolStripMenuItem OpenSessionMenuItem;
+      private System.Windows.Forms.ToolStripMenuItem SaveSessionMenuItem;
 
    }
 }
