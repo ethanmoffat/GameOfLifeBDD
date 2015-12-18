@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -55,7 +56,8 @@ namespace GameOfLifeUI
 
       protected override void OnResize(EventArgs e)
       {
-          //hack that allows the grid to be resized on the maximize event
+         //hack that allows the grid to be resized on the maximize event
+         //Calls OnResizeEnd when Maximize happens (which triggers event in grid)
          if (_windowState != WindowState)
          {
             _windowState = WindowState;
@@ -63,10 +65,19 @@ namespace GameOfLifeUI
             {
                base.OnResize(e);
                OnResizeEnd(e);
-               return;
             }
          }
+
          base.OnResize(e);
+      }
+
+      protected override void OnResizeEnd(EventArgs e)
+      {
+         base.OnResizeEnd(e); //call grid's resize first or we get a deadlock
+
+         //update grid from world after resize
+         if (_simulationStateProvider.CurrentState != SimulationState.Running)
+            UpdateGridFromWorld(_worldProvider.CurrentWorld);
       }
 
       private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -100,12 +111,51 @@ namespace GameOfLifeUI
 
       private void OpenMenuItem_Click(object sender, EventArgs e)
       {
+         var result = OpenFile.ShowDialog(this);
+         if (result == DialogResult.OK)
+         {
+            World w;
+            try
+            {
+               w = WorldSerialize.DeserializeWorldFromString(File.ReadAllText(OpenFile.FileName));
+            }
+            catch(Exception ex)
+            {
+               ShowExceptionDialogIO(ex, "read");
+               return;
+            }
 
+            _worldController.ResetWorldCells();
+            _worldController.SetWorldCellState(w.Cells.Select(cell => new WorldPoint(cell.X, cell.Y)), new List<WorldPoint>());
+            UpdateGridFromWorld(_worldProvider.CurrentWorld);
+         }
+      }
+
+      private static void ShowExceptionDialogIO(Exception ex, string type)
+      {
+         MessageBox.Show(string.Format("Unable to {1} the specified file: \n\n\"{0}\"", ex.Message, type),
+            "Error opening file",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
       }
 
       private void SaveMenuItem_Click(object sender, EventArgs e)
       {
+         var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
 
+         var result = SaveFile.ShowDialog(this);
+         if (result == DialogResult.OK)
+         {
+            try
+            {
+               var text = WorldSerialize.SerializeWorldToString(worldToSave);
+               File.WriteAllText(SaveFile.FileName, text);
+            }
+            catch (Exception ex)
+            {
+               ShowExceptionDialogIO(ex, "write");
+            }
+         }
       }
 
       private void ExitMenuItem_Click(object sender, EventArgs e)

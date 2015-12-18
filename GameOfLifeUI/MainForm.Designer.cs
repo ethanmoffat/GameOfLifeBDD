@@ -37,22 +37,24 @@
          this.MouseOverCellLabel = new System.Windows.Forms.Label();
          this.Menu = new System.Windows.Forms.MenuStrip();
          this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.WorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.FileMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
          this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.WorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SeedWithPatternMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.GosperGliderPatternMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.RandomPatternMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.ClearWorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SimulationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SimulateFutureMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.ClearWorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.ResetToGenerationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.HelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.OpenFile = new System.Windows.Forms.OpenFileDialog();
+         this.SaveFile = new System.Windows.Forms.SaveFileDialog();
          this.GenerationList = new GameOfLifeUI.PastGenerationListBox();
          this.WorldGrid = new GameOfLifeUI.WorldGrid();
-         this.RandomPatternMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).BeginInit();
          this.Menu.SuspendLayout();
          this.SuspendLayout();
@@ -165,30 +167,6 @@
          this.FileMenuItem.Size = new System.Drawing.Size(37, 20);
          this.FileMenuItem.Text = "File";
          // 
-         // WorldMenuItem
-         // 
-         this.WorldMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SeedWithPatternMenuItem,
-            this.ClearWorldMenuItem});
-         this.WorldMenuItem.Name = "WorldMenuItem";
-         this.WorldMenuItem.Size = new System.Drawing.Size(51, 20);
-         this.WorldMenuItem.Text = "World";
-         // 
-         // HelpMenuItem
-         // 
-         this.HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AboutMenuItem});
-         this.HelpMenuItem.Name = "HelpMenuItem";
-         this.HelpMenuItem.Size = new System.Drawing.Size(44, 20);
-         this.HelpMenuItem.Text = "Help";
-         // 
-         // AboutMenuItem
-         // 
-         this.AboutMenuItem.Name = "AboutMenuItem";
-         this.AboutMenuItem.Size = new System.Drawing.Size(152, 22);
-         this.AboutMenuItem.Text = "About";
-         this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
-         // 
          // OpenMenuItem
          // 
          this.OpenMenuItem.Name = "OpenMenuItem";
@@ -215,6 +193,15 @@
          this.ExitMenuItem.Text = "Exit";
          this.ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
          // 
+         // WorldMenuItem
+         // 
+         this.WorldMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SeedWithPatternMenuItem,
+            this.ClearWorldMenuItem});
+         this.WorldMenuItem.Name = "WorldMenuItem";
+         this.WorldMenuItem.Size = new System.Drawing.Size(51, 20);
+         this.WorldMenuItem.Text = "World";
+         // 
          // SeedWithPatternMenuItem
          // 
          this.SeedWithPatternMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -230,6 +217,20 @@
          this.GosperGliderPatternMenuItem.Size = new System.Drawing.Size(170, 22);
          this.GosperGliderPatternMenuItem.Text = "Gosper Glider Gun";
          this.GosperGliderPatternMenuItem.Click += new System.EventHandler(this.GosperGliderPatternMenuItem_Click);
+         // 
+         // RandomPatternMenuItem
+         // 
+         this.RandomPatternMenuItem.Name = "RandomPatternMenuItem";
+         this.RandomPatternMenuItem.Size = new System.Drawing.Size(170, 22);
+         this.RandomPatternMenuItem.Text = "Random";
+         this.RandomPatternMenuItem.Click += new System.EventHandler(this.RandomPatternMenuItem_Click);
+         // 
+         // ClearWorldMenuItem
+         // 
+         this.ClearWorldMenuItem.Name = "ClearWorldMenuItem";
+         this.ClearWorldMenuItem.Size = new System.Drawing.Size(166, 22);
+         this.ClearWorldMenuItem.Text = "Clear All Cells";
+         this.ClearWorldMenuItem.Click += new System.EventHandler(this.ClearWorldMenuItem_Click);
          // 
          // SimulationMenuItem
          // 
@@ -247,19 +248,42 @@
          this.SimulateFutureMenuItem.Text = "Simulate Future...";
          this.SimulateFutureMenuItem.Click += new System.EventHandler(this.SimulateFutureMenuItem_Click);
          // 
-         // ClearWorldMenuItem
-         // 
-         this.ClearWorldMenuItem.Name = "ClearWorldMenuItem";
-         this.ClearWorldMenuItem.Size = new System.Drawing.Size(166, 22);
-         this.ClearWorldMenuItem.Text = "Clear All Cells";
-         this.ClearWorldMenuItem.Click += new System.EventHandler(this.ClearWorldMenuItem_Click);
-         // 
          // ResetToGenerationMenuItem
          // 
          this.ResetToGenerationMenuItem.Name = "ResetToGenerationMenuItem";
          this.ResetToGenerationMenuItem.Size = new System.Drawing.Size(224, 22);
          this.ResetToGenerationMenuItem.Text = "Reset to Selected Generation";
          this.ResetToGenerationMenuItem.Click += new System.EventHandler(this.ResetToGenerationMenuItem_Click);
+         // 
+         // HelpMenuItem
+         // 
+         this.HelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutMenuItem});
+         this.HelpMenuItem.Name = "HelpMenuItem";
+         this.HelpMenuItem.Size = new System.Drawing.Size(44, 20);
+         this.HelpMenuItem.Text = "Help";
+         // 
+         // AboutMenuItem
+         // 
+         this.AboutMenuItem.Name = "AboutMenuItem";
+         this.AboutMenuItem.Size = new System.Drawing.Size(107, 22);
+         this.AboutMenuItem.Text = "About";
+         this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+         // 
+         // OpenFile
+         // 
+         this.OpenFile.DefaultExt = "gol";
+         this.OpenFile.FileName = "seed.gol";
+         this.OpenFile.Filter = "Game of Life Seed Files|*.gol|All Files|*.*";
+         this.OpenFile.SupportMultiDottedExtensions = true;
+         // 
+         // SaveFile
+         // 
+         this.SaveFile.DefaultExt = "gol";
+         this.SaveFile.FileName = "seed.gol";
+         this.SaveFile.Filter = "Game of Life Seed Files|*.gol|All Files|*.*";
+         this.SaveFile.SupportMultiDottedExtensions = true;
+         this.SaveFile.Title = "Save Generation to File";
          // 
          // GenerationList
          // 
@@ -284,13 +308,6 @@
          this.WorldGrid.Name = "WorldGrid";
          this.WorldGrid.Size = new System.Drawing.Size(290, 290);
          this.WorldGrid.TabIndex = 0;
-         // 
-         // RandomPatternMenuItem
-         // 
-         this.RandomPatternMenuItem.Name = "RandomPatternMenuItem";
-         this.RandomPatternMenuItem.Size = new System.Drawing.Size(170, 22);
-         this.RandomPatternMenuItem.Text = "Random";
-         this.RandomPatternMenuItem.Click += new System.EventHandler(this.RandomPatternMenuItem_Click);
          // 
          // MainForm
          // 
@@ -350,6 +367,8 @@
       private System.Windows.Forms.ToolStripMenuItem ClearWorldMenuItem;
       private System.Windows.Forms.ToolStripMenuItem ResetToGenerationMenuItem;
       private System.Windows.Forms.ToolStripMenuItem RandomPatternMenuItem;
+      private System.Windows.Forms.OpenFileDialog OpenFile;
+      private System.Windows.Forms.SaveFileDialog SaveFile;
 
    }
 }
