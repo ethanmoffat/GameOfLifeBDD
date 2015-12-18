@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Windows.Forms;
 using GameOfLife;
@@ -254,7 +255,25 @@ namespace GameOfLifeUI
 
       private void SimulateFutureMenuItem_Click(object sender, EventArgs e)
       {
-         //todo: need to track progress of calculation somehow. New form required.
+         using (var simulateForm = new SimulateFutureForm(_worldProvider.CurrentWorld))
+         {
+            var dr = simulateForm.ShowDialog();
+            if (dr == DialogResult.Cancel) return;
+
+            _worldController.SetGenerations(simulateForm.CalculatedGenerations);
+            RefreshGenerationListFromCache();
+
+            var newLiveCells = simulateForm.CalculatedWorld.Cells.Where(x => x.IsAlive)
+                                                           .Select(cell => new WorldPoint(cell.X, cell.Y));
+            _worldController.ResetWorldCells();
+            _worldController.SetWorldCellState(newLiveCells, new List<WorldPoint>());
+            UpdateGridFromWorld(_worldProvider.CurrentWorld);
+
+            _simulationController.RunSimulation();
+            _simulationController.PauseSimulation();
+            _ctSource = new CancellationTokenSource();
+            NextState();
+         }
       }
 
       private void ResetToGenerationMenuItem_Click(object sender, EventArgs e)
@@ -283,6 +302,10 @@ namespace GameOfLifeUI
             _worldController.SetWorldCellState(new[] {wp}, new List<WorldPoint>());
          else
             _worldController.SetWorldCellState(new List<WorldPoint>(), new[] {wp});
+
+         //require an enabled cell in order to simulate into the future
+         SimulateFutureMenuItem.Enabled = _simulationStateProvider.CurrentState == SimulationState.Initial &&
+                                          !_worldProvider.CurrentWorld.Cells.Any(x => x.IsAlive);
       }
 
       private void WorldGrid_GridCellMouseOver(object sender, EventArgs e)
