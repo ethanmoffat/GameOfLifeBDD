@@ -305,7 +305,7 @@ namespace GameOfLifeUI
 
          //require an enabled cell in order to simulate into the future
          SimulateFutureMenuItem.Enabled = _simulationStateProvider.CurrentState == SimulationState.Initial &&
-                                          !_worldProvider.CurrentWorld.Cells.Any(x => x.IsAlive);
+                                          _worldProvider.CurrentWorld.Cells.Any(x => x.IsAlive);
       }
 
       private void WorldGrid_GridCellMouseOver(object sender, EventArgs e)
