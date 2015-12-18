@@ -268,7 +268,8 @@ namespace GameOfLifeUI
 
       private void AboutMenuItem_Click(object sender, EventArgs e)
       {
-         //todo: need to create about box. New form probably required (might be able to get away with message box)
+         using (var frm = new AboutForm())
+            frm.ShowDialog(this);
       }
 
       #endregion
