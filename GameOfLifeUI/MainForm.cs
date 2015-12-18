@@ -13,6 +13,9 @@ namespace GameOfLifeUI
    public partial class MainForm : Form
    {
       public const string TITLE_TEXT = "Game of Life Simulation";
+      
+      private const string FILTER_WORLD = "Game of Life Seed Files|*.gol|All Files|*.*";
+      private const string FILTER_SESSION = "Game of Life Session Files|*.gols|All Files|*.*";
 
       private Thread _worker;
       private CancellationTokenSource _ctSource;
@@ -111,6 +114,7 @@ namespace GameOfLifeUI
 
       private void OpenMenuItem_Click(object sender, EventArgs e)
       {
+         OpenFile.Filter = FILTER_WORLD;
          var result = OpenFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
@@ -131,18 +135,11 @@ namespace GameOfLifeUI
          }
       }
 
-      private static void ShowExceptionDialogIO(Exception ex, string type)
-      {
-         MessageBox.Show(string.Format("Unable to {1} the specified file: \n\n\"{0}\"", ex.Message, type),
-            "Error opening file",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error);
-      }
-
       private void SaveMenuItem_Click(object sender, EventArgs e)
       {
          var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
 
+         SaveFile.Filter = FILTER_WORLD;
          var result = SaveFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
@@ -160,12 +157,65 @@ namespace GameOfLifeUI
 
       private void OpenSessionMenuItem_Click(object sender, EventArgs e)
       {
-         //todo: need to open a session file
+         OpenFile.Filter = FILTER_SESSION;
+         var result = OpenFile.ShowDialog(this);
+         if (result == DialogResult.OK)
+         {
+            try
+            {
+               using (var tr = new StreamReader(OpenFile.FileName))
+               {
+                  if (tr.ReadLine() != "[Speed]")
+                     throw new Exception("Bad file format");
+                  _simSpeedDelay = Convert.ToInt32(tr.ReadLine());
+                  if (tr.ReadLine() != "[CurrentWorld]")
+                     throw new Exception("Bad file format");
+                  var currentWorld = WorldSerialize.DeserializeWorldFromString(tr.ReadLine());
+                  if (tr.ReadLine() != "[PastGenerations]")
+                     throw new Exception("Bad file format");
+                  var generations = new List<World>();
+                  while (!tr.EndOfStream)
+                     generations.Add(WorldSerialize.DeserializeWorldFromString(tr.ReadLine()));
+
+                  _worldController.ResetWorldCells();
+                  _worldController.SetWorldCellState(currentWorld.Cells.Select(cell => new WorldPoint(cell.X, cell.Y)), new List<WorldPoint>());
+                  _worldController.SetGenerations(generations);
+               }
+            }
+            catch (Exception ex)
+            {
+               ShowExceptionDialogIO(ex, "read");
+               return;
+            }
+
+            UpdateGridFromWorld(_worldProvider.CurrentWorld);
+            RefreshGenerationListFromCache();
+         }
       }
 
       private void SaveSessionMenuItem_Click(object sender, EventArgs e)
       {
-         //todo: need to save a session. All past generations, current world, simulation speed and state
+         SaveFile.Filter = FILTER_SESSION;
+
+         var result = SaveFile.ShowDialog(this);
+         if (result == DialogResult.OK)
+         {
+            var fullText = "[Speed]\n";
+            fullText += _simSpeedDelay + "\n";
+            fullText += "[CurrentWorld]\n";
+            fullText += WorldSerialize.SerializeWorldToString(_worldProvider.CurrentWorld) + "\n";
+            fullText += "[PastGenerations]\n";
+            fullText = _worldProvider.PreviousGenerations.Aggregate(fullText, (current, world) => current + (WorldSerialize.SerializeWorldToString(world) + "\n"));
+
+            try
+            {
+               File.WriteAllText(SaveFile.FileName, fullText);
+            }
+            catch (Exception ex)
+            {
+               ShowExceptionDialogIO(ex, "write");
+            }
+         }
       }
 
       private void ExitMenuItem_Click(object sender, EventArgs e)
@@ -424,6 +474,14 @@ namespace GameOfLifeUI
       private bool IsInDisplayGridBounds(Cell cell)
       {
          return cell.Y >= WorldGrid.GridBounds.Y && cell.Y <= WorldGrid.GridBounds.Height && cell.X >= WorldGrid.GridBounds.X && cell.X <= WorldGrid.GridBounds.Width;
+      }
+
+      private static void ShowExceptionDialogIO(Exception ex, string type)
+      {
+         MessageBox.Show(string.Format("Unable to {1} the specified file: \n\n\"{0}\"", ex.Message, type),
+            "Error opening file",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
       }
 
       #endregion

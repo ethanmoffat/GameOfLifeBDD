@@ -35,10 +35,13 @@
          this.SimulationSpeed = new System.Windows.Forms.TrackBar();
          this.SimulationSpeedLabel = new System.Windows.Forms.Label();
          this.MouseOverCellLabel = new System.Windows.Forms.Label();
-         this.Menu = new System.Windows.Forms.MenuStrip();
+         this.MenuStrip = new System.Windows.Forms.MenuStrip();
          this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.FileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+         this.OpenSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+         this.SaveSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.FileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
          this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          this.WorldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,11 +58,8 @@
          this.SaveFile = new System.Windows.Forms.SaveFileDialog();
          this.GenerationList = new GameOfLifeUI.PastGenerationListBox();
          this.WorldGrid = new GameOfLifeUI.WorldGrid();
-         this.SaveSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-         this.FileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-         this.OpenSessionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
          ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).BeginInit();
-         this.Menu.SuspendLayout();
+         this.MenuStrip.SuspendLayout();
          this.SuspendLayout();
          // 
          // RunButton
@@ -147,17 +147,17 @@
          this.MouseOverCellLabel.Text = "99x99";
          this.MouseOverCellLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          // 
-         // Menu
+         // MenuStrip
          // 
-         this.Menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+         this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileMenuItem,
             this.WorldMenuItem,
             this.SimulationMenuItem,
             this.HelpMenuItem});
-         this.Menu.Location = new System.Drawing.Point(0, 0);
-         this.Menu.Name = "Menu";
-         this.Menu.Size = new System.Drawing.Size(514, 24);
-         this.Menu.TabIndex = 9;
+         this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+         this.MenuStrip.Name = "MenuStrip";
+         this.MenuStrip.Size = new System.Drawing.Size(514, 24);
+         this.MenuStrip.TabIndex = 9;
          // 
          // FileMenuItem
          // 
@@ -186,6 +186,25 @@
          this.SaveMenuItem.Size = new System.Drawing.Size(215, 22);
          this.SaveMenuItem.Text = "Save Selected Generation...";
          this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
+         // 
+         // FileMenuSeparator1
+         // 
+         this.FileMenuSeparator1.Name = "FileMenuSeparator1";
+         this.FileMenuSeparator1.Size = new System.Drawing.Size(212, 6);
+         // 
+         // OpenSessionMenuItem
+         // 
+         this.OpenSessionMenuItem.Name = "OpenSessionMenuItem";
+         this.OpenSessionMenuItem.Size = new System.Drawing.Size(215, 22);
+         this.OpenSessionMenuItem.Text = "Open Session...";
+         this.OpenSessionMenuItem.Click += new System.EventHandler(this.OpenSessionMenuItem_Click);
+         // 
+         // SaveSessionMenuItem
+         // 
+         this.SaveSessionMenuItem.Name = "SaveSessionMenuItem";
+         this.SaveSessionMenuItem.Size = new System.Drawing.Size(215, 22);
+         this.SaveSessionMenuItem.Text = "Save Session...";
+         this.SaveSessionMenuItem.Click += new System.EventHandler(this.SaveSessionMenuItem_Click);
          // 
          // FileMenuSeparator2
          // 
@@ -272,7 +291,7 @@
          // AboutMenuItem
          // 
          this.AboutMenuItem.Name = "AboutMenuItem";
-         this.AboutMenuItem.Size = new System.Drawing.Size(152, 22);
+         this.AboutMenuItem.Size = new System.Drawing.Size(107, 22);
          this.AboutMenuItem.Text = "About";
          this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
          // 
@@ -315,25 +334,6 @@
          this.WorldGrid.Size = new System.Drawing.Size(290, 290);
          this.WorldGrid.TabIndex = 0;
          // 
-         // SaveSessionMenuItem
-         // 
-         this.SaveSessionMenuItem.Name = "SaveSessionMenuItem";
-         this.SaveSessionMenuItem.Size = new System.Drawing.Size(215, 22);
-         this.SaveSessionMenuItem.Text = "Save Session...";
-         this.SaveSessionMenuItem.Click += new System.EventHandler(this.SaveSessionMenuItem_Click);
-         // 
-         // FileMenuSeparator1
-         // 
-         this.FileMenuSeparator1.Name = "FileMenuSeparator1";
-         this.FileMenuSeparator1.Size = new System.Drawing.Size(212, 6);
-         // 
-         // OpenSessionMenuItem
-         // 
-         this.OpenSessionMenuItem.Name = "OpenSessionMenuItem";
-         this.OpenSessionMenuItem.Size = new System.Drawing.Size(215, 22);
-         this.OpenSessionMenuItem.Text = "Open Session...";
-         this.OpenSessionMenuItem.Click += new System.EventHandler(this.OpenSessionMenuItem_Click);
-         // 
          // MainForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,18 +348,18 @@
          this.Controls.Add(this.RunButton);
          this.Controls.Add(this.WorldGrid);
          this.Controls.Add(this.ResumeButton);
-         this.Controls.Add(this.Menu);
+         this.Controls.Add(this.MenuStrip);
          this.Controls.Add(this.PauseButton);
          this.DoubleBuffered = true;
-         this.MainMenuStrip = this.Menu;
+         this.MainMenuStrip = this.MenuStrip;
          this.MinimumSize = new System.Drawing.Size(530, 352);
          this.Name = "MainForm";
          this.Text = "[temporary title]";
          this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
          this.Load += new System.EventHandler(this.MainForm_Load);
          ((System.ComponentModel.ISupportInitialize)(this.SimulationSpeed)).EndInit();
-         this.Menu.ResumeLayout(false);
-         this.Menu.PerformLayout();
+         this.MenuStrip.ResumeLayout(false);
+         this.MenuStrip.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -376,7 +376,7 @@
       private System.Windows.Forms.TrackBar SimulationSpeed;
       private System.Windows.Forms.Label SimulationSpeedLabel;
       private System.Windows.Forms.Label MouseOverCellLabel;
-      private System.Windows.Forms.MenuStrip Menu;
+      private System.Windows.Forms.MenuStrip MenuStrip;
       private System.Windows.Forms.ToolStripMenuItem FileMenuItem;
       private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
       private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
