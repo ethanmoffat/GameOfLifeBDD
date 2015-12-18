@@ -391,6 +391,8 @@ namespace GameOfLifeUI
       {
          OpenMenuItem.Enabled = st != SimulationState.Running;
          SaveMenuItem.Enabled = st != SimulationState.Running;
+         OpenSessionMenuItem.Enabled = st != SimulationState.Running;
+         SaveSessionMenuItem.Enabled = st != SimulationState.Running;
 
          SeedWithPatternMenuItem.Enabled = st != SimulationState.Running;
          foreach (var item in SeedWithPatternMenuItem.DropDownItems.OfType<ToolStripMenuItem>())
