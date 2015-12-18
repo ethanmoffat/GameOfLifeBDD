@@ -13,7 +13,9 @@ namespace GameOfLifeUI
    public partial class MainForm : Form
    {
       public const string TITLE_TEXT = "Game of Life Simulation";
-      
+
+      private const string FILENAME_WORLD = "seed.gol";
+      private const string FILENAME_SESSION = "session.gols";
       private const string FILTER_WORLD = "Game of Life Seed Files|*.gol|All Files|*.*";
       private const string FILTER_SESSION = "Game of Life Session Files|*.gols|All Files|*.*";
 
@@ -114,7 +116,9 @@ namespace GameOfLifeUI
 
       private void OpenMenuItem_Click(object sender, EventArgs e)
       {
+         OpenFile.FileName = FILENAME_WORLD;
          OpenFile.Filter = FILTER_WORLD;
+
          var result = OpenFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
@@ -137,9 +141,10 @@ namespace GameOfLifeUI
 
       private void SaveMenuItem_Click(object sender, EventArgs e)
       {
-         var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
-
+         SaveFile.FileName = FILENAME_WORLD;
          SaveFile.Filter = FILTER_WORLD;
+
+         var worldToSave = GenerationList.SelectedItem ?? _worldProvider.CurrentWorld;
          var result = SaveFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
@@ -157,7 +162,9 @@ namespace GameOfLifeUI
 
       private void OpenSessionMenuItem_Click(object sender, EventArgs e)
       {
+         OpenFile.FileName = FILENAME_SESSION;
          OpenFile.Filter = FILTER_SESSION;
+
          var result = OpenFile.ShowDialog(this);
          if (result == DialogResult.OK)
          {
@@ -188,6 +195,8 @@ namespace GameOfLifeUI
                return;
             }
 
+            SimulationSpeed.Value = _simSpeedDelay;
+            UpdateSimulationSpeedLabelFromValue();
             UpdateGridFromWorld(_worldProvider.CurrentWorld);
             RefreshGenerationListFromCache();
          }
@@ -195,6 +204,7 @@ namespace GameOfLifeUI
 
       private void SaveSessionMenuItem_Click(object sender, EventArgs e)
       {
+         SaveFile.FileName = FILENAME_SESSION;
          SaveFile.Filter = FILTER_SESSION;
 
          var result = SaveFile.ShowDialog(this);
@@ -335,8 +345,8 @@ namespace GameOfLifeUI
 
       private void SimulationSpeed_Scroll(object sender, EventArgs e)
       {
-         SimulationSpeedLabel.Text = string.Format("{0} ms", SimulationSpeed.Value);
          _simSpeedDelay = SimulationSpeed.Value;
+         UpdateSimulationSpeedLabelFromValue();
       }
 
       #endregion
@@ -469,6 +479,11 @@ namespace GameOfLifeUI
          GenerationList.Items.AddRange(_worldProvider.PreviousGenerations.OfType<object>().ToArray());
          GenerationList.SelectedIndex = GenerationList.Items.Count - 1;
          GenerationList.ResumeLayout();
+      }
+
+      private void UpdateSimulationSpeedLabelFromValue()
+      {
+         SimulationSpeedLabel.Text = string.Format("{0} ms", _simSpeedDelay);
       }
 
       private bool IsInDisplayGridBounds(Cell cell)
