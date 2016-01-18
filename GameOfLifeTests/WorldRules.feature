@@ -4,49 +4,36 @@
    I want to know the rules of the world
 
 #Background example: Statement executed for each scenario defined below
-#Background:
-#   Given a world with a live cell
+Background:
+   Given a world with a live cell
 
 Scenario: Live cells die due to underpopulation
-   Given a world with a live cell
-   And the cell has less than 2 live neighbors
+   Given the cell has less than 2 live neighbors
    When I get the next generation of the world
    Then the cell should be dead
 
-Scenario: Live cells with 2 neighbors live on to next generation
-   Given a world with a live cell
-   And the cell has 2 live neighbors
-   When I get the next generation of the world
-   Then the cell should be alive
-
-Scenario: Live cells with 3 neighbors live on to next generation
-   Given a world with a live cell
-   And the cell has 3 live neighbors
-   When I get the next generation of the world
-   Then the cell should be alive
-
-Scenario: Live cells die due to overpopulation
-   Given a world with a live cell
-   And the cell has greater than 3 live neighbors
+Scenario Outline: Live cells die due to underpopulation (outline)
+   Given the cell has <numberOfLiveNeighbors> live neighbors
    When I get the next generation of the world
    Then the cell should be dead
 
-Scenario: Dead cells come back to life
-   Given a world with a dead cell
-   And the cell has 3 live neighbors
+   Examples:
+   | numberOfLiveNeighbors |
+   | 0                     |
+   | 1                     |
+
+Scenario Outline: Live cells with 2 or 3 neighbors live on to next generation
+   Given the cell has <numberOfLiveNeighbors> live neighbors
    When I get the next generation of the world
    Then the cell should be alive
 
-Scenario: Dead cells stay dead
-   Given a world with a dead cell
-   And the dead cell does not have exactly 3 live neighbors
-   When I get the next generation of the world
-   Then the cell should be dead
+   Examples:
+   | numberOfLiveNeighbors |
+   | 2                     |
+   | 3                     |
 
-#Scenario Outline example for "Live cells die due to overpopulation"
-Scenario Outline: Too Many Neighbors Dies
-   Given a world with a live cell
-   And the cell has <numberOfLiveNeighbors> live neighbors
+Scenario Outline: Live cells die due to overpopulation
+   Given the cell has <numberOfLiveNeighbors> live neighbors
    When I get the next generation of the world
    Then the cell should be dead
 
@@ -54,4 +41,29 @@ Scenario Outline: Too Many Neighbors Dies
    | numberOfLiveNeighbors |
    | 4                     |
    | 5                     |
+   | 6                     |
+   | 7                     |
+   | 8                     |
+
+Scenario: Dead cells come back to life
+   Given a world with a dead cell
+   And the cell has 3 live neighbors
+   When I get the next generation of the world
+   Then the cell should be alive
+
+Scenario Outline: Dead cells stay dead
+   Given a world with a dead cell
+   And the cell has <numberOfLiveNeighbors> live neighbors
+   When I get the next generation of the world
+   Then the cell should be dead
+
+   Examples: 
+   | numberOfLiveNeighbors |
+   | 0                     |
+   | 1                     |
+   | 2                     |
+   | 4                     |
+   | 5                     |
+   | 6                     |
+   | 7                     |
    | 8                     |

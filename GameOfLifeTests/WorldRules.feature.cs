@@ -69,6 +69,14 @@ namespace GameOfLifeTests
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 7
+#line 8
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to underpopulation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
@@ -77,54 +85,105 @@ namespace GameOfLifeTests
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to underpopulation", ((string[])(null)));
 #line 10
 this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
 #line 11
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("the cell has less than 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
-   testRunner.And("the cell has less than 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
    testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
+#line 13
+   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        public virtual void LiveCellsDieDueToUnderpopulationOutline(string numberOfLiveNeighbors, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to underpopulation (outline)", exampleTags);
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 16
+   testRunner.Given(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 17
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
    testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells with 2 neighbors live on to next generation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to underpopulation (outline)")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
-        public virtual void LiveCellsWith2NeighborsLiveOnToNextGeneration()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "0")]
+        public virtual void LiveCellsDieDueToUnderpopulationOutline_0()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells with 2 neighbors live on to next generation", ((string[])(null)));
-#line 16
+            this.LiveCellsDieDueToUnderpopulationOutline("0", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to underpopulation (outline)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "1")]
+        public virtual void LiveCellsDieDueToUnderpopulationOutline_1()
+        {
+            this.LiveCellsDieDueToUnderpopulationOutline("1", ((string[])(null)));
+        }
+        
+        public virtual void LiveCellsWith2Or3NeighborsLiveOnToNextGeneration(string numberOfLiveNeighbors, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells with 2 or 3 neighbors live on to next generation", exampleTags);
+#line 25
 this.ScenarioSetup(scenarioInfo);
-#line 17
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
-   testRunner.And("the cell has 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
+#line 7
+this.FeatureBackground();
+#line 26
+   testRunner.Given(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
    testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
+#line 28
    testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells with 3 neighbors live on to next generation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells with 2 or 3 neighbors live on to next generation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
-        public virtual void LiveCellsWith3NeighborsLiveOnToNextGeneration()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "2")]
+        public virtual void LiveCellsWith2Or3NeighborsLiveOnToNextGeneration_2()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells with 3 neighbors live on to next generation", ((string[])(null)));
-#line 22
+            this.LiveCellsWith2Or3NeighborsLiveOnToNextGeneration("2", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells with 2 or 3 neighbors live on to next generation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "3")]
+        public virtual void LiveCellsWith2Or3NeighborsLiveOnToNextGeneration_3()
+        {
+            this.LiveCellsWith2Or3NeighborsLiveOnToNextGeneration("3", ((string[])(null)));
+        }
+        
+        public virtual void LiveCellsDieDueToOverpopulation(string numberOfLiveNeighbors, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to overpopulation", exampleTags);
+#line 35
 this.ScenarioSetup(scenarioInfo);
-#line 23
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
-   testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 25
+#line 7
+this.FeatureBackground();
+#line 36
+   testRunner.Given(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 37
    testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 26
-   testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
+   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -132,21 +191,51 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to overpopulation")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
-        public virtual void LiveCellsDieDueToOverpopulation()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "4")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "4")]
+        public virtual void LiveCellsDieDueToOverpopulation_4()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to overpopulation", ((string[])(null)));
-#line 28
-this.ScenarioSetup(scenarioInfo);
-#line 29
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 30
-   testRunner.And("the cell has greater than 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 31
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 32
-   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
+            this.LiveCellsDieDueToOverpopulation("4", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to overpopulation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "5")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "5")]
+        public virtual void LiveCellsDieDueToOverpopulation_5()
+        {
+            this.LiveCellsDieDueToOverpopulation("5", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to overpopulation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "6")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "6")]
+        public virtual void LiveCellsDieDueToOverpopulation_6()
+        {
+            this.LiveCellsDieDueToOverpopulation("6", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to overpopulation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "7")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "7")]
+        public virtual void LiveCellsDieDueToOverpopulation_7()
+        {
+            this.LiveCellsDieDueToOverpopulation("7", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Live cells die due to overpopulation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "8")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "8")]
+        public virtual void LiveCellsDieDueToOverpopulation_8()
+        {
+            this.LiveCellsDieDueToOverpopulation("8", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -155,16 +244,37 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DeadCellsComeBackToLife()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dead cells come back to life", ((string[])(null)));
-#line 34
+#line 48
 this.ScenarioSetup(scenarioInfo);
-#line 35
+#line 7
+this.FeatureBackground();
+#line 49
    testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 36
+#line 50
    testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
+#line 51
    testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 38
+#line 52
    testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        public virtual void DeadCellsStayDead(string numberOfLiveNeighbors, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dead cells stay dead", exampleTags);
+#line 54
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 55
+   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 56
+   testRunner.And(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 57
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -172,68 +282,81 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
-        public virtual void DeadCellsStayDead()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "0")]
+        public virtual void DeadCellsStayDead_0()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dead cells stay dead", ((string[])(null)));
-#line 40
-this.ScenarioSetup(scenarioInfo);
-#line 41
-   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 42
-   testRunner.And("the dead cell does not have exactly 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 43
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 44
-   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        public virtual void TooManyNeighborsDies(string numberOfLiveNeighbors, string[] exampleTags)
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Too Many Neighbors Dies", exampleTags);
-#line 47
-this.ScenarioSetup(scenarioInfo);
-#line 48
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 49
-   testRunner.And(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 50
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 51
-   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
+            this.DeadCellsStayDead("0", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "1")]
+        public virtual void DeadCellsStayDead_1()
+        {
+            this.DeadCellsStayDead("1", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "2")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "2")]
+        public virtual void DeadCellsStayDead_2()
+        {
+            this.DeadCellsStayDead("2", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "4")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "4")]
-        public virtual void TooManyNeighborsDies_4()
+        public virtual void DeadCellsStayDead_4()
         {
-            this.TooManyNeighborsDies("4", ((string[])(null)));
+            this.DeadCellsStayDead("4", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "5")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "5")]
-        public virtual void TooManyNeighborsDies_5()
+        public virtual void DeadCellsStayDead_5()
         {
-            this.TooManyNeighborsDies("5", ((string[])(null)));
+            this.DeadCellsStayDead("5", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "6")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "6")]
+        public virtual void DeadCellsStayDead_6()
+        {
+            this.DeadCellsStayDead("6", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "7")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "7")]
+        public virtual void DeadCellsStayDead_7()
+        {
+            this.DeadCellsStayDead("7", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dead cells stay dead")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "8")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "8")]
-        public virtual void TooManyNeighborsDies_8()
+        public virtual void DeadCellsStayDead_8()
         {
-            this.TooManyNeighborsDies("8", ((string[])(null)));
+            this.DeadCellsStayDead("8", ((string[])(null)));
         }
     }
 }
