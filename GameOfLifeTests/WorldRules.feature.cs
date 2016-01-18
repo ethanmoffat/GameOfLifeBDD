@@ -31,8 +31,8 @@ namespace GameOfLifeTests
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "WorldRules", " In order to simulate a world of cells\n As a scientist interested in silly games\n" +
-                    " I want to know the discrete rules of the world", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "WorldRules", " In order to simulate a world of cells in Conway\'s Game of Life\n As a scientist\n " +
+                    "I want to know the rules of the world", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,15 +75,15 @@ namespace GameOfLifeTests
         public virtual void LiveCellsDieDueToUnderpopulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to underpopulation", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
-#line 7
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
-   testRunner.And("the cell has less than 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 9
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
+this.ScenarioSetup(scenarioInfo);
+#line 11
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 12
+   testRunner.And("the cell has less than 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
    testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -95,15 +95,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LiveCellsWith2NeighborsLiveOnToNextGeneration()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells with 2 neighbors live on to next generation", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
-#line 13
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 14
-   testRunner.And("the cell has 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
+this.ScenarioSetup(scenarioInfo);
+#line 17
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+   testRunner.And("the cell has 2 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 19
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
    testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -115,15 +115,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LiveCellsWith3NeighborsLiveOnToNextGeneration()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells with 3 neighbors live on to next generation", ((string[])(null)));
-#line 18
-this.ScenarioSetup(scenarioInfo);
-#line 19
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 20
-   testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 21
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
+this.ScenarioSetup(scenarioInfo);
+#line 23
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+   testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
    testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -135,15 +135,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LiveCellsDieDueToOverpopulation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Live cells die due to overpopulation", ((string[])(null)));
-#line 24
-this.ScenarioSetup(scenarioInfo);
-#line 25
-   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 26
-   testRunner.And("the cell has greater than 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 27
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 28
+this.ScenarioSetup(scenarioInfo);
+#line 29
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 30
+   testRunner.And("the cell has greater than 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
    testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -155,15 +155,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DeadCellsComeBackToLife()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dead cells come back to life", ((string[])(null)));
-#line 30
-this.ScenarioSetup(scenarioInfo);
-#line 31
-   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
-   testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 33
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 36
+   testRunner.And("the cell has 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 38
    testRunner.Then("the cell should be alive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -175,18 +175,65 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void DeadCellsStayDead()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dead cells stay dead", ((string[])(null)));
-#line 36
-this.ScenarioSetup(scenarioInfo);
-#line 37
-   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 38
-   testRunner.And("the dead cell does not have exactly 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 39
-   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 40
+this.ScenarioSetup(scenarioInfo);
+#line 41
+   testRunner.Given("a world with a dead cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 42
+   testRunner.And("the dead cell does not have exactly 3 live neighbors", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
    testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
+        }
+        
+        public virtual void TooManyNeighborsDies(string numberOfLiveNeighbors, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Too Many Neighbors Dies", exampleTags);
+#line 47
+this.ScenarioSetup(scenarioInfo);
+#line 48
+   testRunner.Given("a world with a live cell", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 49
+   testRunner.And(string.Format("the cell has {0} live neighbors", numberOfLiveNeighbors), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
+   testRunner.When("I get the next generation of the world", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 51
+   testRunner.Then("the cell should be dead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "4")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "4")]
+        public virtual void TooManyNeighborsDies_4()
+        {
+            this.TooManyNeighborsDies("4", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "5")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "5")]
+        public virtual void TooManyNeighborsDies_5()
+        {
+            this.TooManyNeighborsDies("5", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Too Many Neighbors Dies")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WorldRules")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "8")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:numberOfLiveNeighbors", "8")]
+        public virtual void TooManyNeighborsDies_8()
+        {
+            this.TooManyNeighborsDies("8", ((string[])(null)));
         }
     }
 }
